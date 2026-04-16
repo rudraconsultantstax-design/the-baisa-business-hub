@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>The Baisa Business Hub</title>
+<meta name="description" content="The Baisa - Premium Women's Ethnic Wear. Business Operating System & Brand Portal.">
+<meta name="theme-color" content="#c4973b">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👗</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0f;--card:#111119;--card2:#1a1a25;--border:#2a2a3a;--accent:#c4973b;--accent2:#d4a94d;--green:#1e7e34;--red:#c0392b;--orange:#e67e22;--blue:#2980b9;--text:#e8e8f0;--muted:#8a8a9a;--white:#fff}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+.app{display:flex;min-height:100vh}
+.sidebar{width:230px;background:var(--card);border-right:1px solid var(--border);height:100vh;position:fixed;overflow-y:auto;padding:0;z-index:100}
+.sidebar .logo-area{padding:20px;border-bottom:1px solid var(--border);text-align:center}
+.sidebar .logo-area h1{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--accent);letter-spacing:2px}
+.sidebar .logo-area p{font-size:.65rem;color:var(--muted);margin-top:4px;letter-spacing:1px}
+.sidebar .live-clock{font-size:.75rem;color:var(--accent2);margin-top:8px;font-weight:500}
+.nav-item{display:flex;align-items:center;gap:10px;padding:11px 20px;font-size:.82rem;color:var(--muted);cursor:pointer;transition:.2s;border-left:3px solid transparent}
+.nav-item:hover,.nav-item.active{background:var(--card2);color:var(--accent);border-left-color:var(--accent)}
+.nav-item .badge{margin-left:auto;background:var(--accent);color:var(--bg);padding:1px 7px;border-radius:10px;font-size:.65rem;font-weight:700}
+.section-label{font-size:.6rem;text-transform:uppercase;letter-spacing:2px;color:var(--muted);padding:18px 20px 6px;opacity:.5}
+.ext-link{display:block;padding:6px 20px;font-size:.72rem;color:var(--blue);text-decoration:none;opacity:.7;transition:.2s}
+.ext-link:hover{opacity:1;color:var(--accent)}
+.main{margin-left:230px;flex:1;padding:28px;min-height:100vh}
+.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px;padding-bottom:18px;border-bottom:1px solid var(--border)}
+.header h1{font-family:'Playfair Display',serif;font-size:1.6rem;color:var(--accent)}
+.header .date{color:var(--muted);font-size:.82rem;margin-top:2px}
+.header .actions{display:flex;gap:10px}
+.btn{padding:8px 20px;border:1px solid var(--border);background:var(--card2);color:var(--text);border-radius:8px;cursor:pointer;font-size:.8rem;font-family:'Inter',sans-serif;transition:.2s}
+.btn:hover{background:var(--accent);color:var(--bg);border-color:var(--accent)}
+.btn-accent{background:var(--accent);color:var(--bg);border-color:var(--accent);font-weight:600}
+.btn-sm{padding:5px 14px;font-size:.72rem}
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}
+.kpi-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;text-align:center;transition:.3s}
+.kpi-card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.kpi-card .value{font-size:1.8rem;font-weight:700;color:var(--accent)}
+.kpi-card .value.green{color:var(--green)}.kpi-card .value.red{color:var(--red)}.kpi-card .value.orange{color:var(--orange)}.kpi-card .value.blue{color:var(--blue)}
+.kpi-card .label{font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:1.2px;margin-top:6px}
+.kpi-card .sub{font-size:.65rem;color:var(--muted);margin-top:3px;opacity:.7}
+.tab{display:none}.tab.active{display:block}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:22px;margin-bottom:18px}
+.card h3{color:var(--accent);margin-bottom:14px;font-size:1rem;font-family:'Playfair Display',serif}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px}
+table{width:100%;border-collapse:collapse;font-size:.8rem}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--border)}
+th{color:var(--accent);font-weight:600;font-size:.7rem;text-transform:uppercase;letter-spacing:.5px}
+input,select,textarea{background:var(--card2);border:1px solid var(--border);color:var(--text);padding:9px 14px;border-radius:8px;font-size:.82rem;width:100%;font-family:'Inter',sans-serif}
+input:focus,select:focus{outline:none;border-color:var(--accent)}
+.form-row{display:flex;gap:12px;margin-bottom:12px;align-items:end}.form-row>div{flex:1}
+.form-label{font-size:.68rem;color:var(--muted);margin-bottom:5px;text-transform:uppercase;letter-spacing:.5px}
+.badge{display:inline-block;padding:3px 10px;border-radius:6px;font-size:.68rem;font-weight:600}
+.badge-green{background:#1e7e3420;color:var(--green)}.badge-red{background:#c0392b20;color:var(--red)}.badge-orange{background:#e67e2220;color:var(--orange)}.badge-blue{background:#2980b920;color:var(--blue)}
+.alert{padding:14px 18px;border-radius:10px;margin-bottom:10px;font-size:.82rem;border-left:4px solid}
+.alert-red{background:#c0392b10;border-color:var(--red);color:#e74c3c}
+.alert-orange{background:#e67e2210;border-color:var(--orange);color:var(--orange)}
+.alert-green{background:#1e7e3410;border-color:var(--green);color:var(--green)}
+.alert-blue{background:#2980b910;border-color:var(--blue);color:var(--blue)}
+.website-hero{background:linear-gradient(135deg,#1a1a25 0%,#2a1a0a 100%);border-radius:16px;padding:60px 40px;text-align:center;margin-bottom:24px;border:1px solid var(--border)}
+.website-hero h2{font-family:'Playfair Display',serif;font-size:2.2rem;color:var(--accent);margin-bottom:12px}
+.website-hero p{color:var(--muted);font-size:1rem;max-width:600px;margin:0 auto}
+.product-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.product-card{background:var(--card2);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:.3s}
+.product-card:hover{border-color:var(--accent);transform:translateY(-4px)}
+.product-card .img{height:200px;background:linear-gradient(135deg,var(--card2),var(--border));display:flex;align-items:center;justify-content:center;font-size:3rem}
+.product-card .info{padding:16px}
+.product-card .info h4{color:var(--text);font-size:.9rem;margin-bottom:6px}
+.product-card .info .price{color:var(--accent);font-weight:700;font-size:1.1rem}
+.product-card .info .old-price{color:var(--muted);text-decoration:line-through;font-size:.8rem;margin-left:8px}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.stat-bar{height:6px;background:var(--card2);border-radius:3px;margin-top:6px;overflow:hidden}
+.stat-bar .fill{height:100%;border-radius:3px;transition:.5s}
+.live-dot{width:8px;height:8px;background:var(--green);border-radius:50%;display:inline-block;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.embed-frame{border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-top:12px}
+@media(max-width:768px){.sidebar{width:60px}.sidebar .logo-area h1,.sidebar .section-label,.sidebar .ext-link,.sidebar .live-clock,.sidebar .logo-area p{display:none}.nav-item{padding:12px;justify-content:center}.nav-item span{display:none}.main{margin-left:60px;padding:16px}.kpi-grid{grid-template-columns:repeat(2,1fr)}.grid-2,.grid-3,.contact-grid{grid-template-columns:1fr}.product-grid{grid-template-columns:1fr 1fr}.header h1{font-size:1.2rem}}
+</style>
+</head>
+<body>
+<div class="app">
+<!-- SIDEBAR -->
+<div class="sidebar">
+<div class="logo-area">
+<h1>THE BAISA</h1>
+<p>Women's Ethnic Wear</p>
+<div class="live-clock" id="live-clock"></div>
+</div>
+<div class="section-label">Operations</div>
+<div class="nav-item active" onclick="showTab('tab-command',this)"><span>📊</span> <span>Command Center</span></div>
+<div class="nav-item" onclick="showTab('tab-orders',this)"><span>📦</span> <span>Orders</span></div>
+<div class="nav-item" onclick="showTab('tab-inventory',this)"><span>🏭</span> <span>Inventory</span></div>
+<div class="nav-item" onclick="showTab('tab-production',this)"><span>⚙️</span> <span>Production</span></div>
+<div class="nav-item" onclick="showTab('tab-costing',this)"><span>🧮</span> <span>Costing Engine</span></div>
+<div class="section-label">Business</div>
+<div class="nav-item" onclick="showTab('tab-products',this)"><span>👗</span> <span>Products</span> <span class="badge">17</span></div>
+<div class="nav-item" onclick="showTab('tab-channels',this)"><span>🏪</span> <span>Channels</span></div>
+<div class="nav-item" onclick="showTab('tab-finance',this)"><span>💰</span> <span>Finance</span></div>
+<div class="section-label">Growth</div>
+<div class="nav-item" onclick="showTab('tab-marketing',this)"><span>📱</span> <span>Marketing</span></div>
+<div class="nav-item" onclick="showTab('tab-website',this)"><span>🌐</span> <span>Website</span> <span class="badge" style="background:var(--green)">NEW</span></div>
+<div class="nav-item" onclick="showTab('tab-resources',this)"><span>📁</span> <span>Resources</span></div>
+<div class="section-label">Live Integrations</div>
+<a class="ext-link" href="https://supplier.meesho.com/" target="_blank">↗ Meesho Supplier</a>
+<a class="ext-link" href="https://sell.myntra.com/" target="_blank">↗ Myntra Partner</a>
+<a class="ext-link" href="https://sellercentral.amazon.in/" target="_blank">↗ Amazon Seller</a>
+<a class="ext-link" href="https://seller.flipkart.com/" target="_blank">↗ Flipkart Seller</a>
+<a class="ext-link" href="https://drive.google.com/" target="_blank">↗ Google Drive</a>
+<a class="ext-link" href="https://docs.google.com/spreadsheets/" target="_blank">↗ Google Sheets</a>
+<a class="ext-link" href="https://web.whatsapp.com/" target="_blank">↗ WhatsApp Web</a>
+<a class="ext-link" href="https://www.gst.gov.in/" target="_blank">↗ GST Portal</a>
+<a class="ext-link" href="https://www.indiapost.gov.in/" target="_blank">↗ India Post Track</a>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main">
+<div class="header">
+<div><h1 id="tab-title">Command Center</h1><div class="date" id="current-date"></div></div>
+<div class="actions"><span class="live-dot"></span><span style="color:var(--green);font-size:.8rem;margin-right:10px"> Live</span><button class="btn" onclick="window.print()">Print</button><button class="btn btn-accent" onclick="location.reload()">Refresh</button></div>
+</div>
+
+<!-- TAB: COMMAND CENTER -->
+<div class="tab active" id="tab-command">
+<div class="kpi-grid">
+<div class="kpi-card"><div class="value" id="kpi-orders">0</div><div class="label">Today's Orders</div><div class="sub">all platforms combined</div></div>
+<div class="kpi-card"><div class="value green" id="kpi-revenue">&#8377;0</div><div class="label">Today's Revenue</div><div class="sub">gross before returns</div></div>
+<div class="kpi-card"><div class="value orange" id="kpi-pending">0</div><div class="label">Pending Shipment</div><div class="sub">ship before 2 PM</div></div>
+<div class="kpi-card"><div class="value red" id="kpi-returns">0</div><div class="label">Returns This Week</div><div class="sub">track reason codes</div></div>
+</div>
+<div class="kpi-grid">
+<div class="kpi-card"><div class="value green">&#8377;50K</div><div class="label">Cash Position</div><div class="sub">bank + receivables</div></div>
+<div class="kpi-card"><div class="value blue">17</div><div class="label">Active SKUs</div><div class="sub">4 kurti, 4 coord, 4 set, 5 dress</div></div>
+<div class="kpi-card"><div class="value">3</div><div class="label">Active Channels</div><div class="sub">Meesho, GlowRoad, Wholesale</div></div>
+<div class="kpi-card"><div class="value orange">68%</div><div class="label">Catalog Readiness</div><div class="sub" id="progress-target">target: 90%+</div><div class="stat-bar"><div class="fill" style="width:68%;background:var(--orange)"></div></div></div>
+</div>
+<div class="grid-2">
+<div class="card"><h3>Action Alerts</h3>
+<div class="alert alert-red">Ship pending orders before 2 PM cutoff</div>
+<div class="alert alert-orange">Restock raw fabric - cotton voile below 50m</div>
+<div class="alert alert-green">Meesho payout Rs.12,400 expected tomorrow</div>
+<div class="alert alert-blue">Myntra onboarding: upload remaining 8 SKU photos</div>
+</div>
+<div class="card"><h3>Real Margin Tracker (Live)</h3>
+<table><tr><th>Channel</th><th>Avg COGM</th><th>Selling</th><th>Net Margin</th></tr>
+<tr><td>Meesho</td><td>&#8377;185</td><td>&#8377;350</td><td><span class="badge badge-orange">8%</span></td></tr>
+<tr><td>GlowRoad</td><td>&#8377;185</td><td>&#8377;380</td><td><span class="badge badge-green">14%</span></td></tr>
+<tr><td>Wholesale</td><td>&#8377;185</td><td>&#8377;215</td><td><span class="badge badge-green">16%</span></td></tr>
+<tr><td>Amazon</td><td>&#8377;185</td><td>&#8377;450</td><td><span class="badge badge-green">22%</span></td></tr>
+</table></div>
+</div>
+<div class="card"><h3>Google Sheets - Live Data Sync</h3>
+<p style="color:var(--muted);font-size:.85rem;margin-bottom:12px">Connect your business data for real-time updates across all dashboards</p>
+<div class="grid-3">
+<a href="https://docs.google.com/spreadsheets/" target="_blank" class="btn" style="text-align:center;text-decoration:none;display:block">Orders Sheet</a>
+<a href="https://docs.google.com/spreadsheets/" target="_blank" class="btn" style="text-align:center;text-decoration:none;display:block">Inventory Sheet</a>
+<a href="https://docs.google.com/spreadsheets/" target="_blank" class="btn" style="text-align:center;text-decoration:none;display:block">Finance Sheet</a>
+</div></div>
+</div>
+
+<!-- TAB: ORDERS -->
+<div class="tab" id="tab-orders">
+<div class="card"><h3>Add New Order</h3>
+<div class="form-row">
+<div><div class="form-label">Platform</div><select id="o-platform"><option>Meesho</option><option>GlowRoad</option><option>Amazon</option><option>Flipkart</option><option>Myntra</option><option>Wholesale</option><option>Direct</option></select></div>
+<div><div class="form-label">SKU</div><input id="o-sku" placeholder="KURTI-001"></div>
+<div><div class="form-label">Qty</div><input id="o-qty" type="number" value="1"></div>
+<div><div class="form-label">Amount</div><input id="o-amt" type="number" placeholder="350"></div>
+<div><div class="form-label">&nbsp;</div><button class="btn btn-accent" onclick="addOrder()">+ Add Order</button></div>
+</div></div>
+<div class="card"><h3>Order Book <span class="badge badge-blue" id="order-count">0</span></h3>
+<table><thead><tr><th>ID</th><th>Date</th><th>Platform</th><th>SKU</th><th>Qty</th><th>Amount</th><th>Status</th><th>Action</th></tr></thead>
+<tbody id="orders-body"></tbody></table>
+</div></div>
+
+<!-- TAB: INVENTORY -->
+<div class="tab" id="tab-inventory">
+<div class="card"><h3>Raw Material Stock</h3>
+<table><tr><th>Material</th><th>Current</th><th>Min Level</th><th>Status</th><th>Action</th></tr>
+<tr><td>Cotton Voile</td><td>45m</td><td>50m</td><td><span class="badge badge-red">LOW</span></td><td><button class="btn btn-sm">Reorder</button></td></tr>
+<tr><td>Rayon Fabric</td><td>120m</td><td>50m</td><td><span class="badge badge-green">OK</span></td><td><button class="btn btn-sm">Order</button></td></tr>
+<tr><td>Cotton Cambric</td><td>80m</td><td>50m</td><td><span class="badge badge-green">OK</span></td><td><button class="btn btn-sm">Order</button></td></tr>
+<tr><td>Lace Trim</td><td>200m</td><td>100m</td><td><span class="badge badge-green">OK</span></td><td><button class="btn btn-sm">Order</button></td></tr>
+<tr><td>Buttons/Hooks</td><td>500pcs</td><td>200pcs</td><td><span class="badge badge-green">OK</span></td><td><button class="btn btn-sm">Order</button></td></tr>
+</table></div>
+<div class="card"><h3>Finished Goods Inventory</h3>
+<table><tr><th>SKU</th><th>Product</th><th>In Stock</th><th>Committed</th><th>Available</th><th>Reorder Point</th></tr>
+<tr><td>KURTI-001</td><td>Cotton A-Line Kurti</td><td>45</td><td>12</td><td>33</td><td>20</td></tr>
+<tr><td>COORD-001</td><td>Rayon Coord Set</td><td>30</td><td>8</td><td>22</td><td>15</td></tr>
+<tr><td>SET-001</td><td>3pc Kurta Set</td><td>25</td><td>5</td><td>20</td><td>10</td></tr>
+<tr><td>DRESS-001</td><td>Maxi Dress</td><td>18</td><td>3</td><td>15</td><td>10</td></tr>
+</table></div></div>
+
+<!-- TAB: PRODUCTION -->
+<div class="tab" id="tab-production">
+<div class="card"><h3>Job Worker Tracker</h3>
+<table><tr><th>Worker</th><th>Job</th><th>Pieces</th><th>Due</th><th>Status</th></tr>
+<tr><td>Ramesh Tailors</td><td>Stitching - Kurti Lot #12</td><td>50</td><td>18 Apr</td><td><span class="badge badge-orange">In Progress</span></td></tr>
+<tr><td>Sunita Embroidery</td><td>Chikan Work - Coord Set</td><td>30</td><td>20 Apr</td><td><span class="badge badge-blue">Queued</span></td></tr>
+<tr><td>Fabric Dyeing Unit</td><td>Dyeing - Rayon 200m</td><td>-</td><td>17 Apr</td><td><span class="badge badge-green">Done</span></td></tr>
+<tr><td>Priya Finishing</td><td>Ironing + Tagging Lot #11</td><td>50</td><td>16 Apr</td><td><span class="badge badge-orange">Today</span></td></tr>
+</table></div>
+<div class="card"><h3>QC Log</h3>
+<table><tr><th>Date</th><th>Lot</th><th>Checked</th><th>Passed</th><th>Defects</th><th>Rate</th></tr>
+<tr><td>15 Apr</td><td>Kurti #11</td><td>50</td><td>47</td><td>3</td><td><span class="badge badge-orange">6%</span></td></tr>
+<tr><td>14 Apr</td><td>Coord #8</td><td>30</td><td>29</td><td>1</td><td><span class="badge badge-green">3.3%</span></td></tr>
+</table></div></div>
+
+<!-- TAB: COSTING ENGINE -->
+<div class="tab" id="tab-costing">
+<div class="grid-2">
+<div class="card"><h3>COGM Calculator</h3>
+<div class="form-row"><div><div class="form-label">Fabric Cost/pc</div><input id="fc" type="number" value="85" oninput="calcCOGM()"></div><div><div class="form-label">Dyeing</div><input id="dc" type="number" value="15" oninput="calcCOGM()"></div></div>
+<div class="form-row"><div><div class="form-label">Wastage</div><input id="wst" type="number" value="7" oninput="calcCOGM()"></div><div><div class="form-label">Finishing</div><input id="fin" type="number" value="5" oninput="calcCOGM()"></div></div>
+<div class="form-row"><div><div class="form-label">Trims</div><input id="trm" type="number" value="12" oninput="calcCOGM()"></div><div><div class="form-label">Packaging</div><input id="pkg" type="number" value="8" oninput="calcCOGM()"></div></div>
+<div class="form-row"><div><div class="form-label">Labour/Stitching</div><input id="lab" type="number" value="35" oninput="calcCOGM()"></div><div><div class="form-label">Overhead</div><input id="oh" type="number" value="10" oninput="calcCOGM()"></div></div>
+<div class="form-row"><div><div class="form-label">Transport</div><input id="tpt" type="number" value="8" oninput="calcCOGM()"></div><div><div class="form-label">GST %</div><input id="gst-rate" type="number" value="5" oninput="calcCOGM()"></div></div>
+<div class="form-row"><div><div class="form-label">Target Margin %</div><input id="margin-target" type="number" value="30" oninput="calcCOGM()"></div><div></div></div>
+<div style="margin-top:16px;padding:18px;background:var(--card2);border-radius:10px;border:1px solid var(--accent)">
+<div style="font-size:1.5rem;color:var(--accent);font-weight:700;font-family:'Playfair Display',serif">COGM: &#8377;<span id="cogm-result">0</span></div>
+</div></div>
+<div class="card"><h3>Channel Pricing Output</h3>
+<table><tr><th>Channel</th><th>Price</th><th>Net Profit</th></tr>
+<tr><td>Retail (GST incl)</td><td>&#8377;<span id="price-retail">0</span></td><td><span class="badge badge-green">Full margin</span></td></tr>
+<tr><td>Meesho</td><td>&#8377;<span id="price-meesho">0</span></td><td id="profit-meesho">-</td></tr>
+<tr><td>Wholesale (15%)</td><td>&#8377;<span id="price-wholesale">0</span></td><td><span class="badge badge-green">No deductions</span></td></tr>
+</table>
+<div style="margin-top:16px;padding:14px;background:#c0392b10;border-radius:10px;font-size:.78rem;color:var(--red);border:1px solid #c0392b30">
+<strong>Meesho Deductions:</strong> 20% commission + Rs.75 avg shipping + 5% GST on commission. Always check net is positive!
+</div>
+<div style="margin-top:12px;padding:14px;background:#1e7e3410;border-radius:10px;font-size:.78rem;color:var(--green);border:1px solid #1e7e3430">
+<strong>Tip:</strong> Minimum viable Meesho price = COGM x 1.65 + Rs.100 to cover all deductions with 10% profit.
+</div>
+</div></div></div>
+
+<!-- TAB: PRODUCTS -->
+<div class="tab" id="tab-products">
+<div class="card"><h3>Product Catalog - P&L per SKU</h3>
+<table><tr><th>SKU</th><th>Product</th><th>COGM</th><th>Meesho SP</th><th>Net After Deductions</th><th>Margin</th><th>Drive</th></tr>
+<tr><td>KURTI-001</td><td>Cotton A-Line Kurti</td><td>185</td><td>350</td><td>67</td><td><span class="badge badge-orange">19%</span></td><td><a href="https://drive.google.com/" target="_blank" style="color:var(--blue)">Files</a></td></tr>
+<tr><td>KURTI-002</td><td>Rayon Printed Kurti</td><td>165</td><td>320</td><td>58</td><td><span class="badge badge-orange">18%</span></td><td><a href="https://drive.google.com/" target="_blank" style="color:var(--blue)">Files</a></td></tr>
+<tr><td>COORD-001</td><td>Rayon Coord Set</td><td>245</td><td>499</td><td>105</td><td><span class="badge badge-green">21%</span></td><td><a href="https://drive.google.com/" target="_blank" style="color:var(--blue)">Files</a></td></tr>
+<tr><td>SET-001</td><td>3pc Kurta Set</td><td>310</td><td>649</td><td>145</td><td><span class="badge badge-green">22%</span></td><td><a href="https://drive.google.com/" target="_blank" style="color:var(--blue)">Files</a></td></tr>
+<tr><td>DRESS-001</td><td>Maxi Dress</td><td>195</td><td>399</td><td>88</td><td><span class="badge badge-green">22%</span></td><td><a href="https://drive.google.com/" target="_blank" style="color:var(--blue)">Files</a></td></tr>
+</table></div></div>
+
+<!-- TAB: CHANNELS -->
+<div class="tab" id="tab-channels">
+<div class="card"><h3>Channel Performance</h3>
+<table><tr><th>Platform</th><th>Status</th><th>SKUs</th><th>Avg Margin</th><th>Monthly Orders</th><th>Panel</th></tr>
+<tr><td>Meesho</td><td><span class="badge badge-green">Live</span></td><td>12</td><td>18%</td><td>85</td><td><a href="https://supplier.meesho.com/" target="_blank" class="btn btn-sm">Open</a></td></tr>
+<tr><td>GlowRoad</td><td><span class="badge badge-green">Live</span></td><td>8</td><td>22%</td><td>35</td><td><a href="#" class="btn btn-sm">Open</a></td></tr>
+<tr><td>Wholesale</td><td><span class="badge badge-green">Active</span></td><td>17</td><td>15%</td><td>40</td><td>-</td></tr>
+<tr><td>Amazon</td><td><span class="badge badge-orange">Setup</span></td><td>0</td><td>-</td><td>-</td><td><a href="https://sellercentral.amazon.in/" target="_blank" class="btn btn-sm">Open</a></td></tr>
+<tr><td>Myntra</td><td><span class="badge badge-red">Pending</span></td><td>0</td><td>-</td><td>-</td><td><a href="https://sell.myntra.com/" target="_blank" class="btn btn-sm">Open</a></td></tr>
+</table></div>
+<div class="card"><h3>Myntra Onboarding Checklist</h3>
+<table><tr><th>Task</th><th>Status</th><th>Deadline</th></tr>
+<tr><td>Brand Registration</td><td><span class="badge badge-green">Done</span></td><td>-</td></tr>
+<tr><td>GSTIN Verification</td><td><span class="badge badge-green">Done</span></td><td>-</td></tr>
+<tr><td>Product Photography (white bg)</td><td><span class="badge badge-orange">In Progress</span></td><td>20 Apr</td></tr>
+<tr><td>Catalog Upload (min 20 SKUs)</td><td><span class="badge badge-red">Pending</span></td><td>25 Apr</td></tr>
+<tr><td>Test Order Fulfillment</td><td><span class="badge badge-red">Pending</span></td><td>30 Apr</td></tr>
+</table></div></div>
+
+<!-- TAB: FINANCE -->
+<div class="tab" id="tab-finance">
+<div class="grid-2">
+<div class="card"><h3>P&L Summary (Monthly)</h3>
+<table><tr><th>Item</th><th>Amount</th></tr>
+<tr><td>Gross Revenue</td><td style="color:var(--green)">&#8377;1,20,000</td></tr>
+<tr><td>(-) Returns</td><td style="color:var(--red)">-&#8377;8,400</td></tr>
+<tr><td>(-) Commissions</td><td style="color:var(--red)">-&#8377;18,000</td></tr>
+<tr><td>(-) Shipping</td><td style="color:var(--red)">-&#8377;12,000</td></tr>
+<tr><td><strong>Net Revenue</strong></td><td style="color:var(--accent);font-weight:700">&#8377;81,600</td></tr>
+<tr><td>(-) COGM</td><td style="color:var(--red)">-&#8377;55,500</td></tr>
+<tr><td>(-) OpEx</td><td style="color:var(--red)">-&#8377;12,000</td></tr>
+<tr><td><strong>Net Profit</strong></td><td style="color:var(--green);font-weight:700;font-size:1.1rem">&#8377;14,100</td></tr>
+<tr><td>Net Margin</td><td><span class="badge badge-orange">11.75%</span></td></tr>
+</table></div>
+<div class="card"><h3>GST Tracker</h3>
+<table><tr><th>Period</th><th>Output</th><th>Input</th><th>Payable</th><th>Filed</th></tr>
+<tr><td>Mar 2026</td><td>6,000</td><td>3,200</td><td>2,800</td><td><span class="badge badge-green">Yes</span></td></tr>
+<tr><td>Apr 2026</td><td>5,500</td><td>2,900</td><td>2,600</td><td><span class="badge badge-red">Due 20th</span></td></tr>
+</table>
+<h3 style="margin-top:20px">Govt Schemes</h3>
+<table><tr><th>Scheme</th><th>Benefit</th><th>Status</th></tr>
+<tr><td>PMEGP</td><td>Subsidy up to 35%</td><td><span class="badge badge-blue">Eligible</span></td></tr>
+<tr><td>Udyam</td><td>MSME benefits</td><td><span class="badge badge-green">Registered</span></td></tr>
+<tr><td>Stand-Up India</td><td>Loan 10L-1Cr</td><td><span class="badge badge-blue">Explore</span></td></tr>
+</table></div></div></div>
+
+<!-- TAB: MARKETING -->
+<div class="tab" id="tab-marketing">
+<div class="card"><h3>Content Calendar</h3>
+<table><tr><th>Day</th><th>Platform</th><th>Content</th><th>Status</th></tr>
+<tr><td>Mon</td><td>Instagram</td><td>New Arrival Reel</td><td><span class="badge badge-green">Scheduled</span></td></tr>
+<tr><td>Wed</td><td>Instagram</td><td>Behind the Scenes</td><td><span class="badge badge-orange">Draft</span></td></tr>
+<tr><td>Fri</td><td>Instagram</td><td>Customer Styling</td><td><span class="badge badge-red">Pending</span></td></tr>
+<tr><td>Sat</td><td>WhatsApp</td><td>Wholesale Catalog</td><td><span class="badge badge-blue">Weekly</span></td></tr>
+</table></div>
+<div class="card"><h3>Influencer Tracker</h3>
+<table><tr><th>Name</th><th>Followers</th><th>Cost</th><th>Orders</th><th>ROI</th></tr>
+<tr><td>@style_queen_lucknow</td><td>45K</td><td>Barter</td><td>12</td><td><span class="badge badge-green">+Rs.4,200</span></td></tr>
+<tr><td>@ethnic_vibes_</td><td>22K</td><td>Rs.2000</td><td>8</td><td><span class="badge badge-green">+Rs.800</span></td></tr>
+</table></div></div>
+
+<!-- TAB: WEBSITE (Company Website) -->
+<div class="tab" id="tab-website">
+<div class="website-hero">
+<h2>THE BAISA</h2>
+<p>Premium Women's Ethnic Wear - Handcrafted with Love from India</p>
+<div style="margin-top:20px"><button class="btn btn-accent" style="font-size:1rem;padding:12px 32px" onclick="showTab('tab-products',document.querySelectorAll('.nav-item')[7])">View Collection</button></div>
+</div>
+<div class="product-grid">
+<div class="product-card"><div class="img">👗</div><div class="info"><h4>Cotton A-Line Kurti</h4><p style="color:var(--muted);font-size:.75rem;margin-bottom:6px">Pure cotton, breathable, everyday wear</p><span class="price">&#8377;349</span><span class="old-price">&#8377;599</span></div></div>
+<div class="product-card"><div class="img">👘</div><div class="info"><h4>Rayon Coord Set</h4><p style="color:var(--muted);font-size:.75rem;margin-bottom:6px">Matching top + bottom, festive ready</p><span class="price">&#8377;499</span><span class="old-price">&#8377;899</span></div></div>
+<div class="product-card"><div class="img">🧥</div><div class="info"><h4>3-Piece Kurta Set</h4><p style="color:var(--muted);font-size:.75rem;margin-bottom:6px">Kurta + bottom + dupatta, premium</p><span class="price">&#8377;649</span><span class="old-price">&#8377;1,199</span></div></div>
+<div class="product-card"><div class="img">💃</div><div class="info"><h4>Chikan Embroidery Kurti</h4><p style="color:var(--muted);font-size:.75rem;margin-bottom:6px">Traditional Lucknowi chikan work</p><span class="price">&#8377;449</span><span class="old-price">&#8377;799</span></div></div>
+<div class="product-card"><div class="img">🌺</div><div class="info"><h4>Printed Maxi Dress</h4><p style="color:var(--muted);font-size:.75rem;margin-bottom:6px">Floral print, ankle length, elegant</p><span class="price">&#8377;399</span><span class="old-price">&#8377;699</span></div></div>
+<div class="product-card"><div class="img">✨</div><div class="info"><h4>Festive Silk Set</h4><p style="color:var(--muted);font-size:.75rem;margin-bottom:6px">Wedding & festival special collection</p><span class="price">&#8377;799</span><span class="old-price">&#8377;1,499</span></div></div>
+</div>
+<div class="grid-2" style="margin-top:24px">
+<div class="card"><h3>About The Baisa</h3>
+<p style="color:var(--muted);font-size:.85rem;line-height:1.8">The Baisa is a women's ethnic wear brand crafting affordable luxury for the modern Indian woman. Every piece is designed with care, combining traditional craftsmanship with contemporary style. We source premium fabrics and work with skilled artisans to deliver quality you can feel.</p>
+<div style="margin-top:16px">
+<div style="color:var(--accent);font-weight:600;margin-bottom:8px">Why Choose Us</div>
+<div style="color:var(--muted);font-size:.82rem;line-height:2">
+&#10004; Premium fabrics at affordable prices<br>
+&#10004; Handcrafted by skilled artisans<br>
+&#10004; Easy returns & exchanges<br>
+&#10004; Pan-India shipping (free above Rs.499)
+</div></div></div>
+<div class="card"><h3>Contact Us</h3>
+<div style="color:var(--muted);font-size:.85rem;line-height:2.2">
+<div><strong style="color:var(--text)">WhatsApp:</strong> <a href="https://wa.me/91XXXXXXXXXX" style="color:var(--accent)">+91 XXXXXXXXXX</a></div>
+<div><strong style="color:var(--text)">Email:</strong> thebaisa.brand@gmail.com</div>
+<div><strong style="color:var(--text)">Instagram:</strong> <a href="https://instagram.com/" target="_blank" style="color:var(--accent)">@thebaisa_official</a></div>
+<div><strong style="color:var(--text)">Location:</strong> Hyderabad, India</div>
+</div>
+<div style="margin-top:16px">
+<div style="color:var(--accent);font-weight:600;margin-bottom:8px">Shop On</div>
+<div style="display:flex;gap:10px;flex-wrap:wrap">
+<a href="https://supplier.meesho.com/" target="_blank" class="btn btn-sm">Meesho</a>
+<a href="#" class="btn btn-sm">GlowRoad</a>
+<a href="https://sellercentral.amazon.in/" target="_blank" class="btn btn-sm">Amazon</a>
+<a href="https://www.instagram.com/" target="_blank" class="btn btn-sm">Instagram</a>
+</div></div></div></div></div>
+
+<!-- TAB: RESOURCES -->
+<div class="tab" id="tab-resources">
+<div class="grid-2">
+<div class="card"><h3>Daily Operations Checklist</h3>
+<div style="font-size:.85rem;line-height:2.2">
+<div><input type="checkbox"> Check new orders on all platforms</div>
+<div><input type="checkbox"> Process & pack pending shipments</div>
+<div><input type="checkbox"> Update inventory after dispatch</div>
+<div><input type="checkbox"> Follow up with job workers</div>
+<div><input type="checkbox"> Check returns & process refunds</div>
+<div><input type="checkbox"> Update cash book / accounts</div>
+<div><input type="checkbox"> Post on Instagram / social media</div>
+<div><input type="checkbox"> Review tomorrow's dispatch list</div>
+<div><input type="checkbox"> Check GST compliance deadlines</div>
+<div><input type="checkbox"> Reply to customer queries</div>
+</div></div>
+<div class="card"><h3>Quick Access Links</h3>
+<div style="font-size:.85rem;line-height:2.4">
+<div><a href="https://drive.google.com/" target="_blank" style="color:var(--blue)">Google Drive - Master Folder</a></div>
+<div><a href="https://docs.google.com/spreadsheets/" target="_blank" style="color:var(--blue)">Google Sheets - Data Hub</a></div>
+<div><a href="https://supplier.meesho.com/" target="_blank" style="color:var(--blue)">Meesho Supplier Panel</a></div>
+<div><a href="https://web.whatsapp.com/" target="_blank" style="color:var(--blue)">WhatsApp Web</a></div>
+<div><a href="https://www.gst.gov.in/" target="_blank" style="color:var(--blue)">GST Portal</a></div>
+<div><a href="https://udyamregistration.gov.in/" target="_blank" style="color:var(--blue)">Udyam Registration</a></div>
+<div><a href="https://www.indiapost.gov.in/" target="_blank" style="color:var(--blue)">India Post Tracking</a></div>
+<div><a href="https://www.shiprocket.in/" target="_blank" style="color:var(--blue)">Shiprocket Dashboard</a></div>
+<div><a href="https://www.canva.com/" target="_blank" style="color:var(--blue)">Canva - Design Studio</a></div>
+</div></div></div></div>
+
+</div><!-- end main -->
+</div><!-- end app -->
+
+<script>
+// Live Clock
+function updateClock(){var n=new Date();var h=n.getHours();var m=n.getMinutes();var s=n.getSeconds();var ampm=h>=12?'PM':'AM';h=h%12;h=h?h:12;var el=document.getElementById('live-clock');if(el)el.textContent=(h<10?'0':'')+h+':'+(m<10?'0':'')+m+':'+(s<10?'0':'')+s+' '+ampm;}
+setInterval(updateClock,1000);updateClock();
+
+// Date
+var de=document.getElementById('current-date');if(de)de.textContent=new Date().toLocaleDateString('en-IN',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+
+// Tab titles
+var tabTitles={'tab-command':'Command Center','tab-orders':'Orders & Fulfillment','tab-inventory':'Inventory Management','tab-production':'Production Tracking','tab-costing':'Costing Engine','tab-products':'Product Catalog','tab-channels':'Channel Control','tab-finance':'Finance & Compliance','tab-marketing':'Marketing Hub','tab-website':'The Baisa - Brand Website','tab-resources':'Resources'};
+
+function showTab(id,el){
+document.querySelectorAll('.tab').forEach(function(t){t.style.display='none';});
+var tab=document.getElementById(id);if(tab)tab.style.display='block';
+document.querySelectorAll('.nav-item').forEach(function(n){n.classList.remove('active');});
+if(el)el.classList.add('active');
+var tt=document.getElementById('tab-title');if(tt)tt.textContent=tabTitles[id]||'Dashboard';
+if(id==='tab-costing')calcCOGM();
+}
+
+// COGM Calculator
+function calcCOGM(){
+var v=function(id){return parseFloat(document.getElementById(id).value)||0;};
+var cogm=v('fc')+v('dc')+v('wst')+v('fin')+v('trm')+v('pkg')+v('lab')+v('oh')+v('tpt');
+var gst=v('gst-rate')||5;var margin=v('margin-target')||30;
+document.getElementById('cogm-result').textContent=cogm.toFixed(2);
+var mp=cogm*(1+margin/100);
+document.getElementById('price-retail').textContent=(mp*(1+gst/100)).toFixed(2);
+document.getElementById('price-meesho').textContent=mp.toFixed(2);
+document.getElementById('price-wholesale').textContent=(cogm*1.15).toFixed(2);
+var net=Math.round(mp-cogm-mp*0.2-75-mp*0.05);
+var el2=document.getElementById('profit-meesho');
+if(el2){el2.innerHTML='<span class="badge '+(net>0?'badge-green':'badge-red')+'">Net: Rs.'+net+' ('+Math.round(net/mp*100)+'%)</span>';
+}}
+
+// Orders (localStorage)
+var orders=JSON.parse(localStorage.getItem('baisa_orders')||'[]');
+function addOrder(){
+var amt=parseInt(document.getElementById('o-amt').value)||350;
+var o={id:'ORD-'+Date.now().toString(36).toUpperCase(),date:new Date().toLocaleDateString('en-IN'),platform:document.getElementById('o-platform').value,sku:document.getElementById('o-sku').value,qty:parseInt(document.getElementById('o-qty').value)||1,amt:amt,status:'Pending'};
+orders.push(o);localStorage.setItem('baisa_orders',JSON.stringify(orders));renderOrders();
+document.getElementById('o-sku').value='';document.getElementById('o-amt').value='';}
+function renderOrders(){
+var tb=document.getElementById('orders-body');if(!tb)return;tb.innerHTML='';
+orders.forEach(function(o,i){
+tb.innerHTML+='<tr><td>'+o.id+'</td><td>'+o.date+'</td><td>'+o.platform+'</td><td>'+o.sku+'</td><td>'+o.qty+'</td><td>&#8377;'+(o.amt||350)+'</td><td><span class="badge badge-orange">'+o.status+'</span></td><td><button class="btn btn-sm" onclick="deleteOrder('+i+')">X</button></td></tr>';});
+var k1=document.getElementById('kpi-orders');if(k1)k1.textContent=orders.length;
+var rev=orders.reduce(function(s,o){return s+(o.amt||350)*o.qty;},0);
+var k2=document.getElementById('kpi-revenue');if(k2)k2.innerHTML='&#8377;'+rev.toLocaleString('en-IN');
+var k3=document.getElementById('kpi-pending');if(k3)k3.textContent=orders.filter(function(o){return o.status==='Pending';}).length;
+var k4=document.getElementById('order-count');if(k4)k4.textContent=orders.length;}
+function deleteOrder(i){orders.splice(i,1);localStorage.setItem('baisa_orders',JSON.stringify(orders));renderOrders();}
+renderOrders();
+</script>
+</body>
+</html>
