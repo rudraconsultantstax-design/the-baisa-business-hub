@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -9,398 +9,709 @@
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👗</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#0a0a0f;--card:#111119;--card2:#1a1a25;--border:#2a2a3a;--accent:#c4973b;--accent2:#d4a94d;--green:#1e7e34;--red:#c0392b;--orange:#e67e22;--blue:#2980b9;--text:#e8e8f0;--muted:#8a8a9a;--white:#fff}
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
-.app{display:flex;min-height:100vh}
-.sidebar{width:230px;background:var(--card);border-right:1px solid var(--border);height:100vh;position:fixed;overflow-y:auto;padding:0;z-index:100}
-.sidebar .logo-area{padding:20px;border-bottom:1px solid var(--border);text-align:center}
-.sidebar .logo-area h1{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--accent);letter-spacing:2px}
-.sidebar .logo-area p{font-size:.65rem;color:var(--muted);margin-top:4px;letter-spacing:1px}
-.sidebar .live-clock{font-size:.75rem;color:var(--accent2);margin-top:8px;font-weight:500}
-.nav-item{display:flex;align-items:center;gap:10px;padding:11px 20px;font-size:.82rem;color:var(--muted);cursor:pointer;transition:.2s;border-left:3px solid transparent}
-.nav-item:hover,.nav-item.active{background:var(--card2);color:var(--accent);border-left-color:var(--accent)}
-.nav-item .badge{margin-left:auto;background:var(--accent);color:var(--bg);padding:1px 7px;border-radius:10px;font-size:.65rem;font-weight:700}
-.section-label{font-size:.6rem;text-transform:uppercase;letter-spacing:2px;color:var(--muted);padding:18px 20px 6px;opacity:.5}
-.ext-link{display:block;padding:6px 20px;font-size:.72rem;color:var(--blue);text-decoration:none;opacity:.7;transition:.2s}
-.ext-link:hover{opacity:1;color:var(--accent)}
-.main{margin-left:230px;flex:1;padding:28px;min-height:100vh}
-.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px;padding-bottom:18px;border-bottom:1px solid var(--border)}
-.header h1{font-family:'Playfair Display',serif;font-size:1.6rem;color:var(--accent)}
-.header .date{color:var(--muted);font-size:.82rem;margin-top:2px}
-.header .actions{display:flex;gap:10px}
-.btn{padding:8px 20px;border:1px solid var(--border);background:var(--card2);color:var(--text);border-radius:8px;cursor:pointer;font-size:.8rem;font-family:'Inter',sans-serif;transition:.2s}
-.btn:hover{background:var(--accent);color:var(--bg);border-color:var(--accent)}
-.btn-accent{background:var(--accent);color:var(--bg);border-color:var(--accent);font-weight:600}
-.btn-sm{padding:5px 14px;font-size:.72rem}
-.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}
-.kpi-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;text-align:center;transition:.3s}
-.kpi-card:hover{border-color:var(--accent);transform:translateY(-2px)}
-.kpi-card .value{font-size:1.8rem;font-weight:700;color:var(--accent)}
-.kpi-card .value.green{color:var(--green)}.kpi-card .value.red{color:var(--red)}.kpi-card .value.orange{color:var(--orange)}.kpi-card .value.blue{color:var(--blue)}
-.kpi-card .label{font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:1.2px;margin-top:6px}
-.kpi-card .sub{font-size:.65rem;color:var(--muted);margin-top:3px;opacity:.7}
-.tab{display:none}.tab.active{display:block}
-.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:22px;margin-bottom:18px}
-.card h3{color:var(--accent);margin-bottom:14px;font-size:1rem;font-family:'Playfair Display',serif}
+/* === DESIGN TOKENS === */
+:root,[data-theme="dark"]{--bg:#0a0a0f;--bg-elevated:#111119;--bg-surface:#1a1a25;--border:#2a2a3a;--accent:#c4973b;--accent-hover:#d4a94d;--accent-muted:rgba(196,151,59,0.15);--green:#22c55e;--green-muted:rgba(34,197,94,0.15);--red:#ef4444;--red-muted:rgba(239,68,68,0.15);--orange:#f59e0b;--orange-muted:rgba(245,158,11,0.15);--blue:#3b82f6;--blue-muted:rgba(59,130,246,0.15);--text-primary:#f1f1f6;--text-secondary:#8a8a9a;--text-muted:#5a5a6a;--shadow:0 1px 3px rgba(0,0,0,0.4);--shadow-lg:0 8px 24px rgba(0,0,0,0.5);--radius:10px;--radius-lg:14px;--sidebar-w:240px;--transition:0.2s ease}
+[data-theme="light"]{--bg:#f4f4f8;--bg-elevated:#ffffff;--bg-surface:#eeeef2;--border:#d8d8e0;--accent:#9a7420;--accent-hover:#b8922e;--accent-muted:rgba(154,116,32,0.1);--green:#16a34a;--green-muted:rgba(22,163,74,0.1);--red:#dc2626;--red-muted:rgba(220,38,38,0.1);--orange:#d97706;--orange-muted:rgba(217,119,6,0.1);--blue:#2563eb;--blue-muted:rgba(37,99,235,0.1);--text-primary:#1a1a2e;--text-secondary:#5a5a6a;--text-muted:#8a8a9a;--shadow:0 1px 3px rgba(0,0,0,0.08);--shadow-lg:0 8px 24px rgba(0,0,0,0.12)}
+/* === RESET === */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{height:100%;overflow:hidden}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text-primary);height:100%;overflow:hidden}
+/* === LAYOUT === */
+.app{display:flex;height:100vh;overflow:hidden}
+aside.sidebar{width:var(--sidebar-w);background:var(--bg-elevated);border-right:1px solid var(--border);height:100vh;position:fixed;left:0;top:0;display:flex;flex-direction:column;z-index:200;transition:transform var(--transition)}
+.sidebar-scroll{flex:1;overflow-y:auto;overflow-x:hidden;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
+main.content{margin-left:var(--sidebar-w);flex:1;height:100vh;overflow-y:auto;overflow-x:hidden;scroll-behavior:smooth}
+.content-inner{padding:28px;max-width:1400px}
+/* === SIDEBAR === */
+.logo-area{padding:20px;border-bottom:1px solid var(--border);text-align:center}
+.logo-area h1{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--accent);letter-spacing:2px}
+.logo-area p{font-size:.65rem;color:var(--text-secondary);margin-top:4px;letter-spacing:1px;text-transform:uppercase}
+.live-clock{font-size:.75rem;color:var(--accent-hover);margin-top:8px;font-weight:500;font-variant-numeric:tabular-nums}
+nav.sidebar-nav{padding:8px 0}
+.nav-group-label{font-size:.6rem;text-transform:uppercase;letter-spacing:2px;color:var(--text-muted);padding:16px 20px 6px}
+.nav-item{display:flex;align-items:center;gap:10px;padding:10px 16px;margin:1px 8px;font-size:.82rem;color:var(--text-secondary);cursor:pointer;transition:var(--transition);border-radius:var(--radius);position:relative;border:none;background:none;width:calc(100% - 16px);text-align:left}
+.nav-item:hover{background:var(--accent-muted);color:var(--text-primary)}
+.nav-item.active{background:var(--accent-muted);color:var(--accent);font-weight:600}
+.nav-item.active::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:3px;height:20px;background:var(--accent);border-radius:0 3px 3px 0}
+.nav-item svg{width:18px;height:18px;flex-shrink:0;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.nav-item .badge{margin-left:auto;background:var(--accent);color:var(--bg);padding:1px 7px;border-radius:10px;font-size:.6rem;font-weight:700}
+.nav-item .badge-new{background:var(--green);color:#fff}
+.ext-links{padding:12px 16px;border-top:1px solid var(--border)}
+.ext-links-label{font-size:.6rem;text-transform:uppercase;letter-spacing:2px;color:var(--text-muted);margin-bottom:8px}
+.ext-link{display:flex;align-items:center;gap:6px;padding:5px 8px;font-size:.72rem;color:var(--blue);text-decoration:none;border-radius:6px;transition:var(--transition)}
+.ext-link:hover{background:var(--blue-muted);color:var(--blue)}
+.ext-link svg{width:12px;height:12px}
+/* === HEADER === */
+header.page-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;padding-bottom:18px;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:12px}
+.page-header h1{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--accent)}
+.page-header .date{color:var(--text-secondary);font-size:.82rem;margin-top:2px}
+.header-actions{display:flex;gap:8px;align-items:center}
+/* === THEME TOGGLE === */
+.theme-toggle{width:36px;height:36px;border-radius:var(--radius);border:1px solid var(--border);background:var(--bg-surface);color:var(--text-secondary);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:var(--transition)}
+.theme-toggle:hover{border-color:var(--accent);color:var(--accent)}
+.theme-toggle svg{width:18px;height:18px}
+/* === BUTTONS === */
+.btn{padding:8px 18px;border:1px solid var(--border);background:var(--bg-surface);color:var(--text-primary);border-radius:var(--radius);cursor:pointer;font-size:.8rem;font-family:inherit;transition:var(--transition);display:inline-flex;align-items:center;gap:6px;font-weight:500}
+.btn:hover{border-color:var(--accent);color:var(--accent)}
+.btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.btn-primary{background:var(--accent);color:#000;border-color:var(--accent);font-weight:600}
+.btn-primary:hover{background:var(--accent-hover);border-color:var(--accent-hover)}
+.btn-sm{padding:5px 12px;font-size:.72rem}
+.btn-icon{width:36px;height:36px;padding:0;justify-content:center}
+.btn svg{width:15px;height:15px}
+/* === KPI CARDS === */
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px}
+.kpi-card{background:var(--bg-elevated);border:1px solid var(--border);border-radius:var(--radius-lg);padding:18px;text-align:center;transition:var(--transition);position:relative;overflow:hidden}
+.kpi-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+.kpi-card .value{font-size:1.7rem;font-weight:700;color:var(--accent);line-height:1.2}
+.kpi-card .value.green{color:var(--green)}
+.kpi-card .value.red{color:var(--red)}
+.kpi-card .value.orange{color:var(--orange)}
+.kpi-card .value.blue{color:var(--blue)}
+.kpi-card .label{font-size:.65rem;color:var(--text-secondary);text-transform:uppercase;letter-spacing:1.2px;margin-top:6px;font-weight:500}
+.kpi-card .sub{font-size:.62rem;color:var(--text-muted);margin-top:3px}
+.kpi-card .sparkline{position:absolute;bottom:0;left:0;right:0;height:30px;opacity:0.3}
+/* === TABS === */
+.tab{display:none;animation:fadeIn .3s ease}
+.tab.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+/* === CARDS === */
+.card{background:var(--bg-elevated);border:1px solid var(--border);border-radius:var(--radius-lg);padding:22px;margin-bottom:18px;transition:var(--transition)}
+.card:hover{box-shadow:var(--shadow)}
+.card h3{color:var(--accent);margin-bottom:14px;font-size:.95rem;font-family:'Playfair Display',serif;display:flex;align-items:center;gap:8px}
+.card h3 svg{width:18px;height:18px;stroke:var(--accent)}
 .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
 .grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px}
+/* === TABLES === */
 table{width:100%;border-collapse:collapse;font-size:.8rem}
 th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--border)}
-th{color:var(--accent);font-weight:600;font-size:.7rem;text-transform:uppercase;letter-spacing:.5px}
-input,select,textarea{background:var(--card2);border:1px solid var(--border);color:var(--text);padding:9px 14px;border-radius:8px;font-size:.82rem;width:100%;font-family:'Inter',sans-serif}
-input:focus,select:focus{outline:none;border-color:var(--accent)}
-.form-row{display:flex;gap:12px;margin-bottom:12px;align-items:end}.form-row>div{flex:1}
-.form-label{font-size:.68rem;color:var(--muted);margin-bottom:5px;text-transform:uppercase;letter-spacing:.5px}
-.badge{display:inline-block;padding:3px 10px;border-radius:6px;font-size:.68rem;font-weight:600}
-.badge-green{background:#1e7e3420;color:var(--green)}.badge-red{background:#c0392b20;color:var(--red)}.badge-orange{background:#e67e2220;color:var(--orange)}.badge-blue{background:#2980b920;color:var(--blue)}
-.alert{padding:14px 18px;border-radius:10px;margin-bottom:10px;font-size:.82rem;border-left:4px solid}
-.alert-red{background:#c0392b10;border-color:var(--red);color:#e74c3c}
-.alert-orange{background:#e67e2210;border-color:var(--orange);color:var(--orange)}
-.alert-green{background:#1e7e3410;border-color:var(--green);color:var(--green)}
-.alert-blue{background:#2980b910;border-color:var(--blue);color:var(--blue)}
-.website-hero{background:linear-gradient(135deg,#1a1a25 0%,#2a1a0a 100%);border-radius:16px;padding:60px 40px;text-align:center;margin-bottom:24px;border:1px solid var(--border)}
-.website-hero h2{font-family:'Playfair Display',serif;font-size:2.2rem;color:var(--accent);margin-bottom:12px}
-.website-hero p{color:var(--muted);font-size:1rem;max-width:600px;margin:0 auto}
-.product-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.product-card{background:var(--card2);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:.3s}
-.product-card:hover{border-color:var(--accent);transform:translateY(-4px)}
-.product-card .img{height:200px;background:linear-gradient(135deg,var(--card2),var(--border));display:flex;align-items:center;justify-content:center;font-size:3rem}
-.product-card .info{padding:16px}
-.product-card .info h4{color:var(--text);font-size:.9rem;margin-bottom:6px}
-.product-card .info .price{color:var(--accent);font-weight:700;font-size:1.1rem}
-.product-card .info .old-price{color:var(--muted);text-decoration:line-through;font-size:.8rem;margin-left:8px}
-.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
-.stat-bar{height:6px;background:var(--card2);border-radius:3px;margin-top:6px;overflow:hidden}
-.stat-bar .fill{height:100%;border-radius:3px;transition:.5s}
+th{color:var(--accent);font-weight:600;font-size:.68rem;text-transform:uppercase;letter-spacing:.5px;background:var(--bg-surface)}
+th:first-child{border-radius:var(--radius) 0 0 0}
+th:last-child{border-radius:0 var(--radius) 0 0}
+tbody tr{transition:var(--transition)}
+tbody tr:hover{background:var(--accent-muted)}
+/* === FORMS === */
+input,select,textarea{background:var(--bg-surface);border:1px solid var(--border);color:var(--text-primary);padding:9px 14px;border-radius:var(--radius);font-size:.82rem;width:100%;font-family:inherit;transition:var(--transition)}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-muted)}
+.form-row{display:flex;gap:12px;margin-bottom:12px;align-items:end}
+.form-row>div{flex:1}
+.form-label{font-size:.68rem;color:var(--text-secondary);margin-bottom:5px;text-transform:uppercase;letter-spacing:.5px;font-weight:500}
+/* === BADGES === */
+.badge-pill{display:inline-flex;align-items:center;padding:3px 10px;border-radius:20px;font-size:.68rem;font-weight:600}
+.bg-green{background:var(--green-muted);color:var(--green)}
+.bg-red{background:var(--red-muted);color:var(--red)}
+.bg-orange{background:var(--orange-muted);color:var(--orange)}
+.bg-blue{background:var(--blue-muted);color:var(--blue)}
+/* === ALERTS === */
+.alert{padding:12px 16px;border-radius:var(--radius);margin-bottom:8px;font-size:.82rem;display:flex;align-items:center;gap:10px}
+.alert svg{width:16px;height:16px;flex-shrink:0}
+.alert-red{background:var(--red-muted);color:var(--red)}
+.alert-orange{background:var(--orange-muted);color:var(--orange)}
+.alert-green{background:var(--green-muted);color:var(--green)}
+.alert-blue{background:var(--blue-muted);color:var(--blue)}
+/* === STAT BAR === */
+.stat-bar{height:6px;background:var(--bg-surface);border-radius:3px;margin-top:6px;overflow:hidden}
+.stat-bar .fill{height:100%;border-radius:3px;transition:.5s ease}
+/* === LIVE DOT === */
 .live-dot{width:8px;height:8px;background:var(--green);border-radius:50%;display:inline-block;animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-.embed-frame{border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-top:12px}
-@media(max-width:768px){.sidebar{width:60px}.sidebar .logo-area h1,.sidebar .section-label,.sidebar .ext-link,.sidebar .live-clock,.sidebar .logo-area p{display:none}.nav-item{padding:12px;justify-content:center}.nav-item span{display:none}.main{margin-left:60px;padding:16px}.kpi-grid{grid-template-columns:repeat(2,1fr)}.grid-2,.grid-3,.contact-grid{grid-template-columns:1fr}.product-grid{grid-template-columns:1fr 1fr}.header h1{font-size:1.2rem}}
+/* === COMMAND PALETTE === */
+.cmd-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9999;display:none;align-items:flex-start;justify-content:center;padding-top:20vh;backdrop-filter:blur(4px)}
+.cmd-overlay.open{display:flex}
+.cmd-box{background:var(--bg-elevated);border:1px solid var(--border);border-radius:var(--radius-lg);width:520px;max-width:90vw;box-shadow:var(--shadow-lg);overflow:hidden}
+.cmd-input{border:none;border-bottom:1px solid var(--border);border-radius:0;padding:16px 20px;font-size:.95rem;background:transparent}
+.cmd-input:focus{box-shadow:none}
+.cmd-results{max-height:320px;overflow-y:auto;padding:8px}
+.cmd-item{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:var(--radius);cursor:pointer;font-size:.85rem;color:var(--text-secondary);transition:var(--transition)}
+.cmd-item:hover,.cmd-item.selected{background:var(--accent-muted);color:var(--accent)}
+.cmd-item svg{width:16px;height:16px}
+.cmd-item kbd{margin-left:auto;background:var(--bg-surface);padding:2px 8px;border-radius:4px;font-size:.65rem;border:1px solid var(--border);font-family:inherit}
+/* === WEBSITE SECTION === */
+.website-hero{background:linear-gradient(135deg,var(--bg-surface) 0%,var(--accent-muted) 100%);border-radius:var(--radius-lg);padding:60px 40px;text-align:center;margin-bottom:24px;border:1px solid var(--border)}
+.website-hero h2{font-family:'Playfair Display',serif;font-size:2.2rem;color:var(--accent);margin-bottom:12px}
+.website-hero p{color:var(--text-secondary);font-size:1rem;max-width:600px;margin:0 auto}
+.product-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.product-card{background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;transition:var(--transition)}
+.product-card:hover{border-color:var(--accent);transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.product-card .img{height:200px;background:linear-gradient(135deg,var(--bg-surface),var(--border));display:flex;align-items:center;justify-content:center;font-size:3rem}
+.product-card .info{padding:16px}
+.product-card .info h4{color:var(--text-primary);font-size:.9rem;margin-bottom:6px}
+.product-card .info .price{color:var(--accent);font-weight:700;font-size:1.1rem}
+.product-card .info .old-price{color:var(--text-muted);text-decoration:line-through;font-size:.8rem;margin-left:8px}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+/* === MOBILE HAMBURGER === */
+.mobile-toggle{display:none;position:fixed;top:12px;left:12px;z-index:300;width:40px;height:40px;border-radius:var(--radius);border:1px solid var(--border);background:var(--bg-elevated);color:var(--text-primary);cursor:pointer;align-items:center;justify-content:center}
+.mobile-toggle svg{width:22px;height:22px}
+.sidebar-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:150}
+/* === RESPONSIVE === */
+@media(max-width:768px){
+.mobile-toggle{display:flex}
+aside.sidebar{transform:translateX(-100%)}
+aside.sidebar.open{transform:translateX(0)}
+.sidebar-backdrop.open{display:block}
+main.content{margin-left:0;padding-top:56px}
+.content-inner{padding:16px}
+.kpi-grid{grid-template-columns:repeat(2,1fr)}
+.grid-2,.grid-3,.contact-grid{grid-template-columns:1fr}
+.product-grid{grid-template-columns:1fr 1fr}
+.page-header h1{font-size:1.2rem}
+.form-row{flex-direction:column}
+}
+@media(max-width:480px){
+.kpi-grid{grid-template-columns:1fr}
+.product-grid{grid-template-columns:1fr}
+}
+/* === CHECKBOX CUSTOM === */
+.check-item{display:flex;align-items:center;gap:10px;padding:8px 0;font-size:.85rem;border-bottom:1px solid var(--border)}
+.check-item:last-child{border-bottom:none}
+.check-item input[type=checkbox]{width:18px;height:18px;accent-color:var(--accent);cursor:pointer;flex-shrink:0}
+/* === SCROLLBAR === */
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:var(--text-muted)}
+/* === PRINT === */
+@media print{aside.sidebar,.mobile-toggle,.header-actions{display:none!important}main.content{margin-left:0!important}}
 </style>
 </head>
 <body>
+<!-- Mobile Toggle -->
+<button class="mobile-toggle" onclick="toggleSidebar()" aria-label="Toggle menu"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+<div class="sidebar-backdrop" onclick="toggleSidebar()"></div>
+
+<!-- Command Palette -->
+<div class="cmd-overlay" id="cmdPalette" onclick="if(event.target===this)closeCmdPalette()">
+<div class="cmd-box">
+<input class="cmd-input" id="cmdInput" placeholder="Search tabs, actions, links..." oninput="filterCmd(this.value)">
+<div class="cmd-results" id="cmdResults"></div>
+</div>
+</div>
+
 <div class="app">
-<!-- SIDEBAR -->
-<div class="sidebar">
+<!-- Sidebar -->
+<aside class="sidebar" role="navigation" aria-label="Main navigation">
 <div class="logo-area">
 <h1>THE BAISA</h1>
 <p>Women's Ethnic Wear</p>
-<div class="live-clock" id="live-clock"></div>
+<div class="live-clock" id="live-clock" aria-live="polite"></div>
 </div>
-<div class="section-label">Operations</div>
-<div class="nav-item active" onclick="showTab('tab-command',this)"><span>📊</span> <span>Command Center</span></div>
-<div class="nav-item" onclick="showTab('tab-orders',this)"><span>📦</span> <span>Orders</span></div>
-<div class="nav-item" onclick="showTab('tab-inventory',this)"><span>🏭</span> <span>Inventory</span></div>
-<div class="nav-item" onclick="showTab('tab-production',this)"><span>⚙️</span> <span>Production</span></div>
-<div class="nav-item" onclick="showTab('tab-costing',this)"><span>🧮</span> <span>Costing Engine</span></div>
-<div class="section-label">Business</div>
-<div class="nav-item" onclick="showTab('tab-products',this)"><span>👗</span> <span>Products</span> <span class="badge">17</span></div>
-<div class="nav-item" onclick="showTab('tab-channels',this)"><span>🏪</span> <span>Channels</span></div>
-<div class="nav-item" onclick="showTab('tab-finance',this)"><span>💰</span> <span>Finance</span></div>
-<div class="section-label">Growth</div>
-<div class="nav-item" onclick="showTab('tab-marketing',this)"><span>📱</span> <span>Marketing</span></div>
-<div class="nav-item" onclick="showTab('tab-website',this)"><span>🌐</span> <span>Website</span> <span class="badge" style="background:var(--green)">NEW</span></div>
-<div class="nav-item" onclick="showTab('tab-resources',this)"><span>📁</span> <span>Resources</span></div>
-<div class="section-label">Live Integrations</div>
-<a class="ext-link" href="https://supplier.meesho.com/" target="_blank">↗ Meesho Supplier</a>
-<a class="ext-link" href="https://sell.myntra.com/" target="_blank">↗ Myntra Partner</a>
-<a class="ext-link" href="https://sellercentral.amazon.in/" target="_blank">↗ Amazon Seller</a>
-<a class="ext-link" href="https://seller.flipkart.com/" target="_blank">↗ Flipkart Seller</a>
-<a class="ext-link" href="https://drive.google.com/" target="_blank">↗ Google Drive</a>
-<a class="ext-link" href="https://docs.google.com/spreadsheets/" target="_blank">↗ Google Sheets</a>
-<a class="ext-link" href="https://web.whatsapp.com/" target="_blank">↗ WhatsApp Web</a>
-<a class="ext-link" href="https://www.gst.gov.in/" target="_blank">↗ GST Portal</a>
-<a class="ext-link" href="https://www.indiapost.gov.in/" target="_blank">↗ India Post Track</a>
-</div>
+<div class="sidebar-scroll">
+<nav class="sidebar-nav">
+<div class="nav-group-label">Operations</div>
+<button class="nav-item active" onclick="showTab('tab-command',this)" aria-current="page">
+<svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+<span>Command Center</span></button>
+<button class="nav-item" onclick="showTab('tab-orders',this)">
+<svg viewBox="0 0 24 24"><path d="M21 10V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16v-2"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+<span>Orders</span></button>
+<button class="nav-item" onclick="showTab('tab-inventory',this)">
+<svg viewBox="0 0 24 24"><path d="M20 12V8H6a2 2 0 01-2-2c0-1.1.9-2 2-2h12v4"/><path d="M4 6v12a2 2 0 002 2h14v-4"/><path d="M18 12a2 2 0 00-2 2c0 1.1.9 2 2 2h4v-4h-4z"/></svg>
+<span>Inventory</span></button>
+<button class="nav-item" onclick="showTab('tab-production',this)">
+<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+<span>Production</span></button>
+<button class="nav-item" onclick="showTab('tab-costing',this)">
+<svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+<span>Costing Engine</span></button>
 
-<!-- MAIN CONTENT -->
-<div class="main">
-<div class="header">
-<div><h1 id="tab-title">Command Center</h1><div class="date" id="current-date"></div></div>
-<div class="actions"><span class="live-dot"></span><span style="color:var(--green);font-size:.8rem;margin-right:10px"> Live</span><button class="btn" onclick="window.print()">Print</button><button class="btn btn-accent" onclick="location.reload()">Refresh</button></div>
-</div>
+<div class="nav-group-label">Business</div>
+<button class="nav-item" onclick="showTab('tab-products',this)">
+<svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+<span>Products</span><span class="badge">17</span></button>
+<button class="nav-item" onclick="showTab('tab-channels',this)">
+<svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+<span>Channels</span></button>
+<button class="nav-item" onclick="showTab('tab-finance',this)">
+<svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+<span>Finance</span></button>
 
-<!-- TAB: COMMAND CENTER -->
-<div class="tab active" id="tab-command">
+<div class="nav-group-label">Growth</div>
+<button class="nav-item" onclick="showTab('tab-marketing',this)">
+<svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+<span>Marketing</span></button>
+<button class="nav-item" onclick="showTab('tab-website',this)">
+<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+<span>Website</span><span class="badge badge-new">NEW</span></button>
+<button class="nav-item" onclick="showTab('tab-resources',this)">
+<svg viewBox="0 0 24 24"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
+<span>Resources</span></button>
+</nav>
+
+<div class="ext-links">
+<div class="ext-links-label">Live Integrations</div>
+<a class="ext-link" href="https://supplier.meesho.com/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> Meesho Supplier</a>
+<a class="ext-link" href="https://sell.myntra.com/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> Myntra Partner</a>
+<a class="ext-link" href="https://sellercentral.amazon.in/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> Amazon Seller</a>
+<a class="ext-link" href="https://seller.flipkart.com/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> Flipkart Seller</a>
+<a class="ext-link" href="https://drive.google.com/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> Google Drive</a>
+<a class="ext-link" href="https://docs.google.com/spreadsheets/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> Google Sheets</a>
+<a class="ext-link" href="https://web.whatsapp.com/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> WhatsApp Web</a>
+<a class="ext-link" href="https://www.gst.gov.in/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> GST Portal</a>
+<a class="ext-link" href="https://www.indiapost.gov.in/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> India Post Track</a>
+</div>
+</div>
+</aside>
+
+<!-- Main Content -->
+<main class="content" role="main">
+<div class="content-inner">
+<header class="page-header">
+<div>
+<h1 id="tab-title">Command Center</h1>
+<div class="date" id="current-date"></div>
+</div>
+<div class="header-actions">
+<span class="live-dot"></span>
+<span style="font-size:.78rem;color:var(--green);margin-right:4px">Live</span>
+<button class="btn" onclick="openCmdPalette()" title="Search (Cmd+K)"><svg viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" fill="none" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg> <kbd style="font-size:.6rem;opacity:.6">Cmd+K</kbd></button>
+<button class="theme-toggle" onclick="toggleTheme()" title="Toggle light/dark mode" aria-label="Toggle theme">
+<svg viewBox="0 0 24 24" id="theme-icon" stroke="currentColor" fill="none" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+</button>
+<button class="btn" onclick="window.print()"><svg viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" fill="none" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg> Print</button>
+<button class="btn btn-primary" onclick="location.reload()"><svg viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" fill="none" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg> Refresh</button>
+</div>
+</header>
+
+<!-- TAB: Command Center -->
+<section class="tab active" id="tab-command">
 <div class="kpi-grid">
-<div class="kpi-card"><div class="value" id="kpi-orders">0</div><div class="label">Today's Orders</div><div class="sub">all platforms combined</div></div>
-<div class="kpi-card"><div class="value green" id="kpi-revenue">&#8377;0</div><div class="label">Today's Revenue</div><div class="sub">gross before returns</div></div>
+<div class="kpi-card"><div class="value" id="kpi-orders">0</div><div class="label">Today's Orders</div><div class="sub">all platforms combined</div><svg class="sparkline" viewBox="0 0 100 30" preserveAspectRatio="none"><polyline points="0,25 15,20 30,22 45,15 60,18 75,10 90,12 100,8" fill="none" stroke="var(--accent)" stroke-width="1.5"/></svg></div>
+<div class="kpi-card"><div class="value green" id="kpi-revenue">&#8377;0</div><div class="label">Today's Revenue</div><div class="sub">gross before returns</div><svg class="sparkline" viewBox="0 0 100 30" preserveAspectRatio="none"><polyline points="0,28 15,22 30,25 45,18 60,15 75,12 90,8 100,5" fill="none" stroke="var(--green)" stroke-width="1.5"/></svg></div>
 <div class="kpi-card"><div class="value orange" id="kpi-pending">0</div><div class="label">Pending Shipment</div><div class="sub">ship before 2 PM</div></div>
-<div class="kpi-card"><div class="value red" id="kpi-returns">0</div><div class="label">Returns This Week</div><div class="sub">track reason codes</div></div>
-</div>
-<div class="kpi-grid">
+<div class="kpi-card"><div class="value red">0</div><div class="label">Returns This Week</div><div class="sub">track reason codes</div></div>
 <div class="kpi-card"><div class="value green">&#8377;50K</div><div class="label">Cash Position</div><div class="sub">bank + receivables</div></div>
 <div class="kpi-card"><div class="value blue">17</div><div class="label">Active SKUs</div><div class="sub">4 kurti, 4 coord, 4 set, 5 dress</div></div>
 <div class="kpi-card"><div class="value">3</div><div class="label">Active Channels</div><div class="sub">Meesho, GlowRoad, Wholesale</div></div>
-<div class="kpi-card"><div class="value orange">68%</div><div class="label">Catalog Readiness</div><div class="sub" id="progress-target">target: 90%+</div><div class="stat-bar"><div class="fill" style="width:68%;background:var(--orange)"></div></div></div>
-</div>
-<div class="grid-2">
-<div class="card"><h3>Action Alerts</h3>
-<div class="alert alert-red">Ship pending orders before 2 PM cutoff</div>
-<div class="alert alert-orange">Restock raw fabric - cotton voile below 50m</div>
-<div class="alert alert-green">Meesho payout Rs.12,400 expected tomorrow</div>
-<div class="alert alert-blue">Myntra onboarding: upload remaining 8 SKU photos</div>
-</div>
-<div class="card"><h3>Real Margin Tracker (Live)</h3>
-<table><tr><th>Channel</th><th>Avg COGM</th><th>Selling</th><th>Net Margin</th></tr>
-<tr><td>Meesho</td><td>&#8377;185</td><td>&#8377;350</td><td><span class="badge badge-orange">8%</span></td></tr>
-<tr><td>GlowRoad</td><td>&#8377;185</td><td>&#8377;380</td><td><span class="badge badge-green">14%</span></td></tr>
-<tr><td>Wholesale</td><td>&#8377;185</td><td>&#8377;215</td><td><span class="badge badge-green">16%</span></td></tr>
-<tr><td>Amazon</td><td>&#8377;185</td><td>&#8377;450</td><td><span class="badge badge-green">22%</span></td></tr>
-</table></div>
-</div>
-<div class="card"><h3>Google Sheets - Live Data Sync</h3>
-<p style="color:var(--muted);font-size:.85rem;margin-bottom:12px">Connect your business data for real-time updates across all dashboards</p>
-<div class="grid-3">
-<a href="https://docs.google.com/spreadsheets/" target="_blank" class="btn" style="text-align:center;text-decoration:none;display:block">Orders Sheet</a>
-<a href="https://docs.google.com/spreadsheets/" target="_blank" class="btn" style="text-align:center;text-decoration:none;display:block">Inventory Sheet</a>
-<a href="https://docs.google.com/spreadsheets/" target="_blank" class="btn" style="text-align:center;text-decoration:none;display:block">Finance Sheet</a>
-</div></div>
+<div class="kpi-card"><div class="value orange">68%</div><div class="label">Catalog Readiness</div><div class="sub">target: 90%+</div><div class="stat-bar"><div class="fill" style="width:68%;background:var(--orange)"></div></div></div>
 </div>
 
-<!-- TAB: ORDERS -->
-<div class="tab" id="tab-orders">
-<div class="card"><h3>Add New Order</h3>
+<div class="grid-2">
+<div class="card">
+<h3><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> Action Alerts</h3>
+<div class="alert alert-red"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> Ship pending orders before 2 PM cutoff</div>
+<div class="alert alert-orange"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> Restock raw fabric - cotton voile below 50m</div>
+<div class="alert alert-green"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> Meesho payout Rs.12,400 expected tomorrow</div>
+<div class="alert alert-blue"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> Myntra onboarding: upload remaining 8 SKU photos</div>
+</div>
+<div class="card">
+<h3><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg> Real Margin Tracker (Live)</h3>
+<table><thead><tr><th>Channel</th><th>Avg COGM</th><th>Selling</th><th>Net Margin</th></tr></thead>
+<tbody>
+<tr><td>Meesho</td><td>&#8377;185</td><td>&#8377;350</td><td><span class="badge-pill bg-orange">8%</span></td></tr>
+<tr><td>GlowRoad</td><td>&#8377;185</td><td>&#8377;380</td><td><span class="badge-pill bg-green">14%</span></td></tr>
+<tr><td>Wholesale</td><td>&#8377;185</td><td>&#8377;215</td><td><span class="badge-pill bg-green">16%</span></td></tr>
+<tr><td>Amazon</td><td>&#8377;185</td><td>&#8377;450</td><td><span class="badge-pill bg-green">22%</span></td></tr>
+</tbody></table>
+</div>
+</div>
+
+<div class="card">
+<h3><svg viewBox="0 0 24 24"><path d="M13 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V9z"/><polyline points="13 2 13 9 20 9"/></svg> Google Sheets - Live Data Sync</h3>
+<p style="color:var(--text-secondary);font-size:.85rem;margin-bottom:14px">Connect your business data for real-time updates across all dashboards</p>
+<div style="display:flex;gap:10px;flex-wrap:wrap">
+<a href="https://docs.google.com/spreadsheets/" target="_blank" rel="noopener" class="btn">Orders Sheet</a>
+<a href="https://docs.google.com/spreadsheets/" target="_blank" rel="noopener" class="btn">Inventory Sheet</a>
+<a href="https://docs.google.com/spreadsheets/" target="_blank" rel="noopener" class="btn">Finance Sheet</a>
+</div>
+</div>
+</section>
+
+<!-- TAB: Orders -->
+<section class="tab" id="tab-orders">
+<div class="card">
+<h3><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Add New Order</h3>
 <div class="form-row">
 <div><div class="form-label">Platform</div><select id="o-platform"><option>Meesho</option><option>GlowRoad</option><option>Amazon</option><option>Flipkart</option><option>Myntra</option><option>Wholesale</option><option>Direct</option></select></div>
 <div><div class="form-label">SKU</div><input id="o-sku" placeholder="KURTI-001"></div>
 <div><div class="form-label">Qty</div><input id="o-qty" type="number" value="1"></div>
 <div><div class="form-label">Amount</div><input id="o-amt" type="number" placeholder="350"></div>
-<div><div class="form-label">&nbsp;</div><button class="btn btn-accent" onclick="addOrder()">+ Add Order</button></div>
-</div></div>
-<div class="card"><h3>Order Book <span class="badge badge-blue" id="order-count">0</span></h3>
-<table><thead><tr><th>ID</th><th>Date</th><th>Platform</th><th>SKU</th><th>Qty</th><th>Amount</th><th>Status</th><th>Action</th></tr></thead>
-<tbody id="orders-body"></tbody></table>
-</div></div>
+<div><button class="btn btn-primary" onclick="addOrder()" style="margin-top:18px">+ Add Order</button></div>
+</div>
+</div>
+<div class="card">
+<h3><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> Order Book <span class="badge-pill bg-blue" id="order-count" style="margin-left:8px">0</span></h3>
+<div style="overflow-x:auto"><table><thead><tr><th>ID</th><th>Date</th><th>Platform</th><th>SKU</th><th>Qty</th><th>Amount</th><th>Status</th><th>Action</th></tr></thead>
+<tbody id="orders-body"></tbody></table></div>
+</div>
+</section>
 
-<!-- TAB: INVENTORY -->
-<div class="tab" id="tab-inventory">
-<div class="card"><h3>Raw Material Stock</h3>
-<table><tr><th>Material</th><th>Current</th><th>Min Level</th><th>Status</th><th>Action</th></tr>
-<tr><td>Cotton Voile</td><td>45m</td><td>50m</td><td><span class="badge badge-red">LOW</span></td><td><button class="btn btn-sm">Reorder</button></td></tr>
-<tr><td>Rayon Fabric</td><td>120m</td><td>50m</td><td><span class="badge badge-green">OK</span></td><td><button class="btn btn-sm">Order</button></td></tr>
-<tr><td>Cotton Cambric</td><td>80m</td><td>50m</td><td><span class="badge badge-green">OK</span></td><td><button class="btn btn-sm">Order</button></td></tr>
-<tr><td>Lace Trim</td><td>200m</td><td>100m</td><td><span class="badge badge-green">OK</span></td><td><button class="btn btn-sm">Order</button></td></tr>
-<tr><td>Buttons/Hooks</td><td>500pcs</td><td>200pcs</td><td><span class="badge badge-green">OK</span></td><td><button class="btn btn-sm">Order</button></td></tr>
-</table></div>
-<div class="card"><h3>Finished Goods Inventory</h3>
-<table><tr><th>SKU</th><th>Product</th><th>In Stock</th><th>Committed</th><th>Available</th><th>Reorder Point</th></tr>
+<!-- TAB: Inventory -->
+<section class="tab" id="tab-inventory">
+<div class="card">
+<h3><svg viewBox="0 0 24 24"><path d="M20 12V8H6a2 2 0 01-2-2c0-1.1.9-2 2-2h12v4"/><path d="M4 6v12a2 2 0 002 2h14v-4"/></svg> Raw Material Stock</h3>
+<div style="overflow-x:auto"><table><thead><tr><th>Material</th><th>Current</th><th>Min Level</th><th>Status</th><th>Action</th></tr></thead>
+<tbody>
+<tr><td>Cotton Voile</td><td>45m</td><td>50m</td><td><span class="badge-pill bg-red">LOW</span></td><td><button class="btn btn-sm">Reorder</button></td></tr>
+<tr><td>Rayon Fabric</td><td>120m</td><td>50m</td><td><span class="badge-pill bg-green">OK</span></td><td><button class="btn btn-sm">Order</button></td></tr>
+<tr><td>Cotton Cambric</td><td>80m</td><td>50m</td><td><span class="badge-pill bg-green">OK</span></td><td><button class="btn btn-sm">Order</button></td></tr>
+<tr><td>Lace Trim</td><td>200m</td><td>100m</td><td><span class="badge-pill bg-green">OK</span></td><td><button class="btn btn-sm">Order</button></td></tr>
+<tr><td>Buttons/Hooks</td><td>500pcs</td><td>200pcs</td><td><span class="badge-pill bg-green">OK</span></td><td><button class="btn btn-sm">Order</button></td></tr>
+</tbody></table></div>
+</div>
+<div class="card">
+<h3><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/></svg> Finished Goods Inventory</h3>
+<div style="overflow-x:auto"><table><thead><tr><th>SKU</th><th>Product</th><th>In Stock</th><th>Committed</th><th>Available</th><th>Reorder Point</th></tr></thead>
+<tbody>
 <tr><td>KURTI-001</td><td>Cotton A-Line Kurti</td><td>45</td><td>12</td><td>33</td><td>20</td></tr>
 <tr><td>COORD-001</td><td>Rayon Coord Set</td><td>30</td><td>8</td><td>22</td><td>15</td></tr>
 <tr><td>SET-001</td><td>3pc Kurta Set</td><td>25</td><td>5</td><td>20</td><td>10</td></tr>
 <tr><td>DRESS-001</td><td>Maxi Dress</td><td>18</td><td>3</td><td>15</td><td>10</td></tr>
-</table></div></div>
-
-<!-- TAB: PRODUCTION -->
-<div class="tab" id="tab-production">
-<div class="card"><h3>Job Worker Tracker</h3>
-<table><tr><th>Worker</th><th>Job</th><th>Pieces</th><th>Due</th><th>Status</th></tr>
-<tr><td>Ramesh Tailors</td><td>Stitching - Kurti Lot #12</td><td>50</td><td>18 Apr</td><td><span class="badge badge-orange">In Progress</span></td></tr>
-<tr><td>Sunita Embroidery</td><td>Chikan Work - Coord Set</td><td>30</td><td>20 Apr</td><td><span class="badge badge-blue">Queued</span></td></tr>
-<tr><td>Fabric Dyeing Unit</td><td>Dyeing - Rayon 200m</td><td>-</td><td>17 Apr</td><td><span class="badge badge-green">Done</span></td></tr>
-<tr><td>Priya Finishing</td><td>Ironing + Tagging Lot #11</td><td>50</td><td>16 Apr</td><td><span class="badge badge-orange">Today</span></td></tr>
-</table></div>
-<div class="card"><h3>QC Log</h3>
-<table><tr><th>Date</th><th>Lot</th><th>Checked</th><th>Passed</th><th>Defects</th><th>Rate</th></tr>
-<tr><td>15 Apr</td><td>Kurti #11</td><td>50</td><td>47</td><td>3</td><td><span class="badge badge-orange">6%</span></td></tr>
-<tr><td>14 Apr</td><td>Coord #8</td><td>30</td><td>29</td><td>1</td><td><span class="badge badge-green">3.3%</span></td></tr>
-</table></div></div>
-
-<!-- TAB: COSTING ENGINE -->
-<div class="tab" id="tab-costing">
-<div class="grid-2">
-<div class="card"><h3>COGM Calculator</h3>
-<div class="form-row"><div><div class="form-label">Fabric Cost/pc</div><input id="fc" type="number" value="85" oninput="calcCOGM()"></div><div><div class="form-label">Dyeing</div><input id="dc" type="number" value="15" oninput="calcCOGM()"></div></div>
-<div class="form-row"><div><div class="form-label">Wastage</div><input id="wst" type="number" value="7" oninput="calcCOGM()"></div><div><div class="form-label">Finishing</div><input id="fin" type="number" value="5" oninput="calcCOGM()"></div></div>
-<div class="form-row"><div><div class="form-label">Trims</div><input id="trm" type="number" value="12" oninput="calcCOGM()"></div><div><div class="form-label">Packaging</div><input id="pkg" type="number" value="8" oninput="calcCOGM()"></div></div>
-<div class="form-row"><div><div class="form-label">Labour/Stitching</div><input id="lab" type="number" value="35" oninput="calcCOGM()"></div><div><div class="form-label">Overhead</div><input id="oh" type="number" value="10" oninput="calcCOGM()"></div></div>
-<div class="form-row"><div><div class="form-label">Transport</div><input id="tpt" type="number" value="8" oninput="calcCOGM()"></div><div><div class="form-label">GST %</div><input id="gst-rate" type="number" value="5" oninput="calcCOGM()"></div></div>
-<div class="form-row"><div><div class="form-label">Target Margin %</div><input id="margin-target" type="number" value="30" oninput="calcCOGM()"></div><div></div></div>
-<div style="margin-top:16px;padding:18px;background:var(--card2);border-radius:10px;border:1px solid var(--accent)">
-<div style="font-size:1.5rem;color:var(--accent);font-weight:700;font-family:'Playfair Display',serif">COGM: &#8377;<span id="cogm-result">0</span></div>
-</div></div>
-<div class="card"><h3>Channel Pricing Output</h3>
-<table><tr><th>Channel</th><th>Price</th><th>Net Profit</th></tr>
-<tr><td>Retail (GST incl)</td><td>&#8377;<span id="price-retail">0</span></td><td><span class="badge badge-green">Full margin</span></td></tr>
-<tr><td>Meesho</td><td>&#8377;<span id="price-meesho">0</span></td><td id="profit-meesho">-</td></tr>
-<tr><td>Wholesale (15%)</td><td>&#8377;<span id="price-wholesale">0</span></td><td><span class="badge badge-green">No deductions</span></td></tr>
-</table>
-<div style="margin-top:16px;padding:14px;background:#c0392b10;border-radius:10px;font-size:.78rem;color:var(--red);border:1px solid #c0392b30">
-<strong>Meesho Deductions:</strong> 20% commission + Rs.75 avg shipping + 5% GST on commission. Always check net is positive!
+</tbody></table></div>
 </div>
-<div style="margin-top:12px;padding:14px;background:#1e7e3410;border-radius:10px;font-size:.78rem;color:var(--green);border:1px solid #1e7e3430">
-<strong>Tip:</strong> Minimum viable Meesho price = COGM x 1.65 + Rs.100 to cover all deductions with 10% profit.
+</section>
+
+<!-- TAB: Production -->
+<section class="tab" id="tab-production">
+<div class="card">
+<h3><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/></svg> Job Worker Tracker</h3>
+<div style="overflow-x:auto"><table><thead><tr><th>Worker</th><th>Job</th><th>Pieces</th><th>Due</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td>Ramesh Tailors</td><td>Stitching - Kurti Lot #12</td><td>50</td><td>18 Apr</td><td><span class="badge-pill bg-blue">In Progress</span></td></tr>
+<tr><td>Sunita Embroidery</td><td>Chikan Work - Coord Set</td><td>30</td><td>20 Apr</td><td><span class="badge-pill bg-orange">Queued</span></td></tr>
+<tr><td>Fabric Dyeing Unit</td><td>Dyeing - Rayon 200m</td><td>-</td><td>17 Apr</td><td><span class="badge-pill bg-green">Done</span></td></tr>
+<tr><td>Priya Finishing</td><td>Ironing + Tagging Lot #11</td><td>50</td><td>16 Apr</td><td><span class="badge-pill bg-red">Today</span></td></tr>
+</tbody></table></div>
 </div>
-</div></div></div>
+<div class="card">
+<h3><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> QC Log</h3>
+<div style="overflow-x:auto"><table><thead><tr><th>Date</th><th>Lot</th><th>Checked</th><th>Passed</th><th>Defects</th><th>Rate</th></tr></thead>
+<tbody>
+<tr><td>15 Apr</td><td>Kurti #11</td><td>50</td><td>47</td><td>3</td><td><span class="badge-pill bg-orange">6%</span></td></tr>
+<tr><td>14 Apr</td><td>Coord #8</td><td>30</td><td>29</td><td>1</td><td><span class="badge-pill bg-green">3.3%</span></td></tr>
+</tbody></table></div>
+</div>
+</section>
 
-<!-- TAB: PRODUCTS -->
-<div class="tab" id="tab-products">
-<div class="card"><h3>Product Catalog - P&L per SKU</h3>
-<table><tr><th>SKU</th><th>Product</th><th>COGM</th><th>Meesho SP</th><th>Net After Deductions</th><th>Margin</th><th>Drive</th></tr>
-<tr><td>KURTI-001</td><td>Cotton A-Line Kurti</td><td>185</td><td>350</td><td>67</td><td><span class="badge badge-orange">19%</span></td><td><a href="https://drive.google.com/" target="_blank" style="color:var(--blue)">Files</a></td></tr>
-<tr><td>KURTI-002</td><td>Rayon Printed Kurti</td><td>165</td><td>320</td><td>58</td><td><span class="badge badge-orange">18%</span></td><td><a href="https://drive.google.com/" target="_blank" style="color:var(--blue)">Files</a></td></tr>
-<tr><td>COORD-001</td><td>Rayon Coord Set</td><td>245</td><td>499</td><td>105</td><td><span class="badge badge-green">21%</span></td><td><a href="https://drive.google.com/" target="_blank" style="color:var(--blue)">Files</a></td></tr>
-<tr><td>SET-001</td><td>3pc Kurta Set</td><td>310</td><td>649</td><td>145</td><td><span class="badge badge-green">22%</span></td><td><a href="https://drive.google.com/" target="_blank" style="color:var(--blue)">Files</a></td></tr>
-<tr><td>DRESS-001</td><td>Maxi Dress</td><td>195</td><td>399</td><td>88</td><td><span class="badge badge-green">22%</span></td><td><a href="https://drive.google.com/" target="_blank" style="color:var(--blue)">Files</a></td></tr>
-</table></div></div>
+<!-- TAB: Costing Engine -->
+<section class="tab" id="tab-costing">
+<div class="card">
+<h3><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg> COGM Calculator</h3>
+<div class="grid-3">
+<div><div class="form-label">Fabric Cost/pc</div><input id="fc" type="number" value="85" oninput="calcCOGM()"></div>
+<div><div class="form-label">Dyeing</div><input id="dc" type="number" value="15" oninput="calcCOGM()"></div>
+<div><div class="form-label">Wastage</div><input id="wst" type="number" value="7" oninput="calcCOGM()"></div>
+<div><div class="form-label">Finishing</div><input id="fin" type="number" value="5" oninput="calcCOGM()"></div>
+<div><div class="form-label">Trims</div><input id="trm" type="number" value="12" oninput="calcCOGM()"></div>
+<div><div class="form-label">Packaging</div><input id="pkg" type="number" value="8" oninput="calcCOGM()"></div>
+<div><div class="form-label">Labour/Stitching</div><input id="lab" type="number" value="35" oninput="calcCOGM()"></div>
+<div><div class="form-label">Overhead</div><input id="oh" type="number" value="10" oninput="calcCOGM()"></div>
+<div><div class="form-label">Transport</div><input id="tpt" type="number" value="8" oninput="calcCOGM()"></div>
+</div>
+<div class="form-row" style="margin-top:16px">
+<div><div class="form-label">GST %</div><input id="gst-rate" type="number" value="5" oninput="calcCOGM()"></div>
+<div><div class="form-label">Target Margin %</div><input id="margin-target" type="number" value="30" oninput="calcCOGM()"></div>
+<div style="text-align:center;padding-top:14px"><div class="form-label">COGM</div><div style="font-size:1.8rem;font-weight:700;color:var(--accent)">&#8377; <span id="cogm-result">0</span></div></div>
+</div>
+</div>
+<div class="card">
+<h3><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg> Channel Pricing Output</h3>
+<div style="overflow-x:auto"><table><thead><tr><th>Channel</th><th>Price</th><th>Net Profit</th></tr></thead>
+<tbody>
+<tr><td>Retail (GST incl)</td><td>&#8377; <span id="price-retail">0</span></td><td>Full margin</td></tr>
+<tr><td>Meesho</td><td>&#8377; <span id="price-meesho">0</span></td><td id="profit-meesho">-</td></tr>
+<tr><td>Wholesale (15%)</td><td>&#8377; <span id="price-wholesale">0</span></td><td>No deductions</td></tr>
+</tbody></table></div>
+<div class="alert alert-orange" style="margin-top:12px"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> <strong>Meesho Deductions:</strong>&nbsp;20% commission + Rs.75 avg shipping + 5% GST on commission. Always check net is positive!</div>
+<div class="alert alert-blue"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> <strong>Tip:</strong>&nbsp;Minimum viable Meesho price = COGM x 1.65 + Rs.100 to cover all deductions with 10% profit.</div>
+</div>
+</section>
 
-<!-- TAB: CHANNELS -->
-<div class="tab" id="tab-channels">
-<div class="card"><h3>Channel Performance</h3>
-<table><tr><th>Platform</th><th>Status</th><th>SKUs</th><th>Avg Margin</th><th>Monthly Orders</th><th>Panel</th></tr>
-<tr><td>Meesho</td><td><span class="badge badge-green">Live</span></td><td>12</td><td>18%</td><td>85</td><td><a href="https://supplier.meesho.com/" target="_blank" class="btn btn-sm">Open</a></td></tr>
-<tr><td>GlowRoad</td><td><span class="badge badge-green">Live</span></td><td>8</td><td>22%</td><td>35</td><td><a href="#" class="btn btn-sm">Open</a></td></tr>
-<tr><td>Wholesale</td><td><span class="badge badge-green">Active</span></td><td>17</td><td>15%</td><td>40</td><td>-</td></tr>
-<tr><td>Amazon</td><td><span class="badge badge-orange">Setup</span></td><td>0</td><td>-</td><td>-</td><td><a href="https://sellercentral.amazon.in/" target="_blank" class="btn btn-sm">Open</a></td></tr>
-<tr><td>Myntra</td><td><span class="badge badge-red">Pending</span></td><td>0</td><td>-</td><td>-</td><td><a href="https://sell.myntra.com/" target="_blank" class="btn btn-sm">Open</a></td></tr>
-</table></div>
-<div class="card"><h3>Myntra Onboarding Checklist</h3>
-<table><tr><th>Task</th><th>Status</th><th>Deadline</th></tr>
-<tr><td>Brand Registration</td><td><span class="badge badge-green">Done</span></td><td>-</td></tr>
-<tr><td>GSTIN Verification</td><td><span class="badge badge-green">Done</span></td><td>-</td></tr>
-<tr><td>Product Photography (white bg)</td><td><span class="badge badge-orange">In Progress</span></td><td>20 Apr</td></tr>
-<tr><td>Catalog Upload (min 20 SKUs)</td><td><span class="badge badge-red">Pending</span></td><td>25 Apr</td></tr>
-<tr><td>Test Order Fulfillment</td><td><span class="badge badge-red">Pending</span></td><td>30 Apr</td></tr>
-</table></div></div>
+<!-- TAB: Products -->
+<section class="tab" id="tab-products">
+<div class="card">
+<h3><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/></svg> Product Catalog - P&amp;L per SKU</h3>
+<div style="overflow-x:auto"><table><thead><tr><th>SKU</th><th>Product</th><th>COGM</th><th>Meesho SP</th><th>Net After Deductions</th><th>Margin</th><th>Drive</th></tr></thead>
+<tbody>
+<tr><td>KURTI-001</td><td>Cotton A-Line Kurti</td><td>185</td><td>350</td><td>67</td><td><span class="badge-pill bg-green">19%</span></td><td><a href="https://drive.google.com/" target="_blank" rel="noopener" class="btn btn-sm">Files</a></td></tr>
+<tr><td>KURTI-002</td><td>Rayon Printed Kurti</td><td>165</td><td>320</td><td>58</td><td><span class="badge-pill bg-green">18%</span></td><td><a href="https://drive.google.com/" target="_blank" rel="noopener" class="btn btn-sm">Files</a></td></tr>
+<tr><td>COORD-001</td><td>Rayon Coord Set</td><td>245</td><td>499</td><td>105</td><td><span class="badge-pill bg-green">21%</span></td><td><a href="https://drive.google.com/" target="_blank" rel="noopener" class="btn btn-sm">Files</a></td></tr>
+<tr><td>SET-001</td><td>3pc Kurta Set</td><td>310</td><td>649</td><td>145</td><td><span class="badge-pill bg-green">22%</span></td><td><a href="https://drive.google.com/" target="_blank" rel="noopener" class="btn btn-sm">Files</a></td></tr>
+<tr><td>DRESS-001</td><td>Maxi Dress</td><td>195</td><td>399</td><td>88</td><td><span class="badge-pill bg-green">22%</span></td><td><a href="https://drive.google.com/" target="_blank" rel="noopener" class="btn btn-sm">Files</a></td></tr>
+</tbody></table></div>
+</div>
+</section>
 
-<!-- TAB: FINANCE -->
-<div class="tab" id="tab-finance">
+<!-- TAB: Channels -->
+<section class="tab" id="tab-channels">
+<div class="card">
+<h3><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg> Channel Performance</h3>
+<div style="overflow-x:auto"><table><thead><tr><th>Platform</th><th>Status</th><th>SKUs</th><th>Avg Margin</th><th>Monthly Orders</th><th>Panel</th></tr></thead>
+<tbody>
+<tr><td>Meesho</td><td><span class="badge-pill bg-green">Live</span></td><td>12</td><td>18%</td><td>85</td><td><a href="https://supplier.meesho.com/" target="_blank" rel="noopener" class="btn btn-sm">Open</a></td></tr>
+<tr><td>GlowRoad</td><td><span class="badge-pill bg-green">Live</span></td><td>8</td><td>22%</td><td>35</td><td><button class="btn btn-sm">Open</button></td></tr>
+<tr><td>Wholesale</td><td><span class="badge-pill bg-blue">Active</span></td><td>17</td><td>15%</td><td>40</td><td>-</td></tr>
+<tr><td>Amazon</td><td><span class="badge-pill bg-orange">Setup</span></td><td>0</td><td>-</td><td>-</td><td><a href="https://sellercentral.amazon.in/" target="_blank" rel="noopener" class="btn btn-sm">Open</a></td></tr>
+<tr><td>Myntra</td><td><span class="badge-pill bg-orange">Pending</span></td><td>0</td><td>-</td><td>-</td><td><a href="https://sell.myntra.com/" target="_blank" rel="noopener" class="btn btn-sm">Open</a></td></tr>
+</tbody></table></div>
+</div>
+<div class="card">
+<h3><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Myntra Onboarding Checklist</h3>
+<div style="overflow-x:auto"><table><thead><tr><th>Task</th><th>Status</th><th>Deadline</th></tr></thead>
+<tbody>
+<tr><td>Brand Registration</td><td><span class="badge-pill bg-green">Done</span></td><td>-</td></tr>
+<tr><td>GSTIN Verification</td><td><span class="badge-pill bg-green">Done</span></td><td>-</td></tr>
+<tr><td>Product Photography (white bg)</td><td><span class="badge-pill bg-blue">In Progress</span></td><td>20 Apr</td></tr>
+<tr><td>Catalog Upload (min 20 SKUs)</td><td><span class="badge-pill bg-orange">Pending</span></td><td>25 Apr</td></tr>
+<tr><td>Test Order Fulfillment</td><td><span class="badge-pill bg-orange">Pending</span></td><td>30 Apr</td></tr>
+</tbody></table></div>
+</div>
+</section>
+
+<!-- TAB: Finance -->
+<section class="tab" id="tab-finance">
 <div class="grid-2">
-<div class="card"><h3>P&L Summary (Monthly)</h3>
-<table><tr><th>Item</th><th>Amount</th></tr>
-<tr><td>Gross Revenue</td><td style="color:var(--green)">&#8377;1,20,000</td></tr>
-<tr><td>(-) Returns</td><td style="color:var(--red)">-&#8377;8,400</td></tr>
-<tr><td>(-) Commissions</td><td style="color:var(--red)">-&#8377;18,000</td></tr>
-<tr><td>(-) Shipping</td><td style="color:var(--red)">-&#8377;12,000</td></tr>
-<tr><td><strong>Net Revenue</strong></td><td style="color:var(--accent);font-weight:700">&#8377;81,600</td></tr>
-<tr><td>(-) COGM</td><td style="color:var(--red)">-&#8377;55,500</td></tr>
-<tr><td>(-) OpEx</td><td style="color:var(--red)">-&#8377;12,000</td></tr>
-<tr><td><strong>Net Profit</strong></td><td style="color:var(--green);font-weight:700;font-size:1.1rem">&#8377;14,100</td></tr>
-<tr><td>Net Margin</td><td><span class="badge badge-orange">11.75%</span></td></tr>
-</table></div>
-<div class="card"><h3>GST Tracker</h3>
-<table><tr><th>Period</th><th>Output</th><th>Input</th><th>Payable</th><th>Filed</th></tr>
-<tr><td>Mar 2026</td><td>6,000</td><td>3,200</td><td>2,800</td><td><span class="badge badge-green">Yes</span></td></tr>
-<tr><td>Apr 2026</td><td>5,500</td><td>2,900</td><td>2,600</td><td><span class="badge badge-red">Due 20th</span></td></tr>
-</table>
-<h3 style="margin-top:20px">Govt Schemes</h3>
-<table><tr><th>Scheme</th><th>Benefit</th><th>Status</th></tr>
-<tr><td>PMEGP</td><td>Subsidy up to 35%</td><td><span class="badge badge-blue">Eligible</span></td></tr>
-<tr><td>Udyam</td><td>MSME benefits</td><td><span class="badge badge-green">Registered</span></td></tr>
-<tr><td>Stand-Up India</td><td>Loan 10L-1Cr</td><td><span class="badge badge-blue">Explore</span></td></tr>
-</table></div></div></div>
+<div class="card">
+<h3><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg> P&amp;L Summary (Monthly)</h3>
+<table><tbody>
+<tr><td>Gross Revenue</td><td style="text-align:right">&#8377;1,20,000</td></tr>
+<tr><td>(-) Returns</td><td style="text-align:right;color:var(--red)">-&#8377;8,400</td></tr>
+<tr><td>(-) Commissions</td><td style="text-align:right;color:var(--red)">-&#8377;18,000</td></tr>
+<tr><td>(-) Shipping</td><td style="text-align:right;color:var(--red)">-&#8377;12,000</td></tr>
+<tr style="font-weight:700;border-top:2px solid var(--accent)"><td>Net Revenue</td><td style="text-align:right">&#8377;81,600</td></tr>
+<tr><td>(-) COGM</td><td style="text-align:right;color:var(--red)">-&#8377;55,500</td></tr>
+<tr><td>(-) OpEx</td><td style="text-align:right;color:var(--red)">-&#8377;12,000</td></tr>
+<tr style="font-weight:700;border-top:2px solid var(--green)"><td>Net Profit</td><td style="text-align:right;color:var(--green)">&#8377;14,100</td></tr>
+<tr><td>Net Margin</td><td style="text-align:right"><span class="badge-pill bg-green">11.75%</span></td></tr>
+</tbody></table>
+</div>
+<div>
+<div class="card">
+<h3><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/></svg> GST Tracker</h3>
+<table><thead><tr><th>Period</th><th>Output</th><th>Input</th><th>Payable</th><th>Filed</th></tr></thead>
+<tbody>
+<tr><td>Mar 2026</td><td>6,000</td><td>3,200</td><td>2,800</td><td><span class="badge-pill bg-green">Yes</span></td></tr>
+<tr><td>Apr 2026</td><td>5,500</td><td>2,900</td><td>2,600</td><td><span class="badge-pill bg-orange">Due 20th</span></td></tr>
+</tbody></table>
+</div>
+<div class="card">
+<h3><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/></svg> Govt Schemes</h3>
+<table><thead><tr><th>Scheme</th><th>Benefit</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td>PMEGP</td><td>Subsidy up to 35%</td><td><span class="badge-pill bg-green">Eligible</span></td></tr>
+<tr><td>Udyam</td><td>MSME benefits</td><td><span class="badge-pill bg-green">Registered</span></td></tr>
+<tr><td>Stand-Up India</td><td>Loan 10L-1Cr</td><td><span class="badge-pill bg-blue">Explore</span></td></tr>
+</tbody></table>
+</div>
+</div>
+</div>
+</section>
 
-<!-- TAB: MARKETING -->
-<div class="tab" id="tab-marketing">
-<div class="card"><h3>Content Calendar</h3>
-<table><tr><th>Day</th><th>Platform</th><th>Content</th><th>Status</th></tr>
-<tr><td>Mon</td><td>Instagram</td><td>New Arrival Reel</td><td><span class="badge badge-green">Scheduled</span></td></tr>
-<tr><td>Wed</td><td>Instagram</td><td>Behind the Scenes</td><td><span class="badge badge-orange">Draft</span></td></tr>
-<tr><td>Fri</td><td>Instagram</td><td>Customer Styling</td><td><span class="badge badge-red">Pending</span></td></tr>
-<tr><td>Sat</td><td>WhatsApp</td><td>Wholesale Catalog</td><td><span class="badge badge-blue">Weekly</span></td></tr>
-</table></div>
-<div class="card"><h3>Influencer Tracker</h3>
-<table><tr><th>Name</th><th>Followers</th><th>Cost</th><th>Orders</th><th>ROI</th></tr>
-<tr><td>@style_queen_lucknow</td><td>45K</td><td>Barter</td><td>12</td><td><span class="badge badge-green">+Rs.4,200</span></td></tr>
-<tr><td>@ethnic_vibes_</td><td>22K</td><td>Rs.2000</td><td>8</td><td><span class="badge badge-green">+Rs.800</span></td></tr>
-</table></div></div>
+<!-- TAB: Marketing -->
+<section class="tab" id="tab-marketing">
+<div class="grid-2">
+<div class="card">
+<h3><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Content Calendar</h3>
+<table><thead><tr><th>Day</th><th>Platform</th><th>Content</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td>Mon</td><td>Instagram</td><td>New Arrival Reel</td><td><span class="badge-pill bg-green">Scheduled</span></td></tr>
+<tr><td>Wed</td><td>Instagram</td><td>Behind the Scenes</td><td><span class="badge-pill bg-orange">Draft</span></td></tr>
+<tr><td>Fri</td><td>Instagram</td><td>Customer Styling</td><td><span class="badge-pill bg-orange">Pending</span></td></tr>
+<tr><td>Sat</td><td>WhatsApp</td><td>Wholesale Catalog</td><td><span class="badge-pill bg-blue">Weekly</span></td></tr>
+</tbody></table>
+</div>
+<div class="card">
+<h3><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg> Influencer Tracker</h3>
+<table><thead><tr><th>Name</th><th>Followers</th><th>Cost</th><th>Orders</th><th>ROI</th></tr></thead>
+<tbody>
+<tr><td>@style_queen_lucknow</td><td>45K</td><td>Barter</td><td>12</td><td><span class="badge-pill bg-green">+Rs.4,200</span></td></tr>
+<tr><td>@ethnic_vibes_</td><td>22K</td><td>Rs.2000</td><td>8</td><td><span class="badge-pill bg-green">+Rs.800</span></td></tr>
+</tbody></table>
+</div>
+</div>
+</section>
 
-<!-- TAB: WEBSITE (Company Website) -->
-<div class="tab" id="tab-website">
+<!-- TAB: Website -->
+<section class="tab" id="tab-website">
 <div class="website-hero">
 <h2>THE BAISA</h2>
 <p>Premium Women's Ethnic Wear - Handcrafted with Love from India</p>
-<div style="margin-top:20px"><button class="btn btn-accent" style="font-size:1rem;padding:12px 32px" onclick="showTab('tab-products',document.querySelectorAll('.nav-item')[7])">View Collection</button></div>
+<a href="#" class="btn btn-primary" style="margin-top:20px">View Collection</a>
 </div>
 <div class="product-grid">
-<div class="product-card"><div class="img">👗</div><div class="info"><h4>Cotton A-Line Kurti</h4><p style="color:var(--muted);font-size:.75rem;margin-bottom:6px">Pure cotton, breathable, everyday wear</p><span class="price">&#8377;349</span><span class="old-price">&#8377;599</span></div></div>
-<div class="product-card"><div class="img">👘</div><div class="info"><h4>Rayon Coord Set</h4><p style="color:var(--muted);font-size:.75rem;margin-bottom:6px">Matching top + bottom, festive ready</p><span class="price">&#8377;499</span><span class="old-price">&#8377;899</span></div></div>
-<div class="product-card"><div class="img">🧥</div><div class="info"><h4>3-Piece Kurta Set</h4><p style="color:var(--muted);font-size:.75rem;margin-bottom:6px">Kurta + bottom + dupatta, premium</p><span class="price">&#8377;649</span><span class="old-price">&#8377;1,199</span></div></div>
-<div class="product-card"><div class="img">💃</div><div class="info"><h4>Chikan Embroidery Kurti</h4><p style="color:var(--muted);font-size:.75rem;margin-bottom:6px">Traditional Lucknowi chikan work</p><span class="price">&#8377;449</span><span class="old-price">&#8377;799</span></div></div>
-<div class="product-card"><div class="img">🌺</div><div class="info"><h4>Printed Maxi Dress</h4><p style="color:var(--muted);font-size:.75rem;margin-bottom:6px">Floral print, ankle length, elegant</p><span class="price">&#8377;399</span><span class="old-price">&#8377;699</span></div></div>
-<div class="product-card"><div class="img">✨</div><div class="info"><h4>Festive Silk Set</h4><p style="color:var(--muted);font-size:.75rem;margin-bottom:6px">Wedding & festival special collection</p><span class="price">&#8377;799</span><span class="old-price">&#8377;1,499</span></div></div>
+<div class="product-card"><div class="img">&#128087;</div><div class="info"><h4>Cotton A-Line Kurti</h4><p style="color:var(--text-secondary);font-size:.8rem;margin-bottom:8px">Pure cotton, breathable, everyday wear</p><span class="price">&#8377;349</span><span class="old-price">&#8377;599</span></div></div>
+<div class="product-card"><div class="img">&#128088;</div><div class="info"><h4>Rayon Coord Set</h4><p style="color:var(--text-secondary);font-size:.8rem;margin-bottom:8px">Matching top + bottom, festive ready</p><span class="price">&#8377;499</span><span class="old-price">&#8377;899</span></div></div>
+<div class="product-card"><div class="img">&#129509;</div><div class="info"><h4>3-Piece Kurta Set</h4><p style="color:var(--text-secondary);font-size:.8rem;margin-bottom:8px">Kurta + bottom + dupatta, premium</p><span class="price">&#8377;649</span><span class="old-price">&#8377;1,199</span></div></div>
+<div class="product-card"><div class="img">&#128131;</div><div class="info"><h4>Chikan Embroidery Kurti</h4><p style="color:var(--text-secondary);font-size:.8rem;margin-bottom:8px">Traditional Lucknowi chikan work</p><span class="price">&#8377;449</span><span class="old-price">&#8377;799</span></div></div>
+<div class="product-card"><div class="img">&#127802;</div><div class="info"><h4>Printed Maxi Dress</h4><p style="color:var(--text-secondary);font-size:.8rem;margin-bottom:8px">Floral print, ankle length, elegant</p><span class="price">&#8377;399</span><span class="old-price">&#8377;699</span></div></div>
+<div class="product-card"><div class="img">&#10024;</div><div class="info"><h4>Festive Silk Set</h4><p style="color:var(--text-secondary);font-size:.8rem;margin-bottom:8px">Wedding &amp; festival special collection</p><span class="price">&#8377;799</span><span class="old-price">&#8377;1,499</span></div></div>
 </div>
 <div class="grid-2" style="margin-top:24px">
-<div class="card"><h3>About The Baisa</h3>
-<p style="color:var(--muted);font-size:.85rem;line-height:1.8">The Baisa is a women's ethnic wear brand crafting affordable luxury for the modern Indian woman. Every piece is designed with care, combining traditional craftsmanship with contemporary style. We source premium fabrics and work with skilled artisans to deliver quality you can feel.</p>
-<div style="margin-top:16px">
-<div style="color:var(--accent);font-weight:600;margin-bottom:8px">Why Choose Us</div>
-<div style="color:var(--muted);font-size:.82rem;line-height:2">
-&#10004; Premium fabrics at affordable prices<br>
-&#10004; Handcrafted by skilled artisans<br>
-&#10004; Easy returns & exchanges<br>
-&#10004; Pan-India shipping (free above Rs.499)
-</div></div></div>
-<div class="card"><h3>Contact Us</h3>
-<div style="color:var(--muted);font-size:.85rem;line-height:2.2">
-<div><strong style="color:var(--text)">WhatsApp:</strong> <a href="https://wa.me/91XXXXXXXXXX" style="color:var(--accent)">+91 XXXXXXXXXX</a></div>
-<div><strong style="color:var(--text)">Email:</strong> thebaisa.brand@gmail.com</div>
-<div><strong style="color:var(--text)">Instagram:</strong> <a href="https://instagram.com/" target="_blank" style="color:var(--accent)">@thebaisa_official</a></div>
-<div><strong style="color:var(--text)">Location:</strong> Hyderabad, India</div>
+<div class="card">
+<h3>About The Baisa</h3>
+<p style="color:var(--text-secondary);font-size:.85rem;line-height:1.7">The Baisa is a women's ethnic wear brand crafting affordable luxury for the modern Indian woman. Every piece is designed with care, combining traditional craftsmanship with contemporary style.</p>
+<div style="margin-top:16px;font-size:.85rem;color:var(--text-primary)">
+<div style="padding:6px 0">&#10004; Premium fabrics at affordable prices</div>
+<div style="padding:6px 0">&#10004; Handcrafted by skilled artisans</div>
+<div style="padding:6px 0">&#10004; Easy returns &amp; exchanges</div>
+<div style="padding:6px 0">&#10004; Pan-India shipping (free above Rs.499)</div>
 </div>
-<div style="margin-top:16px">
-<div style="color:var(--accent);font-weight:600;margin-bottom:8px">Shop On</div>
-<div style="display:flex;gap:10px;flex-wrap:wrap">
-<a href="https://supplier.meesho.com/" target="_blank" class="btn btn-sm">Meesho</a>
+</div>
+<div class="card">
+<h3>Contact Us</h3>
+<div style="font-size:.85rem;color:var(--text-secondary);line-height:2">
+<div><strong>WhatsApp:</strong> <a href="https://wa.me/91XXXXXXXXXX" style="color:var(--blue)">+91 XXXXXXXXXX</a></div>
+<div><strong>Email:</strong> thebaisa.brand@gmail.com</div>
+<div><strong>Instagram:</strong> <a href="https://instagram.com/" target="_blank" rel="noopener" style="color:var(--blue)">@thebaisa_official</a></div>
+<div><strong>Location:</strong> Hyderabad, India</div>
+</div>
+<div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap">
+<a href="https://supplier.meesho.com/" target="_blank" rel="noopener" class="btn btn-sm">Meesho</a>
 <a href="#" class="btn btn-sm">GlowRoad</a>
-<a href="https://sellercentral.amazon.in/" target="_blank" class="btn btn-sm">Amazon</a>
-<a href="https://www.instagram.com/" target="_blank" class="btn btn-sm">Instagram</a>
-</div></div></div></div></div>
+<a href="https://sellercentral.amazon.in/" target="_blank" rel="noopener" class="btn btn-sm">Amazon</a>
+<a href="https://www.instagram.com/" target="_blank" rel="noopener" class="btn btn-sm">Instagram</a>
+</div>
+</div>
+</div>
+</section>
 
-<!-- TAB: RESOURCES -->
-<div class="tab" id="tab-resources">
+<!-- TAB: Resources -->
+<section class="tab" id="tab-resources">
 <div class="grid-2">
-<div class="card"><h3>Daily Operations Checklist</h3>
-<div style="font-size:.85rem;line-height:2.2">
-<div><input type="checkbox"> Check new orders on all platforms</div>
-<div><input type="checkbox"> Process & pack pending shipments</div>
-<div><input type="checkbox"> Update inventory after dispatch</div>
-<div><input type="checkbox"> Follow up with job workers</div>
-<div><input type="checkbox"> Check returns & process refunds</div>
-<div><input type="checkbox"> Update cash book / accounts</div>
-<div><input type="checkbox"> Post on Instagram / social media</div>
-<div><input type="checkbox"> Review tomorrow's dispatch list</div>
-<div><input type="checkbox"> Check GST compliance deadlines</div>
-<div><input type="checkbox"> Reply to customer queries</div>
-</div></div>
-<div class="card"><h3>Quick Access Links</h3>
-<div style="font-size:.85rem;line-height:2.4">
-<div><a href="https://drive.google.com/" target="_blank" style="color:var(--blue)">Google Drive - Master Folder</a></div>
-<div><a href="https://docs.google.com/spreadsheets/" target="_blank" style="color:var(--blue)">Google Sheets - Data Hub</a></div>
-<div><a href="https://supplier.meesho.com/" target="_blank" style="color:var(--blue)">Meesho Supplier Panel</a></div>
-<div><a href="https://web.whatsapp.com/" target="_blank" style="color:var(--blue)">WhatsApp Web</a></div>
-<div><a href="https://www.gst.gov.in/" target="_blank" style="color:var(--blue)">GST Portal</a></div>
-<div><a href="https://udyamregistration.gov.in/" target="_blank" style="color:var(--blue)">Udyam Registration</a></div>
-<div><a href="https://www.indiapost.gov.in/" target="_blank" style="color:var(--blue)">India Post Tracking</a></div>
-<div><a href="https://www.shiprocket.in/" target="_blank" style="color:var(--blue)">Shiprocket Dashboard</a></div>
-<div><a href="https://www.canva.com/" target="_blank" style="color:var(--blue)">Canva - Design Studio</a></div>
-</div></div></div></div>
+<div class="card">
+<h3><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Daily Operations Checklist</h3>
+<div class="check-item"><input type="checkbox"> Check new orders on all platforms</div>
+<div class="check-item"><input type="checkbox"> Process &amp; pack pending shipments</div>
+<div class="check-item"><input type="checkbox"> Update inventory after dispatch</div>
+<div class="check-item"><input type="checkbox"> Follow up with job workers</div>
+<div class="check-item"><input type="checkbox"> Check returns &amp; process refunds</div>
+<div class="check-item"><input type="checkbox"> Update cash book / accounts</div>
+<div class="check-item"><input type="checkbox"> Post on Instagram / social media</div>
+<div class="check-item"><input type="checkbox"> Review tomorrow's dispatch list</div>
+<div class="check-item"><input type="checkbox"> Check GST compliance deadlines</div>
+<div class="check-item"><input type="checkbox"> Reply to customer queries</div>
+</div>
+<div class="card">
+<h3><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> Quick Access Links</h3>
+<div style="display:flex;flex-direction:column;gap:6px">
+<a href="https://drive.google.com/" target="_blank" rel="noopener" class="ext-link"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> Google Drive - Master Folder</a>
+<a href="https://docs.google.com/spreadsheets/" target="_blank" rel="noopener" class="ext-link"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> Google Sheets - Data Hub</a>
+<a href="https://supplier.meesho.com/" target="_blank" rel="noopener" class="ext-link"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> Meesho Supplier Panel</a>
+<a href="https://web.whatsapp.com/" target="_blank" rel="noopener" class="ext-link"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> WhatsApp Web</a>
+<a href="https://www.gst.gov.in/" target="_blank" rel="noopener" class="ext-link"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> GST Portal</a>
+<a href="https://udyamregistration.gov.in/" target="_blank" rel="noopener" class="ext-link"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> Udyam Registration</a>
+<a href="https://www.indiapost.gov.in/" target="_blank" rel="noopener" class="ext-link"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> India Post Tracking</a>
+<a href="https://www.shiprocket.in/" target="_blank" rel="noopener" class="ext-link"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> Shiprocket Dashboard</a>
+<a href="https://www.canva.com/" target="_blank" rel="noopener" class="ext-link"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> Canva - Design Studio</a>
+</div>
+</div>
+</div>
+</section>
 
-</div><!-- end main -->
-</div><!-- end app -->
+</div><!-- /content-inner -->
+</main>
+</div><!-- /app -->
 
 <script>
-// Live Clock
-function updateClock(){var n=new Date();var h=n.getHours();var m=n.getMinutes();var s=n.getSeconds();var ampm=h>=12?'PM':'AM';h=h%12;h=h?h:12;var el=document.getElementById('live-clock');if(el)el.textContent=(h<10?'0':'')+h+':'+(m<10?'0':'')+m+':'+(s<10?'0':'')+s+' '+ampm;}
+// === LIVE CLOCK ===
+function updateClock(){
+var n=new Date(),h=n.getHours(),m=n.getMinutes(),s=n.getSeconds();
+var ampm=h>=12?'PM':'AM';h=h%12;h=h?h:12;
+var el=document.getElementById('live-clock');
+if(el)el.textContent=(h<10?'0':'')+h+':'+(m<10?'0':'')+m+':'+(s<10?'0':'')+s+' '+ampm;
+}
 setInterval(updateClock,1000);updateClock();
 
-// Date
-var de=document.getElementById('current-date');if(de)de.textContent=new Date().toLocaleDateString('en-IN',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+// === DATE ===
+var de=document.getElementById('current-date');
+if(de)de.textContent=new Date().toLocaleDateString('en-IN',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
 
-// Tab titles
+// === TAB SYSTEM ===
 var tabTitles={'tab-command':'Command Center','tab-orders':'Orders & Fulfillment','tab-inventory':'Inventory Management','tab-production':'Production Tracking','tab-costing':'Costing Engine','tab-products':'Product Catalog','tab-channels':'Channel Control','tab-finance':'Finance & Compliance','tab-marketing':'Marketing Hub','tab-website':'The Baisa - Brand Website','tab-resources':'Resources'};
 
 function showTab(id,el){
-document.querySelectorAll('.tab').forEach(function(t){t.style.display='none';});
-var tab=document.getElementById(id);if(tab)tab.style.display='block';
-document.querySelectorAll('.nav-item').forEach(function(n){n.classList.remove('active');});
-if(el)el.classList.add('active');
+document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active');});
+var tab=document.getElementById(id);if(tab)tab.classList.add('active');
+document.querySelectorAll('.nav-item').forEach(function(n){n.classList.remove('active');n.removeAttribute('aria-current');});
+if(el){el.classList.add('active');el.setAttribute('aria-current','page');}
 var tt=document.getElementById('tab-title');if(tt)tt.textContent=tabTitles[id]||'Dashboard';
 if(id==='tab-costing')calcCOGM();
+// Scroll to top
+document.querySelector('main.content').scrollTop=0;
+// Close mobile sidebar
+var sb=document.querySelector('aside.sidebar');if(sb)sb.classList.remove('open');
+document.querySelector('.sidebar-backdrop').classList.remove('open');
 }
 
-// COGM Calculator
+// === THEME TOGGLE ===
+function toggleTheme(){
+var html=document.documentElement;
+var current=html.getAttribute('data-theme');
+var next=current==='dark'?'light':'dark';
+html.setAttribute('data-theme',next);
+var icon=document.getElementById('theme-icon');
+if(next==='light'){
+icon.innerHTML='<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>';
+}else{
+icon.innerHTML='<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>';
+}
+try{localStorage.setItem('baisa-theme',next);}catch(e){}
+}
+// Restore theme
+try{var saved=localStorage.getItem('baisa-theme');if(saved){document.documentElement.setAttribute('data-theme',saved);if(saved==='light'){var ic=document.getElementById('theme-icon');if(ic)ic.innerHTML='<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>';}}}catch(e){}
+
+// === MOBILE SIDEBAR ===
+function toggleSidebar(){
+document.querySelector('aside.sidebar').classList.toggle('open');
+document.querySelector('.sidebar-backdrop').classList.toggle('open');
+}
+
+// === COMMAND PALETTE ===
+var cmdItems=[
+{label:'Command Center',tab:'tab-command'},
+{label:'Orders & Fulfillment',tab:'tab-orders'},
+{label:'Inventory Management',tab:'tab-inventory'},
+{label:'Production Tracking',tab:'tab-production'},
+{label:'Costing Engine',tab:'tab-costing'},
+{label:'Product Catalog',tab:'tab-products'},
+{label:'Channel Control',tab:'tab-channels'},
+{label:'Finance & Compliance',tab:'tab-finance'},
+{label:'Marketing Hub',tab:'tab-marketing'},
+{label:'Website',tab:'tab-website'},
+{label:'Resources',tab:'tab-resources'},
+{label:'Toggle Theme',action:function(){toggleTheme();closeCmdPalette();}},
+{label:'Print Page',action:function(){window.print();closeCmdPalette();}},
+{label:'Meesho Supplier Panel',url:'https://supplier.meesho.com/'},
+{label:'Google Drive',url:'https://drive.google.com/'},
+{label:'Google Sheets',url:'https://docs.google.com/spreadsheets/'},
+{label:'WhatsApp Web',url:'https://web.whatsapp.com/'},
+{label:'GST Portal',url:'https://www.gst.gov.in/'},
+{label:'Amazon Seller Central',url:'https://sellercentral.amazon.in/'},
+{label:'Myntra Partner',url:'https://sell.myntra.com/'},
+];
+
+function openCmdPalette(){
+var o=document.getElementById('cmdPalette');o.classList.add('open');
+var inp=document.getElementById('cmdInput');inp.value='';inp.focus();
+filterCmd('');
+}
+function closeCmdPalette(){document.getElementById('cmdPalette').classList.remove('open');}
+function filterCmd(q){
+var r=document.getElementById('cmdResults');r.innerHTML='';
+var items=cmdItems.filter(function(i){return i.label.toLowerCase().indexOf(q.toLowerCase())>-1;});
+items.forEach(function(item){
+var d=document.createElement('div');d.className='cmd-item';
+d.innerHTML='<svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2">'+(item.tab?'<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>':item.url?'<path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>':'<circle cx="12" cy="12" r="3"/>')+'</svg> '+item.label;
+if(item.tab){
+d.onclick=function(){
+var btn=document.querySelector('.nav-item[onclick*="'+item.tab+'"]');
+showTab(item.tab,btn);closeCmdPalette();
+};
+}else if(item.url){
+d.onclick=function(){window.open(item.url,'_blank');closeCmdPalette();};
+}else if(item.action){
+d.onclick=item.action;
+}
+r.appendChild(d);
+});
+}
+
+// Keyboard shortcut: Cmd+K
+document.addEventListener('keydown',function(e){
+if((e.metaKey||e.ctrlKey)&&e.key==='k'){e.preventDefault();openCmdPalette();}
+if(e.key==='Escape')closeCmdPalette();
+});
+
+// === COGM CALCULATOR ===
 function calcCOGM(){
 var v=function(id){return parseFloat(document.getElementById(id).value)||0;};
 var cogm=v('fc')+v('dc')+v('wst')+v('fin')+v('trm')+v('pkg')+v('lab')+v('oh')+v('tpt');
@@ -412,26 +723,34 @@ document.getElementById('price-meesho').textContent=mp.toFixed(2);
 document.getElementById('price-wholesale').textContent=(cogm*1.15).toFixed(2);
 var net=Math.round(mp-cogm-mp*0.2-75-mp*0.05);
 var el2=document.getElementById('profit-meesho');
-if(el2){el2.innerHTML='<span class="badge '+(net>0?'badge-green':'badge-red')+'">Net: Rs.'+net+' ('+Math.round(net/mp*100)+'%)</span>';
-}}
+if(el2){el2.innerHTML='<span class="badge-pill '+(net>0?'bg-green':'bg-red')+'">Net: Rs.'+net+' ('+Math.round(net/mp*100)+'%)</span>';}
+}
 
-// Orders (localStorage)
-var orders=JSON.parse(localStorage.getItem('baisa_orders')||'[]');
+// === ORDERS (safe storage) ===
+var orders=[];
+try{orders=JSON.parse(localStorage.getItem('baisa_orders')||'[]');}catch(e){orders=[];}
+
 function addOrder(){
 var amt=parseInt(document.getElementById('o-amt').value)||350;
 var o={id:'ORD-'+Date.now().toString(36).toUpperCase(),date:new Date().toLocaleDateString('en-IN'),platform:document.getElementById('o-platform').value,sku:document.getElementById('o-sku').value,qty:parseInt(document.getElementById('o-qty').value)||1,amt:amt,status:'Pending'};
-orders.push(o);localStorage.setItem('baisa_orders',JSON.stringify(orders));renderOrders();
-document.getElementById('o-sku').value='';document.getElementById('o-amt').value='';}
+orders.push(o);
+try{localStorage.setItem('baisa_orders',JSON.stringify(orders));}catch(e){}
+renderOrders();
+document.getElementById('o-sku').value='';document.getElementById('o-amt').value='';
+}
+
 function renderOrders(){
 var tb=document.getElementById('orders-body');if(!tb)return;tb.innerHTML='';
 orders.forEach(function(o,i){
-tb.innerHTML+='<tr><td>'+o.id+'</td><td>'+o.date+'</td><td>'+o.platform+'</td><td>'+o.sku+'</td><td>'+o.qty+'</td><td>&#8377;'+(o.amt||350)+'</td><td><span class="badge badge-orange">'+o.status+'</span></td><td><button class="btn btn-sm" onclick="deleteOrder('+i+')">X</button></td></tr>';});
+tb.innerHTML+='<tr><td>'+o.id+'</td><td>'+o.date+'</td><td>'+o.platform+'</td><td>'+o.sku+'</td><td>'+o.qty+'</td><td>&#8377;'+(o.amt||350)+'</td><td><span class="badge-pill bg-orange">'+o.status+'</span></td><td><button class="btn btn-sm" onclick="deleteOrder('+i+')">X</button></td></tr>';
+});
 var k1=document.getElementById('kpi-orders');if(k1)k1.textContent=orders.length;
 var rev=orders.reduce(function(s,o){return s+(o.amt||350)*o.qty;},0);
 var k2=document.getElementById('kpi-revenue');if(k2)k2.innerHTML='&#8377;'+rev.toLocaleString('en-IN');
 var k3=document.getElementById('kpi-pending');if(k3)k3.textContent=orders.filter(function(o){return o.status==='Pending';}).length;
-var k4=document.getElementById('order-count');if(k4)k4.textContent=orders.length;}
-function deleteOrder(i){orders.splice(i,1);localStorage.setItem('baisa_orders',JSON.stringify(orders));renderOrders();}
+var k4=document.getElementById('order-count');if(k4)k4.textContent=orders.length;
+}
+function deleteOrder(i){orders.splice(i,1);try{localStorage.setItem('baisa_orders',JSON.stringify(orders));}catch(e){}renderOrders();}
 renderOrders();
 </script>
 </body>
