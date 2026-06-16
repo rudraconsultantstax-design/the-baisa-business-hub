@@ -6,6 +6,17 @@
 <title>The Baisa — Master Business OS v7.0</title>
 <meta name="description" content="The Baisa — Premium Women's Ethnic Wear. Master Business Operating System & Brand Portal. Pushpraj Fashion, Sanganer, Jaipur.">
 <meta name="theme-color" content="#c4973b">
+<meta name="robots" content="noindex, nofollow">
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="The Baisa — Master Business OS">
+<meta property="og:title" content="The Baisa — Master Business OS v7.0">
+<meta property="og:description" content="The Baisa — Premium Women's Ethnic Wear. Master Business Operating System & Brand Portal. Pushpraj Fashion, Sanganer, Jaipur.">
+<meta property="og:locale" content="en_IN">
+<!-- Twitter -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="The Baisa — Master Business OS v7.0">
+<meta name="twitter:description" content="The Baisa — Premium Women's Ethnic Wear. Master Business Operating System & Brand Portal. Pushpraj Fashion, Sanganer, Jaipur.">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>B</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -446,10 +457,24 @@ const CHANNELS=[{name:'Meesho',url:'https://supplier.meesho.com/',commission:'0%
 const CHECKLIST={morning:[{t:'9:00 AM',task:'Check Meesho Supplier Dashboard - new orders, returns, settlements'},{t:'9:15 AM',task:'Review WhatsApp messages - customer queries, wholesale inquiries'},{t:'9:30 AM',task:'Brief karigars - production priorities, fabric allocation, QC notes'},{t:'10:00 AM',task:'Update inventory count - ready stock per SKU per size'}],afternoon:[{t:'12:00 PM',task:'Process & pack orders - Meesho label, QC check, dispatch'},{t:'1:00 PM',task:'Product photography - shoot new arrivals, upload to Drive'},{t:'2:00 PM',task:'Myntra listing work - fill Excel, upload images, map attributes'},{t:'3:00 PM',task:'Social media - 1 Instagram reel/post, respond to DMs'}],evening:[{t:'5:00 PM',task:'Day-end revenue check - settlements, COD vs prepaid ratio'},{t:'5:30 PM',task:'Update product tracker sheet - orders dispatched, returns'},{t:'6:00 PM',task:'Plan tomorrow - production schedule, fabric procurement, content'}]};
 const PRODUCTION=[{name:'Eid Pastel Floral Kurti Batch',priority:'P1',target:100,fabric:'Cotton pastel',karigar:'Primary unit',eta:'Apr 18',sam:18,status:'In stitching',progress:65,tags:['In Production','QC Pending']},{name:'Ornate Indigo 3-Pc Set',priority:'P1',target:50,fabric:'Indigo cotton + dupatta',karigar:'Primary unit',eta:'Apr 20',sam:32,status:'Cutting done',progress:40,tags:['Stitching Today']},{name:'Mustard Embroidered Kurti',priority:'P2',target:75,fabric:'Viscose mustard',karigar:'Secondary contractor',eta:'Apr 22',sam:25,status:'Fabric Ready',progress:20,tags:['Fabric Ready']},{name:'Geometric Print Tunic',priority:'P2',target:60,fabric:'Cotton-blend rust',karigar:'Secondary contractor',eta:'Apr 23',sam:20,status:'Pattern Ready',progress:15,tags:['Pattern Ready']},{name:'Cotton Rayon Kurti Summer (3 colors)',priority:'P3',target:150,fabric:'Procure by Apr 20',karigar:'TBD',eta:'Apr 28',sam:15,status:'Planning',progress:5,tags:['Planning','Fabric Procurement']}];
 /* === STATE === */
-let state=JSON.parse(localStorage.getItem(DB_KEY)||'{}');
-if(!state.orders)state.orders=[];
-if(!state.checklist)state.checklist={};
-function save(){localStorage.setItem(DB_KEY,JSON.stringify(state));try{new BroadcastChannel('baisa-sync').postMessage({type:'sync',data:state})}catch(e){}}
+const SCHEMA_VERSION=7;
+function defaultState(){return {_v:SCHEMA_VERSION,orders:[],checklist:{}};}
+function loadState(){
+  let raw=null;
+  try{raw=localStorage.getItem(DB_KEY);}catch(e){return defaultState();}
+  if(!raw)return defaultState();
+  let parsed;
+  try{parsed=JSON.parse(raw);}catch(e){console.warn('Baisa OS: corrupt store, resetting to defaults.',e);return defaultState();}
+  if(!parsed||typeof parsed!=='object'||Array.isArray(parsed)){console.warn('Baisa OS: unexpected store shape, resetting to defaults.');return defaultState();}
+  if(parsed._v!=null&&parsed._v>SCHEMA_VERSION){console.warn('Baisa OS: store schema newer than app, resetting to defaults.');return defaultState();}
+  /* Legacy stores have no _v but are v7-compatible — keep their data, just normalize shape. */
+  if(!Array.isArray(parsed.orders))parsed.orders=[];
+  if(!parsed.checklist||typeof parsed.checklist!=='object'||Array.isArray(parsed.checklist))parsed.checklist={};
+  parsed._v=SCHEMA_VERSION;
+  return parsed;
+}
+let state=loadState();
+function save(){try{localStorage.setItem(DB_KEY,JSON.stringify(state));}catch(e){console.warn('Baisa OS: could not persist state.',e);}try{new BroadcastChannel('baisa-sync').postMessage({type:'sync',data:state})}catch(e){}}
 function toast(msg,type='success'){const t=document.createElement('div');t.className='toast toast-'+type;t.textContent=msg;document.getElementById('toast-container').appendChild(t);setTimeout(()=>t.remove(),3000)}
 /* === CLOCK === */
 function updateClock(){const now=new Date();document.getElementById('clock').textContent=now.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:true});document.getElementById('today-date').textContent=now.toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'})}
