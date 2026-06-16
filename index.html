@@ -153,22 +153,22 @@ section.page.active{display:block}
 </div>
 <div class="sidebar-scroll">
 <div class="nav-group"><div class="nav-group-label">Operations</div>
-<button class="nav-btn active" onclick="showPage('dashboard')"><i class="fas fa-th-large"></i><span>Command Center</span></button>
-<button class="nav-btn" onclick="showPage('orders')"><i class="fas fa-shopping-bag"></i><span>Orders</span></button>
-<button class="nav-btn" onclick="showPage('inventory')"><i class="fas fa-boxes-stacked"></i><span>Inventory</span></button>
-<button class="nav-btn" onclick="showPage('production')"><i class="fas fa-industry"></i><span>Production</span></button>
-<button class="nav-btn" onclick="showPage('costing')"><i class="fas fa-calculator"></i><span>Costing Engine</span><span class="badge">Core</span></button>
+<button class="nav-btn active" onclick="showPage('dashboard', event)"><i class="fas fa-th-large"></i><span>Command Center</span></button>
+<button class="nav-btn" onclick="showPage('orders', event)"><i class="fas fa-shopping-bag"></i><span>Orders</span></button>
+<button class="nav-btn" onclick="showPage('inventory', event)"><i class="fas fa-boxes-stacked"></i><span>Inventory</span></button>
+<button class="nav-btn" onclick="showPage('production', event)"><i class="fas fa-industry"></i><span>Production</span></button>
+<button class="nav-btn" onclick="showPage('costing', event)"><i class="fas fa-calculator"></i><span>Costing Engine</span><span class="badge">Core</span></button>
 </div>
 <div class="nav-group"><div class="nav-group-label">Business</div>
-<button class="nav-btn" onclick="showPage('products')"><i class="fas fa-tags"></i><span>Products</span><span class="badge">25</span></button>
-<button class="nav-btn" onclick="showPage('channels')"><i class="fas fa-store"></i><span>Channels</span></button>
-<button class="nav-btn" onclick="showPage('finance')"><i class="fas fa-indian-rupee-sign"></i><span>Finance</span></button>
+<button class="nav-btn" onclick="showPage('products', event)"><i class="fas fa-tags"></i><span>Products</span><span class="badge">25</span></button>
+<button class="nav-btn" onclick="showPage('channels', event)"><i class="fas fa-store"></i><span>Channels</span></button>
+<button class="nav-btn" onclick="showPage('finance', event)"><i class="fas fa-indian-rupee-sign"></i><span>Finance</span></button>
 </div>
 <div class="nav-group"><div class="nav-group-label">Growth</div>
-<button class="nav-btn" onclick="showPage('marketing')"><i class="fas fa-bullhorn"></i><span>Marketing</span></button>
-<button class="nav-btn" onclick="showPage('dailyops')"><i class="fas fa-clipboard-check"></i><span>Daily Ops</span><span class="badge">Action</span></button>
-<button class="nav-btn" onclick="showPage('website')"><i class="fas fa-globe"></i><span>Website</span><span class="badge">NEW</span></button>
-<button class="nav-btn" onclick="showPage('resources')"><i class="fas fa-folder-open"></i><span>Resources</span></button>
+<button class="nav-btn" onclick="showPage('marketing', event)"><i class="fas fa-bullhorn"></i><span>Marketing</span></button>
+<button class="nav-btn" onclick="showPage('dailyops', event)"><i class="fas fa-clipboard-check"></i><span>Daily Ops</span><span class="badge">Action</span></button>
+<button class="nav-btn" onclick="showPage('website', event)"><i class="fas fa-globe"></i><span>Website</span><span class="badge">NEW</span></button>
+<button class="nav-btn" onclick="showPage('resources', event)"><i class="fas fa-folder-open"></i><span>Resources</span></button>
 </div>
 <div class="nav-links">
 <div class="nav-group-label" style="padding:0 4px;margin-bottom:6px">Live Integrations</div>
@@ -193,7 +193,7 @@ section.page.active{display:block}
 <div class="header-actions">
 <span class="live-dot dot-green"></span><span style="color:var(--success);font-size:.85rem;font-weight:600">Live</span>
 <button onclick="toggleCmd()"><i class="fas fa-search"></i> Cmd+K</button>
-<button onclick="toggleTheme()" id="theme-toggle"><i class="fas fa-moon"></i></button>
+<button onclick="toggleTheme()" id="theme-toggle" aria-label="Toggle light/dark theme" title="Toggle theme"><i class="fas fa-moon"></i></button>
 <button onclick="window.print()"><i class="fas fa-print"></i> Print</button>
 <button class="btn-accent" onclick="location.reload()"><i class="fas fa-sync"></i> Refresh</button>
 </div>
@@ -234,7 +234,7 @@ section.page.active{display:block}
 <div class="header-actions"><button class="btn-accent" onclick="addOrder()"><i class="fas fa-plus"></i> Add Order</button><button onclick="exportOrders()"><i class="fas fa-download"></i> Export CSV</button></div></div>
 <div class="alert alert-info">Paste Meesho CSV data below to auto-import orders. System auto-calculates net payout after commission+TDS+GST.</div>
 <div class="card"><div class="card-header"><h3>Order Import (CSV Paste)</h3><button class="btn btn-sm btn-accent" onclick="parseCSV()">Parse & Import</button></div>
-<textarea id="csv-paste" rows="4" style="width:100%;background:var(--bg-surface);border:1px solid var(--border);color:var(--text-primary);padding:12px;border-radius:var(--radius-sm);font-family:monospace;font-size:.8rem" placeholder="Paste Meesho/Myntra CSV here..."></textarea></div>
+<textarea id="csv-paste" rows="4" aria-label="Order CSV paste area" style="width:100%;background:var(--bg-surface);border:1px solid var(--border);color:var(--text-primary);padding:12px;border-radius:var(--radius-sm);font-family:monospace;font-size:.8rem" placeholder="Paste Meesho/Myntra CSV here..."></textarea></div>
 <div class="card"><div class="card-header"><h3><i class="fas fa-list"></i> Order Ledger</h3><span class="tag tag-accent" id="order-count">0 orders</span></div>
 <div class="table-wrap"><table><thead><tr><th>ID</th><th>Date</th><th>Platform</th><th>Product</th><th>Qty</th><th>MRP</th><th>Commission</th><th>Net Payout</th><th>Status</th><th>Action</th></tr></thead><tbody id="order-table"></tbody></table></div></div>
 </section>
@@ -409,7 +409,7 @@ section.page.active{display:block}
 </div></main></div>
 <!-- CMD PALETTE -->
 <div class="cmd-overlay" id="cmd-overlay" onclick="if(event.target===this)toggleCmd()">
-<div class="cmd-box"><input id="cmd-input" placeholder="Search tabs, actions, links..." oninput="filterCmd(this.value)">
+<div class="cmd-box"><input id="cmd-input" aria-label="Search tabs, actions, and links" placeholder="Search tabs, actions, links..." oninput="filterCmd(this.value)">
 <div class="cmd-results" id="cmd-results"></div></div></div>
 <div class="toast-container" id="toast-container"></div>
 <script>
@@ -458,7 +458,7 @@ setInterval(updateClock,1000);updateClock();
 function toggleTheme(){const h=document.documentElement;const t=h.getAttribute('data-theme')==='dark'?'light':'dark';h.setAttribute('data-theme',t);localStorage.setItem('baisa-theme',t)}
 if(localStorage.getItem('baisa-theme'))document.documentElement.setAttribute('data-theme',localStorage.getItem('baisa-theme'));
 /* === NAV === */
-function showPage(id){document.querySelectorAll('section.page').forEach(s=>s.classList.remove('active'));document.getElementById('page-'+id).classList.add('active');document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));event.currentTarget.classList.add('active')}
+function showPage(id,ev){const page=document.getElementById('page-'+id);if(!page)return;document.querySelectorAll('section.page').forEach(s=>s.classList.remove('active'));page.classList.add('active');document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));const e=ev||window.event;const btn=e&&e.currentTarget;if(btn&&btn.classList){btn.classList.add('active')}else{document.querySelectorAll('.nav-btn').forEach(b=>{if(b.textContent.toLowerCase().includes(id.substring(0,4)))b.classList.add('active')})}}
 /* === CMD PALETTE === */
 const CMD_ITEMS=[{label:'Command Center',page:'dashboard'},{label:'Orders & Fulfillment',page:'orders'},{label:'Inventory Management',page:'inventory'},{label:'Production Tracking',page:'production'},{label:'Costing Engine',page:'costing'},{label:'Product Catalog',page:'products'},{label:'Channel Control',page:'channels'},{label:'Finance & Compliance',page:'finance'},{label:'Marketing Engine',page:'marketing'},{label:'Daily Ops',page:'dailyops'},{label:'Website',page:'website'},{label:'Resources',page:'resources'}];
 function toggleCmd(){const o=document.getElementById('cmd-overlay');o.classList.toggle('active');if(o.classList.contains('active')){document.getElementById('cmd-input').value='';filterCmd('');setTimeout(()=>document.getElementById('cmd-input').focus(),100)}}
@@ -467,7 +467,7 @@ function showPageDirect(id){document.querySelectorAll('section.page').forEach(s=
 document.addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key==='k'){e.preventDefault();toggleCmd()}if(e.key==='Escape')toggleCmd()});
 filterCmd('');
 /* === DASHBOARD === */
-function renderDashboard(){const s=document.getElementById('dashboard-stats');const orderCount=state.orders.length;const rev=state.orders.reduce((a,o)=>a+((o.payout||0)*o.qty),0);s.innerHTML=`<div class="stat-card"><div class="value gold">${orderCount}</div><div class="label">Today's Orders</div><div class="sub">all platforms combined</div></div><div class="stat-card"><div class="value green">₹${rev||350}</div><div class="label">Today's Revenue</div><div class="sub">gross before returns</div></div><div class="stat-card"><div class="value">${Math.max(1,orderCount)}</div><div class="label">Pending Shipment</div><div class="sub">ship before 2 PM</div></div><div class="stat-card"><div class="value red">0</div><div class="label">Returns This Week</div></div><div class="stat-card"><div class="value gold">₹50K</div><div class="label">Cash Position</div><div class="sub">bank + receivables</div></div><div class="stat-card"><div class="value blue">${PRODUCTS.length}</div><div class="label">Active SKUs</div><div class="sub">${PRODUCTS.filter(p=>p.cat==='kurti').length} kurti, ${PRODUCTS.filter(p=>p.cat==='coord').length} coord, ${PRODUCTS.filter(p=>p.cat==='set').length} set, ${PRODUCTS.filter(p=>p.cat==='dress').length} dress</div></div><div class="stat-card"><div class="value">${CHANNELS.filter(c=>c.status==='live').length+1}</div><div class="label">Active Channels</div><div class="sub">${CHANNELS.filter(c=>c.status==='live').map(c=>c.name).join(', ')}</div></div><div class="stat-card"><div class="value green">68%</div><div class="label">Catalog Readiness</div><div class="sub">target: 90%+</div><div class="progress-bar" style="margin-top:8px"><div class="progress-fill" style="width:68%;background:var(--success)"></div></div></div>`;
+function renderDashboard(){const s=document.getElementById('dashboard-stats');const orderCount=state.orders.length;const rev=state.orders.reduce((a,o)=>a+((o.payout||0)*(o.qty||0)),0);s.innerHTML=`<div class="stat-card"><div class="value gold">${orderCount}</div><div class="label">Today's Orders</div><div class="sub">all platforms combined</div></div><div class="stat-card"><div class="value green">₹${rev||350}</div><div class="label">Today's Revenue</div><div class="sub">gross before returns</div></div><div class="stat-card"><div class="value">${Math.max(1,orderCount)}</div><div class="label">Pending Shipment</div><div class="sub">ship before 2 PM</div></div><div class="stat-card"><div class="value red">0</div><div class="label">Returns This Week</div></div><div class="stat-card"><div class="value gold">₹50K</div><div class="label">Cash Position</div><div class="sub">bank + receivables</div></div><div class="stat-card"><div class="value blue">${PRODUCTS.length}</div><div class="label">Active SKUs</div><div class="sub">${PRODUCTS.filter(p=>p.cat==='kurti').length} kurti, ${PRODUCTS.filter(p=>p.cat==='coord').length} coord, ${PRODUCTS.filter(p=>p.cat==='set').length} set, ${PRODUCTS.filter(p=>p.cat==='dress').length} dress</div></div><div class="stat-card"><div class="value">${CHANNELS.filter(c=>c.status==='live').length+1}</div><div class="label">Active Channels</div><div class="sub">${CHANNELS.filter(c=>c.status==='live').map(c=>c.name).join(', ')}</div></div><div class="stat-card"><div class="value green">68%</div><div class="label">Catalog Readiness</div><div class="sub">target: 90%+</div><div class="progress-bar" style="margin-top:8px"><div class="progress-fill" style="width:68%;background:var(--success)"></div></div></div>`;
 const alerts=document.getElementById('action-alerts');
 alerts.innerHTML=`<div class="alert alert-danger">Ship pending orders before 2 PM cutoff</div><div class="alert alert-warning">Restock raw fabric - cotton voile below 50m</div><div class="alert alert-success">Meesho payout Rs.12,400 expected tomorrow</div><div class="alert alert-info">Myntra onboarding: upload remaining 8 SKU photos</div>`;
 const mt=document.getElementById('margin-tracker');
@@ -493,7 +493,7 @@ function toggleCheck(key,el){state.checklist[key]=el.checked;save();renderCheckl
 function resetChecklist(){state.checklist={};save();renderChecklists();toast('Checklist reset!')}
 /* === ORDERS === */
 function addOrder(){const o={id:'ORD-'+Date.now().toString(36).toUpperCase(),date:new Date().toLocaleDateString('en-IN'),platform:'Meesho',product:'',qty:1,mrp:0,commission:0,payout:0,status:'Pending'};state.orders.unshift(o);save();renderOrders();toast('Order added')}
-function renderOrders(){const tb=document.getElementById('order-table');tb.innerHTML=state.orders.map((o,i)=>'<tr><td>'+o.id+'</td><td>'+o.date+'</td><td><select onchange="updateOrder('+i+',\'platform\',this.value)"><option'+(o.platform==='Meesho'?' selected':'')+'>Meesho</option><option'+(o.platform==='Myntra'?' selected':'')+'>Myntra</option><option'+(o.platform==='Amazon'?' selected':'')+'>Amazon</option><option'+(o.platform==='Flipkart'?' selected':'')+'>Flipkart</option></select></td><td><input value="'+o.product+'" onchange="updateOrder('+i+',\'product\',this.value)"></td><td><input type="number" value="'+o.qty+'" style="width:50px" onchange="updateOrder('+i+',\'qty\',+this.value)"></td><td><input type="number" value="'+o.mrp+'" style="width:70px" onchange="updateOrder('+i+',\'mrp\',+this.value)"></td><td>'+Math.round(o.mrp*(o.platform==='Myntra'?0.28:o.platform==='Amazon'?0.15:0))+'</td><td>'+Math.round(o.mrp-o.mrp*(o.platform==='Myntra'?0.28:o.platform==='Amazon'?0.15:0))+'</td><td><select onchange="updateOrder('+i+',\'status\',this.value)"><option'+(o.status==='Pending'?' selected':'')+'>Pending</option><option'+(o.status==='Packed'?' selected':'')+'>Packed</option><option'+(o.status==='Shipped'?' selected':'')+'>Shipped</option><option'+(o.status==='Delivered'?' selected':'')+'>Delivered</option><option'+(o.status==='Returned'?' selected':'')+'>Returned</option></select></td><td><button class="btn btn-sm btn-danger" onclick="deleteOrder('+i+')"><i class="fas fa-trash"></i></button></td></tr>').join('');document.getElementById('order-count').textContent=state.orders.length+' orders'}
+function renderOrders(){const tb=document.getElementById('order-table');tb.innerHTML=state.orders.map((o,i)=>'<tr><td>'+o.id+'</td><td>'+o.date+'</td><td><select onchange="updateOrder('+i+',\'platform\',this.value)"><option'+(o.platform==='Meesho'?' selected':'')+'>Meesho</option><option'+(o.platform==='Myntra'?' selected':'')+'>Myntra</option><option'+(o.platform==='Amazon'?' selected':'')+'>Amazon</option><option'+(o.platform==='Flipkart'?' selected':'')+'>Flipkart</option></select></td><td><input value="'+o.product+'" onchange="updateOrder('+i+',\'product\',this.value)"></td><td><input type="number" value="'+o.qty+'" style="width:50px" onchange="updateOrder('+i+',\'qty\',+this.value)"></td><td><input type="number" value="'+o.mrp+'" style="width:70px" onchange="updateOrder('+i+',\'mrp\',+this.value)"></td><td>'+Math.round(o.mrp*(o.platform==='Myntra'?0.28:o.platform==='Amazon'?0.15:0))+'</td><td>'+Math.round(o.mrp-o.mrp*(o.platform==='Myntra'?0.28:o.platform==='Amazon'?0.15:0))+'</td><td><select onchange="updateOrder('+i+',\'status\',this.value)"><option'+(o.status==='Pending'?' selected':'')+'>Pending</option><option'+(o.status==='Packed'?' selected':'')+'>Packed</option><option'+(o.status==='Shipped'?' selected':'')+'>Shipped</option><option'+(o.status==='Delivered'?' selected':'')+'>Delivered</option><option'+(o.status==='Returned'?' selected':'')+'>Returned</option></select></td><td><button class="btn btn-sm btn-danger" aria-label="Delete order" title="Delete order" onclick="deleteOrder('+i+')"><i class="fas fa-trash"></i></button></td></tr>').join('');document.getElementById('order-count').textContent=state.orders.length+' orders'}
 function updateOrder(i,k,v){state.orders[i][k]=v;save();renderOrders()}
 function deleteOrder(i){state.orders.splice(i,1);save();renderOrders();toast('Order deleted','error')}
 function parseCSV(){const csv=document.getElementById('csv-paste').value;if(!csv){toast('Paste CSV data first','error');return}const lines=csv.trim().split('\n');lines.slice(1).forEach(line=>{const cols=line.split(',');if(cols.length>=3){state.orders.unshift({id:'CSV-'+Date.now().toString(36).toUpperCase(),date:cols[0]||new Date().toLocaleDateString('en-IN'),platform:cols[1]||'Meesho',product:cols[2]||'',qty:+(cols[3])||1,mrp:+(cols[4])||0,commission:0,payout:0,status:'Pending'})}});save();renderOrders();toast(lines.length-1+' orders imported!')}
