@@ -6,6 +6,17 @@
 <title>The Baisa — Master Business OS v7.0</title>
 <meta name="description" content="The Baisa — Premium Women's Ethnic Wear. Master Business Operating System & Brand Portal. Pushpraj Fashion, Sanganer, Jaipur.">
 <meta name="theme-color" content="#c4973b">
+<meta name="robots" content="noindex, nofollow">
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="The Baisa — Master Business OS">
+<meta property="og:title" content="The Baisa — Master Business OS v7.0">
+<meta property="og:description" content="The Baisa — Premium Women's Ethnic Wear. Master Business Operating System & Brand Portal. Pushpraj Fashion, Sanganer, Jaipur.">
+<meta property="og:locale" content="en_IN">
+<!-- Twitter -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="The Baisa — Master Business OS v7.0">
+<meta name="twitter:description" content="The Baisa — Premium Women's Ethnic Wear. Master Business Operating System & Brand Portal. Pushpraj Fashion, Sanganer, Jaipur.">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>B</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -141,6 +152,41 @@ section.page.active{display:block}
 .toast-success{background:var(--success)}
 .toast-error{background:var(--danger)}
 @keyframes slideIn{from{transform:translateX(100%);opacity:0}to{transform:translateX(0);opacity:1}}
+/* === CHARTS === */
+.chart-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+.chart-box{margin:0;min-width:0}
+.chart-title{font-size:.8rem;font-weight:600;color:var(--text-secondary);margin-bottom:10px}
+.chart-host{width:100%}
+.chart-host svg{display:block;width:100%;height:auto;overflow:visible}
+.chart-empty{display:flex;align-items:center;justify-content:center;min-height:160px;color:var(--text-muted);font-size:.8rem;border:1px dashed var(--border);border-radius:var(--radius-sm);text-align:center;padding:12px}
+.chart-bar{transition:opacity .2s}
+.chart-bar:hover{opacity:.8}
+.chart-axis{stroke:var(--border);stroke-width:1}
+.chart-grid-line{stroke:var(--border);stroke-width:1;stroke-dasharray:2 3;opacity:.5}
+.chart-label{fill:var(--text-muted);font-size:9px;font-family:'Inter',sans-serif}
+.chart-val{fill:var(--text-secondary);font-size:9px;font-family:'Inter',sans-serif;font-weight:600}
+/* === PRINT REPORT (screen-hidden) === */
+#print-report{display:none}
+/* === PRINT STYLESHEET === */
+@media print{
+  html,body{height:auto;overflow:visible;background:#fff;color:#000;font-size:11pt}
+  .app,.sidebar,.cmd-overlay,.toast-container,.header-actions,.nav-links,.live-dot{display:none!important}
+  .main-content{margin:0!important;height:auto!important;overflow:visible!important}
+  #print-report{display:block!important}
+  #print-report .print-only{padding:0}
+  .report-head{text-align:center;border-bottom:2px solid #000;padding-bottom:12px;margin-bottom:18px}
+  .report-head h1{font-family:'Playfair Display',serif;font-size:24pt;letter-spacing:2px;margin:0}
+  .report-head h2{font-size:14pt;margin:10px 0 4px}
+  .report-head p{font-size:9pt;color:#333;margin:2px 0}
+  #print-report section{margin-bottom:18px;page-break-inside:auto}
+  #print-report h3{font-size:12pt;border-bottom:1px solid #999;padding-bottom:4px;margin-bottom:8px}
+  #print-report table{width:100%;border-collapse:collapse;font-size:9pt}
+  #print-report th,#print-report td{border:1px solid #bbb;padding:5px 8px;text-align:left;color:#000}
+  #print-report thead th{background:#eee!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  #print-report tr{page-break-inside:avoid}
+  .report-foot{margin-top:24px;font-size:8pt;color:#555;text-align:center;border-top:1px solid #ccc;padding-top:8px}
+  a[href]:after{content:""}
+}
 </style>
 </head>
 <body>
@@ -153,22 +199,22 @@ section.page.active{display:block}
 </div>
 <div class="sidebar-scroll">
 <div class="nav-group"><div class="nav-group-label">Operations</div>
-<button class="nav-btn active" onclick="showPage('dashboard')"><i class="fas fa-th-large"></i><span>Command Center</span></button>
-<button class="nav-btn" onclick="showPage('orders')"><i class="fas fa-shopping-bag"></i><span>Orders</span></button>
-<button class="nav-btn" onclick="showPage('inventory')"><i class="fas fa-boxes-stacked"></i><span>Inventory</span></button>
-<button class="nav-btn" onclick="showPage('production')"><i class="fas fa-industry"></i><span>Production</span></button>
-<button class="nav-btn" onclick="showPage('costing')"><i class="fas fa-calculator"></i><span>Costing Engine</span><span class="badge">Core</span></button>
+<button class="nav-btn active" onclick="showPage('dashboard', event)"><i class="fas fa-th-large"></i><span>Command Center</span></button>
+<button class="nav-btn" onclick="showPage('orders', event)"><i class="fas fa-shopping-bag"></i><span>Orders</span></button>
+<button class="nav-btn" onclick="showPage('inventory', event)"><i class="fas fa-boxes-stacked"></i><span>Inventory</span></button>
+<button class="nav-btn" onclick="showPage('production', event)"><i class="fas fa-industry"></i><span>Production</span></button>
+<button class="nav-btn" onclick="showPage('costing', event)"><i class="fas fa-calculator"></i><span>Costing Engine</span><span class="badge">Core</span></button>
 </div>
 <div class="nav-group"><div class="nav-group-label">Business</div>
-<button class="nav-btn" onclick="showPage('products')"><i class="fas fa-tags"></i><span>Products</span><span class="badge">25</span></button>
-<button class="nav-btn" onclick="showPage('channels')"><i class="fas fa-store"></i><span>Channels</span></button>
-<button class="nav-btn" onclick="showPage('finance')"><i class="fas fa-indian-rupee-sign"></i><span>Finance</span></button>
+<button class="nav-btn" onclick="showPage('products', event)"><i class="fas fa-tags"></i><span>Products</span><span class="badge">25</span></button>
+<button class="nav-btn" onclick="showPage('channels', event)"><i class="fas fa-store"></i><span>Channels</span></button>
+<button class="nav-btn" onclick="showPage('finance', event)"><i class="fas fa-indian-rupee-sign"></i><span>Finance</span></button>
 </div>
 <div class="nav-group"><div class="nav-group-label">Growth</div>
-<button class="nav-btn" onclick="showPage('marketing')"><i class="fas fa-bullhorn"></i><span>Marketing</span></button>
-<button class="nav-btn" onclick="showPage('dailyops')"><i class="fas fa-clipboard-check"></i><span>Daily Ops</span><span class="badge">Action</span></button>
-<button class="nav-btn" onclick="showPage('website')"><i class="fas fa-globe"></i><span>Website</span><span class="badge">NEW</span></button>
-<button class="nav-btn" onclick="showPage('resources')"><i class="fas fa-folder-open"></i><span>Resources</span></button>
+<button class="nav-btn" onclick="showPage('marketing', event)"><i class="fas fa-bullhorn"></i><span>Marketing</span></button>
+<button class="nav-btn" onclick="showPage('dailyops', event)"><i class="fas fa-clipboard-check"></i><span>Daily Ops</span><span class="badge">Action</span></button>
+<button class="nav-btn" onclick="showPage('website', event)"><i class="fas fa-globe"></i><span>Website</span><span class="badge">NEW</span></button>
+<button class="nav-btn" onclick="showPage('resources', event)"><i class="fas fa-folder-open"></i><span>Resources</span></button>
 </div>
 <div class="nav-links">
 <div class="nav-group-label" style="padding:0 4px;margin-bottom:6px">Live Integrations</div>
@@ -193,12 +239,20 @@ section.page.active{display:block}
 <div class="header-actions">
 <span class="live-dot dot-green"></span><span style="color:var(--success);font-size:.85rem;font-weight:600">Live</span>
 <button onclick="toggleCmd()"><i class="fas fa-search"></i> Cmd+K</button>
-<button onclick="toggleTheme()" id="theme-toggle"><i class="fas fa-moon"></i></button>
-<button onclick="window.print()"><i class="fas fa-print"></i> Print</button>
+<button onclick="toggleTheme()" id="theme-toggle" aria-label="Toggle light/dark theme" title="Toggle theme"><i class="fas fa-moon"></i></button>
+<button onclick="printReport()" aria-label="Print or save business summary report as PDF" title="Print / Save PDF"><i class="fas fa-file-pdf"></i> Print / Save PDF</button>
 <button class="btn-accent" onclick="location.reload()"><i class="fas fa-sync"></i> Refresh</button>
 </div>
 </div>
 <div class="stats-grid" id="dashboard-stats"></div>
+<div class="card">
+<div class="card-header"><h3><i class="fas fa-chart-column" style="color:var(--accent)"></i> Analytics</h3><span class="tag tag-accent">live data</span></div>
+<div class="chart-grid">
+<figure class="chart-box" aria-labelledby="chart-rev-t"><figcaption id="chart-rev-t" class="chart-title">Revenue — last 12 months</figcaption><div id="chart-revenue" class="chart-host"></div></figure>
+<figure class="chart-box" aria-labelledby="chart-sku-t"><figcaption id="chart-sku-t" class="chart-title">Top SKUs by Meesho price</figcaption><div id="chart-topsku" class="chart-host"></div></figure>
+<figure class="chart-box" aria-labelledby="chart-cat-t"><figcaption id="chart-cat-t" class="chart-title">Inventory by category</figcaption><div id="chart-category" class="chart-host"></div></figure>
+</div>
+</div>
 <div class="card-grid">
 <div class="card">
 <div class="card-header"><h3><i class="fas fa-triangle-exclamation" style="color:var(--warning)"></i> Action Alerts</h3></div>
@@ -232,9 +286,9 @@ section.page.active{display:block}
 <section class="page" id="page-orders">
 <div class="page-header"><div><h2>Orders & Fulfillment</h2><div class="subtitle">Track, process, and manage all platform orders</div></div>
 <div class="header-actions"><button class="btn-accent" onclick="addOrder()"><i class="fas fa-plus"></i> Add Order</button><button onclick="exportOrders()"><i class="fas fa-download"></i> Export CSV</button></div></div>
-<div class="alert alert-info">Paste Meesho CSV data below to auto-import orders. System auto-calculates net payout after commission+TDS+GST.</div>
+<div class="alert alert-info">Paste a marketplace CSV (<strong>Date, Platform, Product, Qty, MRP</strong>) to import orders, or paste this app's own <strong>Export CSV</strong> back in — the parser auto-detects the <code>ID,Date,Platform…</code> header and re-imports it without column shift. Net payout is auto-calculated from platform commission.</div>
 <div class="card"><div class="card-header"><h3>Order Import (CSV Paste)</h3><button class="btn btn-sm btn-accent" onclick="parseCSV()">Parse & Import</button></div>
-<textarea id="csv-paste" rows="4" style="width:100%;background:var(--bg-surface);border:1px solid var(--border);color:var(--text-primary);padding:12px;border-radius:var(--radius-sm);font-family:monospace;font-size:.8rem" placeholder="Paste Meesho/Myntra CSV here..."></textarea></div>
+<textarea id="csv-paste" rows="4" aria-label="Order CSV paste area" style="width:100%;background:var(--bg-surface);border:1px solid var(--border);color:var(--text-primary);padding:12px;border-radius:var(--radius-sm);font-family:monospace;font-size:.8rem" placeholder="Paste Meesho/Myntra CSV here..."></textarea></div>
 <div class="card"><div class="card-header"><h3><i class="fas fa-list"></i> Order Ledger</h3><span class="tag tag-accent" id="order-count">0 orders</span></div>
 <div class="table-wrap"><table><thead><tr><th>ID</th><th>Date</th><th>Platform</th><th>Product</th><th>Qty</th><th>MRP</th><th>Commission</th><th>Net Payout</th><th>Status</th><th>Action</th></tr></thead><tbody id="order-table"></tbody></table></div></div>
 </section>
@@ -407,9 +461,23 @@ section.page.active{display:block}
 </tbody></table></div></div>
 </section>
 </div></main></div>
+<!-- PRINTABLE REPORT (hidden on screen; rendered on demand for Print / Save PDF) -->
+<div id="print-report" aria-hidden="true">
+<div class="print-only">
+<header class="report-head">
+<h1>THE BAISA</h1>
+<p>Pushpraj Fashion &middot; Sanganer, Jaipur &middot; thebaisajpr@gmail.com &middot; +91 8107336843</p>
+<h2>Business Summary Report</h2>
+<p id="report-date"></p>
+</header>
+<section><h3>Key Figures</h3><table id="report-kpis"></table></section>
+<section><h3>Order Ledger</h3><table id="report-orders"></table></section>
+<footer class="report-foot">Generated from The Baisa Master Business OS &middot; figures reflect locally stored data at time of printing.</footer>
+</div>
+</div>
 <!-- CMD PALETTE -->
 <div class="cmd-overlay" id="cmd-overlay" onclick="if(event.target===this)toggleCmd()">
-<div class="cmd-box"><input id="cmd-input" placeholder="Search tabs, actions, links..." oninput="filterCmd(this.value)">
+<div class="cmd-box"><input id="cmd-input" aria-label="Search tabs, actions, and links" placeholder="Search tabs, actions, links..." oninput="filterCmd(this.value)">
 <div class="cmd-results" id="cmd-results"></div></div></div>
 <div class="toast-container" id="toast-container"></div>
 <script>
@@ -446,10 +514,24 @@ const CHANNELS=[{name:'Meesho',url:'https://supplier.meesho.com/',commission:'0%
 const CHECKLIST={morning:[{t:'9:00 AM',task:'Check Meesho Supplier Dashboard - new orders, returns, settlements'},{t:'9:15 AM',task:'Review WhatsApp messages - customer queries, wholesale inquiries'},{t:'9:30 AM',task:'Brief karigars - production priorities, fabric allocation, QC notes'},{t:'10:00 AM',task:'Update inventory count - ready stock per SKU per size'}],afternoon:[{t:'12:00 PM',task:'Process & pack orders - Meesho label, QC check, dispatch'},{t:'1:00 PM',task:'Product photography - shoot new arrivals, upload to Drive'},{t:'2:00 PM',task:'Myntra listing work - fill Excel, upload images, map attributes'},{t:'3:00 PM',task:'Social media - 1 Instagram reel/post, respond to DMs'}],evening:[{t:'5:00 PM',task:'Day-end revenue check - settlements, COD vs prepaid ratio'},{t:'5:30 PM',task:'Update product tracker sheet - orders dispatched, returns'},{t:'6:00 PM',task:'Plan tomorrow - production schedule, fabric procurement, content'}]};
 const PRODUCTION=[{name:'Eid Pastel Floral Kurti Batch',priority:'P1',target:100,fabric:'Cotton pastel',karigar:'Primary unit',eta:'Apr 18',sam:18,status:'In stitching',progress:65,tags:['In Production','QC Pending']},{name:'Ornate Indigo 3-Pc Set',priority:'P1',target:50,fabric:'Indigo cotton + dupatta',karigar:'Primary unit',eta:'Apr 20',sam:32,status:'Cutting done',progress:40,tags:['Stitching Today']},{name:'Mustard Embroidered Kurti',priority:'P2',target:75,fabric:'Viscose mustard',karigar:'Secondary contractor',eta:'Apr 22',sam:25,status:'Fabric Ready',progress:20,tags:['Fabric Ready']},{name:'Geometric Print Tunic',priority:'P2',target:60,fabric:'Cotton-blend rust',karigar:'Secondary contractor',eta:'Apr 23',sam:20,status:'Pattern Ready',progress:15,tags:['Pattern Ready']},{name:'Cotton Rayon Kurti Summer (3 colors)',priority:'P3',target:150,fabric:'Procure by Apr 20',karigar:'TBD',eta:'Apr 28',sam:15,status:'Planning',progress:5,tags:['Planning','Fabric Procurement']}];
 /* === STATE === */
-let state=JSON.parse(localStorage.getItem(DB_KEY)||'{}');
-if(!state.orders)state.orders=[];
-if(!state.checklist)state.checklist={};
-function save(){localStorage.setItem(DB_KEY,JSON.stringify(state));try{new BroadcastChannel('baisa-sync').postMessage({type:'sync',data:state})}catch(e){}}
+const SCHEMA_VERSION=7;
+function defaultState(){return {_v:SCHEMA_VERSION,orders:[],checklist:{}};}
+function loadState(){
+  let raw=null;
+  try{raw=localStorage.getItem(DB_KEY);}catch(e){return defaultState();}
+  if(!raw)return defaultState();
+  let parsed;
+  try{parsed=JSON.parse(raw);}catch(e){console.warn('Baisa OS: corrupt store, resetting to defaults.',e);return defaultState();}
+  if(!parsed||typeof parsed!=='object'||Array.isArray(parsed)){console.warn('Baisa OS: unexpected store shape, resetting to defaults.');return defaultState();}
+  if(parsed._v!=null&&parsed._v>SCHEMA_VERSION){console.warn('Baisa OS: store schema newer than app, resetting to defaults.');return defaultState();}
+  /* Legacy stores have no _v but are v7-compatible — keep their data, just normalize shape. */
+  if(!Array.isArray(parsed.orders))parsed.orders=[];
+  if(!parsed.checklist||typeof parsed.checklist!=='object'||Array.isArray(parsed.checklist))parsed.checklist={};
+  parsed._v=SCHEMA_VERSION;
+  return parsed;
+}
+let state=loadState();
+function save(){try{localStorage.setItem(DB_KEY,JSON.stringify(state));}catch(e){console.warn('Baisa OS: could not persist state.',e);}try{new BroadcastChannel('baisa-sync').postMessage({type:'sync',data:state})}catch(e){}}
 function toast(msg,type='success'){const t=document.createElement('div');t.className='toast toast-'+type;t.textContent=msg;document.getElementById('toast-container').appendChild(t);setTimeout(()=>t.remove(),3000)}
 /* === CLOCK === */
 function updateClock(){const now=new Date();document.getElementById('clock').textContent=now.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:true});document.getElementById('today-date').textContent=now.toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'})}
@@ -458,7 +540,7 @@ setInterval(updateClock,1000);updateClock();
 function toggleTheme(){const h=document.documentElement;const t=h.getAttribute('data-theme')==='dark'?'light':'dark';h.setAttribute('data-theme',t);localStorage.setItem('baisa-theme',t)}
 if(localStorage.getItem('baisa-theme'))document.documentElement.setAttribute('data-theme',localStorage.getItem('baisa-theme'));
 /* === NAV === */
-function showPage(id){document.querySelectorAll('section.page').forEach(s=>s.classList.remove('active'));document.getElementById('page-'+id).classList.add('active');document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));event.currentTarget.classList.add('active')}
+function showPage(id,ev){const page=document.getElementById('page-'+id);if(!page)return;document.querySelectorAll('section.page').forEach(s=>s.classList.remove('active'));page.classList.add('active');document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));const e=ev||window.event;const btn=e&&e.currentTarget;if(btn&&btn.classList){btn.classList.add('active')}else{document.querySelectorAll('.nav-btn').forEach(b=>{if(b.textContent.toLowerCase().includes(id.substring(0,4)))b.classList.add('active')})}}
 /* === CMD PALETTE === */
 const CMD_ITEMS=[{label:'Command Center',page:'dashboard'},{label:'Orders & Fulfillment',page:'orders'},{label:'Inventory Management',page:'inventory'},{label:'Production Tracking',page:'production'},{label:'Costing Engine',page:'costing'},{label:'Product Catalog',page:'products'},{label:'Channel Control',page:'channels'},{label:'Finance & Compliance',page:'finance'},{label:'Marketing Engine',page:'marketing'},{label:'Daily Ops',page:'dailyops'},{label:'Website',page:'website'},{label:'Resources',page:'resources'}];
 function toggleCmd(){const o=document.getElementById('cmd-overlay');o.classList.toggle('active');if(o.classList.contains('active')){document.getElementById('cmd-input').value='';filterCmd('');setTimeout(()=>document.getElementById('cmd-input').focus(),100)}}
@@ -467,7 +549,7 @@ function showPageDirect(id){document.querySelectorAll('section.page').forEach(s=
 document.addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key==='k'){e.preventDefault();toggleCmd()}if(e.key==='Escape')toggleCmd()});
 filterCmd('');
 /* === DASHBOARD === */
-function renderDashboard(){const s=document.getElementById('dashboard-stats');const orderCount=state.orders.length;const rev=state.orders.reduce((a,o)=>a+((o.payout||0)*o.qty),0);s.innerHTML=`<div class="stat-card"><div class="value gold">${orderCount}</div><div class="label">Today's Orders</div><div class="sub">all platforms combined</div></div><div class="stat-card"><div class="value green">₹${rev||350}</div><div class="label">Today's Revenue</div><div class="sub">gross before returns</div></div><div class="stat-card"><div class="value">${Math.max(1,orderCount)}</div><div class="label">Pending Shipment</div><div class="sub">ship before 2 PM</div></div><div class="stat-card"><div class="value red">0</div><div class="label">Returns This Week</div></div><div class="stat-card"><div class="value gold">₹50K</div><div class="label">Cash Position</div><div class="sub">bank + receivables</div></div><div class="stat-card"><div class="value blue">${PRODUCTS.length}</div><div class="label">Active SKUs</div><div class="sub">${PRODUCTS.filter(p=>p.cat==='kurti').length} kurti, ${PRODUCTS.filter(p=>p.cat==='coord').length} coord, ${PRODUCTS.filter(p=>p.cat==='set').length} set, ${PRODUCTS.filter(p=>p.cat==='dress').length} dress</div></div><div class="stat-card"><div class="value">${CHANNELS.filter(c=>c.status==='live').length+1}</div><div class="label">Active Channels</div><div class="sub">${CHANNELS.filter(c=>c.status==='live').map(c=>c.name).join(', ')}</div></div><div class="stat-card"><div class="value green">68%</div><div class="label">Catalog Readiness</div><div class="sub">target: 90%+</div><div class="progress-bar" style="margin-top:8px"><div class="progress-fill" style="width:68%;background:var(--success)"></div></div></div>`;
+function renderDashboard(){const s=document.getElementById('dashboard-stats');const orderCount=state.orders.length;const rev=state.orders.reduce((a,o)=>a+((o.payout||0)*(o.qty||0)),0);s.innerHTML=`<div class="stat-card"><div class="value gold">${orderCount}</div><div class="label">Today's Orders</div><div class="sub">all platforms combined</div></div><div class="stat-card"><div class="value green">₹${rev||350}</div><div class="label">Today's Revenue</div><div class="sub">gross before returns</div></div><div class="stat-card"><div class="value">${Math.max(1,orderCount)}</div><div class="label">Pending Shipment</div><div class="sub">ship before 2 PM</div></div><div class="stat-card"><div class="value red">0</div><div class="label">Returns This Week</div></div><div class="stat-card"><div class="value gold">₹50K</div><div class="label">Cash Position</div><div class="sub">bank + receivables</div></div><div class="stat-card"><div class="value blue">${PRODUCTS.length}</div><div class="label">Active SKUs</div><div class="sub">${PRODUCTS.filter(p=>p.cat==='kurti').length} kurti, ${PRODUCTS.filter(p=>p.cat==='coord').length} coord, ${PRODUCTS.filter(p=>p.cat==='set').length} set, ${PRODUCTS.filter(p=>p.cat==='dress').length} dress</div></div><div class="stat-card"><div class="value">${CHANNELS.filter(c=>c.status==='live').length+1}</div><div class="label">Active Channels</div><div class="sub">${CHANNELS.filter(c=>c.status==='live').map(c=>c.name).join(', ')}</div></div><div class="stat-card"><div class="value green">68%</div><div class="label">Catalog Readiness</div><div class="sub">target: 90%+</div><div class="progress-bar" style="margin-top:8px"><div class="progress-fill" style="width:68%;background:var(--success)"></div></div></div>`;
 const alerts=document.getElementById('action-alerts');
 alerts.innerHTML=`<div class="alert alert-danger">Ship pending orders before 2 PM cutoff</div><div class="alert alert-warning">Restock raw fabric - cotton voile below 50m</div><div class="alert alert-success">Meesho payout Rs.12,400 expected tomorrow</div><div class="alert alert-info">Myntra onboarding: upload remaining 8 SKU photos</div>`;
 const mt=document.getElementById('margin-tracker');
@@ -493,12 +575,46 @@ function toggleCheck(key,el){state.checklist[key]=el.checked;save();renderCheckl
 function resetChecklist(){state.checklist={};save();renderChecklists();toast('Checklist reset!')}
 /* === ORDERS === */
 function addOrder(){const o={id:'ORD-'+Date.now().toString(36).toUpperCase(),date:new Date().toLocaleDateString('en-IN'),platform:'Meesho',product:'',qty:1,mrp:0,commission:0,payout:0,status:'Pending'};state.orders.unshift(o);save();renderOrders();toast('Order added')}
-function renderOrders(){const tb=document.getElementById('order-table');tb.innerHTML=state.orders.map((o,i)=>'<tr><td>'+o.id+'</td><td>'+o.date+'</td><td><select onchange="updateOrder('+i+',\'platform\',this.value)"><option'+(o.platform==='Meesho'?' selected':'')+'>Meesho</option><option'+(o.platform==='Myntra'?' selected':'')+'>Myntra</option><option'+(o.platform==='Amazon'?' selected':'')+'>Amazon</option><option'+(o.platform==='Flipkart'?' selected':'')+'>Flipkart</option></select></td><td><input value="'+o.product+'" onchange="updateOrder('+i+',\'product\',this.value)"></td><td><input type="number" value="'+o.qty+'" style="width:50px" onchange="updateOrder('+i+',\'qty\',+this.value)"></td><td><input type="number" value="'+o.mrp+'" style="width:70px" onchange="updateOrder('+i+',\'mrp\',+this.value)"></td><td>'+Math.round(o.mrp*(o.platform==='Myntra'?0.28:o.platform==='Amazon'?0.15:0))+'</td><td>'+Math.round(o.mrp-o.mrp*(o.platform==='Myntra'?0.28:o.platform==='Amazon'?0.15:0))+'</td><td><select onchange="updateOrder('+i+',\'status\',this.value)"><option'+(o.status==='Pending'?' selected':'')+'>Pending</option><option'+(o.status==='Packed'?' selected':'')+'>Packed</option><option'+(o.status==='Shipped'?' selected':'')+'>Shipped</option><option'+(o.status==='Delivered'?' selected':'')+'>Delivered</option><option'+(o.status==='Returned'?' selected':'')+'>Returned</option></select></td><td><button class="btn btn-sm btn-danger" onclick="deleteOrder('+i+')"><i class="fas fa-trash"></i></button></td></tr>').join('');document.getElementById('order-count').textContent=state.orders.length+' orders'}
+function renderOrders(){const tb=document.getElementById('order-table');tb.innerHTML=state.orders.map((o,i)=>'<tr><td>'+o.id+'</td><td>'+o.date+'</td><td><select onchange="updateOrder('+i+',\'platform\',this.value)"><option'+(o.platform==='Meesho'?' selected':'')+'>Meesho</option><option'+(o.platform==='Myntra'?' selected':'')+'>Myntra</option><option'+(o.platform==='Amazon'?' selected':'')+'>Amazon</option><option'+(o.platform==='Flipkart'?' selected':'')+'>Flipkart</option></select></td><td><input value="'+o.product+'" onchange="updateOrder('+i+',\'product\',this.value)"></td><td><input type="number" value="'+o.qty+'" style="width:50px" onchange="updateOrder('+i+',\'qty\',+this.value)"></td><td><input type="number" value="'+o.mrp+'" style="width:70px" onchange="updateOrder('+i+',\'mrp\',+this.value)"></td><td>'+commissionFor(o.platform,o.mrp)+'</td><td>'+Math.round((o.mrp||0)-commissionFor(o.platform,o.mrp))+'</td><td><select onchange="updateOrder('+i+',\'status\',this.value)"><option'+(o.status==='Pending'?' selected':'')+'>Pending</option><option'+(o.status==='Packed'?' selected':'')+'>Packed</option><option'+(o.status==='Shipped'?' selected':'')+'>Shipped</option><option'+(o.status==='Delivered'?' selected':'')+'>Delivered</option><option'+(o.status==='Returned'?' selected':'')+'>Returned</option></select></td><td><button class="btn btn-sm btn-danger" aria-label="Delete order" title="Delete order" onclick="deleteOrder('+i+')"><i class="fas fa-trash"></i></button></td></tr>').join('');document.getElementById('order-count').textContent=state.orders.length+' orders';if(typeof renderCharts==='function')renderCharts()}
 function updateOrder(i,k,v){state.orders[i][k]=v;save();renderOrders()}
 function deleteOrder(i){state.orders.splice(i,1);save();renderOrders();toast('Order deleted','error')}
-function parseCSV(){const csv=document.getElementById('csv-paste').value;if(!csv){toast('Paste CSV data first','error');return}const lines=csv.trim().split('\n');lines.slice(1).forEach(line=>{const cols=line.split(',');if(cols.length>=3){state.orders.unshift({id:'CSV-'+Date.now().toString(36).toUpperCase(),date:cols[0]||new Date().toLocaleDateString('en-IN'),platform:cols[1]||'Meesho',product:cols[2]||'',qty:+(cols[3])||1,mrp:+(cols[4])||0,commission:0,payout:0,status:'Pending'})}});save();renderOrders();toast(lines.length-1+' orders imported!')}
-function exportOrders(){const csv='ID,Date,Platform,Product,Qty,MRP,Status\n'+state.orders.map(o=>[o.id,o.date,o.platform,o.product,o.qty,o.mrp,o.status].join(',')).join('\n');const b=new Blob([csv],{type:'text/csv'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='baisa_orders_'+new Date().toISOString().slice(0,10)+'.csv';a.click();toast('Orders exported!')}
-function exportInventory(){toast('Inventory export ready!')}
+/* === CSV HELPERS (round-trip safe) === */
+/* Order CSV columns — exported header is this exact order; parseCSV's "app export" mode reads it back 1:1. */
+const ORDER_CSV_COLS=['ID','Date','Platform','Product','Qty','MRP','Commission','Net Payout','Status'];
+function csvCell(v){const s=(v==null?'':String(v));return /[",\n\r]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s}
+function csvRow(arr){return arr.map(csvCell).join(',')}
+/* Minimal RFC-4180-ish line parser: handles quoted fields, escaped quotes, and embedded commas. */
+function parseCSVLine(line){const out=[];let cur='',inQ=false;for(let i=0;i<line.length;i++){const ch=line[i];if(inQ){if(ch==='"'){if(line[i+1]==='"'){cur+='"';i++}else{inQ=false}}else{cur+=ch}}else{if(ch==='"'){inQ=true}else if(ch===','){out.push(cur);cur=''}else{cur+=ch}}}out.push(cur);return out.map(s=>s.trim())}
+function commissionFor(platform,mrp){return Math.round((+mrp||0)*(platform==='Myntra'?0.28:platform==='Amazon'?0.15:0))}
+function parseCSV(){const csv=document.getElementById('csv-paste').value;if(!csv){toast('Paste CSV data first','error');return}
+  const lines=csv.replace(/\r/g,'').trim().split('\n').filter(l=>l.length);if(!lines.length){toast('No CSV rows found','error');return}
+  const header=parseCSVLine(lines[0]).map(h=>h.toLowerCase());
+  /* Detect THIS app's own export: header starts ID,Date,Platform — re-import maps columns 1:1, no shift. */
+  const appExport=header[0]==='id'&&header[1]==='date'&&header[2]==='platform';
+  let imported=0;
+  lines.slice(1).forEach(line=>{const cols=parseCSVLine(line);if(cols.length<3)return;
+    let rec;
+    if(appExport){
+      const platform=cols[2]||'Meesho';const mrp=+cols[5]||0;
+      rec={id:cols[0]||('CSV-'+Date.now().toString(36).toUpperCase()),date:cols[1]||new Date().toLocaleDateString('en-IN'),platform,product:cols[3]||'',qty:+cols[4]||1,mrp,commission:0,payout:0,status:cols[8]||cols[cols.length-1]||'Pending'};
+    }else{
+      /* Generic/marketplace paste: Date,Platform,Product,Qty,MRP,[Status] */
+      const platform=cols[1]||'Meesho';const mrp=+cols[4]||0;
+      rec={id:'CSV-'+Date.now().toString(36).toUpperCase()+'-'+imported,date:cols[0]||new Date().toLocaleDateString('en-IN'),platform,product:cols[2]||'',qty:+cols[3]||1,mrp,commission:0,payout:0,status:cols[5]||'Pending'};
+    }
+    state.orders.unshift(rec);imported++});
+  save();renderOrders();toast(imported+' order'+(imported===1?'':'s')+' imported'+(appExport?' (app-export format)':'')+'!')}
+function exportOrders(){const rows=state.orders.map(o=>{const commission=commissionFor(o.platform,o.mrp);const payout=Math.round((+o.mrp||0)-commission);return csvRow([o.id,o.date,o.platform,o.product,o.qty,o.mrp,commission,payout,o.status])});
+  const csv=csvRow(ORDER_CSV_COLS)+'\n'+rows.join('\n');
+  const b=new Blob([csv],{type:'text/csv;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='baisa_orders_'+new Date().toISOString().slice(0,10)+'.csv';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);toast('Orders exported — re-import via Parse to round-trip')}
+function exportInventory(){
+  /* Read live values from the rendered inventory ledger so user edits are captured; fall back to PRODUCTS. */
+  const header=['SKU','Product','S','M','L','XL','2XL','3XL','Total','Status'];
+  const rows=[];const tb=document.getElementById('inventory-table');
+  if(tb&&tb.rows.length){Array.from(tb.rows).forEach(tr=>{const c=tr.cells;rows.push(csvRow([c[0].textContent.trim(),c[1].textContent.trim(),c[2].textContent.trim(),c[3].textContent.trim(),c[4].textContent.trim(),c[5].textContent.trim(),c[6].textContent.trim(),c[7].textContent.trim(),c[8].textContent.trim(),c[9].textContent.trim()]))})}
+  else{PRODUCTS.slice(0,15).forEach(p=>rows.push(csvRow(['SKU-'+String(p.id).padStart(3,'0'),p.name,'','','','','','','','In Stock'])))}
+  const csv=csvRow(header)+'\n'+rows.join('\n');
+  const b=new Blob([csv],{type:'text/csv;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='baisa_inventory_'+new Date().toISOString().slice(0,10)+'.csv';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);toast('Inventory exported ('+rows.length+' SKUs)')}
 function exportProducts(){const csv='Name,Category,COGM,Meesho,Myntra,Fabric,Sizes\n'+PRODUCTS.map(p=>[p.name,p.cat,p.cogm,p.meesho,p.myntra,p.fabric,p.sizes].join(',')).join('\n');const b=new Blob([csv],{type:'text/csv'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='baisa_products.csv';a.click();toast('Products exported!')}
 function addProduct(){toast('Use product editor to add new SKUs')}
 function addInventoryItem(){toast('Opening inventory form...')}
@@ -508,8 +624,78 @@ function renderMarketing(){const cal=document.getElementById('insta-calendar');c
 function renderQuickChecklist(){const el=document.getElementById('quick-checklist');const items=['Check new orders on all platforms','Process & pack pending shipments','Update inventory after dispatch','Follow up with job workers','Check returns & process refunds','Update cash book / accounts','Post on Instagram / social media','Review tomorrow dispatch list','Check GST compliance deadlines','Reply to customer queries'];el.innerHTML=items.map(item=>'<div class="checklist-item"><input type="checkbox"><span>'+item+'</span></div>').join('')}
 /* === INVENTORY RENDER === */
 function renderInventory(){const tb=document.getElementById('inventory-table');tb.innerHTML=PRODUCTS.slice(0,15).map((p,i)=>'<tr><td>SKU-'+String(p.id).padStart(3,'0')+'</td><td>'+p.name+'</td><td contenteditable="true">5</td><td contenteditable="true">8</td><td contenteditable="true">10</td><td contenteditable="true">6</td><td contenteditable="true">4</td><td contenteditable="true">2</td><td><strong>35</strong></td><td><span class="tag tag-success">In Stock</span></td><td>'+(p.drive?'<a href="'+p.drive+'" target="_blank" class="btn btn-sm"><i class="fab fa-google-drive"></i></a>':'—')+'</td></tr>').join('');document.getElementById('total-stock').textContent='525';document.getElementById('ready-stock').textContent='340';document.getElementById('in-production').textContent='185';document.getElementById('low-stock-count').textContent='3'}
+/* === CHARTS (dependency-free inline SVG) === */
+const NS='http://www.w3.org/2000/svg';
+function svgEl(tag,attrs){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);return e}
+function chartEmpty(host,msg){host.innerHTML='';const d=document.createElement('div');d.className='chart-empty';d.textContent=msg;host.appendChild(d)}
+function parseOrderDate(s){if(!s)return null;let d=new Date(s);if(!isNaN(d))return d;/* en-IN dd/mm/yyyy */const m=String(s).match(/(\d{1,2})[/](\d{1,2})[/](\d{2,4})/);if(m){let y=+m[3];if(y<100)y+=2000;d=new Date(y,(+m[2])-1,+m[1]);if(!isNaN(d))return d}return null}
+function fmtMoney(n){if(n>=100000)return '₹'+(n/100000).toFixed(1)+'L';if(n>=1000)return '₹'+(n/1000).toFixed(1)+'k';return '₹'+Math.round(n)}
+/* 12-month revenue trend from stored orders (qty*mrp), bucketed by calendar month. */
+function renderRevenueChart(){const host=document.getElementById('chart-revenue');if(!host)return;
+  const now=new Date();const buckets=[];const labels=[];
+  for(let i=11;i>=0;i--){const d=new Date(now.getFullYear(),now.getMonth()-i,1);buckets.push({key:d.getFullYear()+'-'+d.getMonth(),val:0});labels.push(d.toLocaleDateString('en-IN',{month:'short'}))}
+  const idx={};buckets.forEach((b,i)=>idx[b.key]=i);
+  let any=false;
+  state.orders.forEach(o=>{const d=parseOrderDate(o.date);if(!d)return;const k=d.getFullYear()+'-'+d.getMonth();if(k in idx){buckets[idx[k]].val+=(+o.mrp||0)*(+o.qty||0);any=true}});
+  if(!any){chartEmpty(host,'No dated order revenue yet. Add or import orders to see the 12-month trend.');return}
+  const W=520,H=200,pl=44,pr=12,pt=12,pb=28,iw=W-pl-pr,ih=H-pt-pb;
+  const max=Math.max(...buckets.map(b=>b.val),1);
+  const svg=svgEl('svg',{viewBox:'0 0 '+W+' '+H,role:'img','aria-label':'Bar chart of revenue over the last 12 months'});
+  for(let g=0;g<=4;g++){const y=pt+ih-(ih*g/4);svg.appendChild(svgEl('line',{class:'chart-grid-line',x1:pl,y1:y,x2:W-pr,y2:y}));const t=svgEl('text',{class:'chart-label',x:pl-6,y:y+3,'text-anchor':'end'});t.textContent=fmtMoney(max*g/4);svg.appendChild(t)}
+  const bw=iw/buckets.length;
+  buckets.forEach((b,i)=>{const bh=b.val>0?Math.max(2,ih*(b.val/max)):0;const x=pl+i*bw+bw*0.18;const y=pt+ih-bh;const w=bw*0.64;
+    const rect=svgEl('rect',{class:'chart-bar',x:x,y:y,width:w,height:bh,rx:2,fill:'var(--accent)'});const tt=svgEl('title');tt.textContent=labels[i]+': '+fmtMoney(b.val);rect.appendChild(tt);svg.appendChild(rect);
+    const lab=svgEl('text',{class:'chart-label',x:pl+i*bw+bw/2,y:H-10,'text-anchor':'middle'});lab.textContent=labels[i];svg.appendChild(lab)});
+  host.innerHTML='';host.appendChild(svg)}
+/* Top SKUs — horizontal bars. Uses sold qty from orders when available; else top products by Meesho price. */
+function renderTopSkuChart(){const host=document.getElementById('chart-topsku');if(!host)return;
+  let rows=[],byVal=false;
+  const sold={};state.orders.forEach(o=>{if(o.product){sold[o.product]=(sold[o.product]||0)+(+o.qty||0)}});
+  const soldArr=Object.keys(sold).map(k=>({label:k,val:sold[k]})).filter(r=>r.val>0).sort((a,b)=>b.val-a.val).slice(0,6);
+  if(soldArr.length){rows=soldArr;byVal=true}
+  else{rows=PRODUCTS.filter(p=>p.meesho>0).slice().sort((a,b)=>b.meesho-a.meesho).slice(0,6).map(p=>({label:p.name,val:p.meesho}))}
+  if(!rows.length){chartEmpty(host,'No SKU data available.');return}
+  const W=520,rowH=26,pl=150,pr=46,pt=6,H=pt*2+rows.length*rowH;const iw=W-pl-pr;const max=Math.max(...rows.map(r=>r.val),1);
+  const svg=svgEl('svg',{viewBox:'0 0 '+W+' '+H,role:'img','aria-label':byVal?'Top SKUs by units sold':'Top SKUs by Meesho price'});
+  rows.forEach((r,i)=>{const y=pt+i*rowH;const bw=Math.max(2,iw*(r.val/max));
+    const name=svgEl('text',{class:'chart-label',x:pl-8,y:y+rowH/2+3,'text-anchor':'end'});const short=r.label.length>22?r.label.slice(0,21)+'…':r.label;name.textContent=short;const nt=svgEl('title');nt.textContent=r.label;name.appendChild(nt);svg.appendChild(name);
+    const rect=svgEl('rect',{class:'chart-bar',x:pl,y:y+4,width:bw,height:rowH-10,rx:2,fill:'var(--info)'});const tt=svgEl('title');tt.textContent=r.label+': '+(byVal?r.val+' units':fmtMoney(r.val));rect.appendChild(tt);svg.appendChild(rect);
+    const vt=svgEl('text',{class:'chart-val',x:pl+bw+6,y:y+rowH/2+3});vt.textContent=byVal?r.val:fmtMoney(r.val);svg.appendChild(vt)});
+  host.innerHTML='';host.appendChild(svg)}
+/* Inventory by category — donut of PRODUCTS catalog composition. */
+function renderCategoryChart(){const host=document.getElementById('chart-category');if(!host)return;
+  const counts={};PRODUCTS.forEach(p=>{counts[p.cat]=(counts[p.cat]||0)+1});
+  const cats=Object.keys(counts);if(!cats.length){chartEmpty(host,'No catalog data.');return}
+  const total=PRODUCTS.length;const palette=['#c4973b','#3b82f6','#22c55e','#e040fb','#f59e0b','#ef4444','#8b5cf6'];
+  const W=520,H=200,cx=100,cy=100,r=70,rin=40;
+  const svg=svgEl('svg',{viewBox:'0 0 '+W+' '+H,role:'img','aria-label':'Donut chart of inventory catalog by category'});
+  let a0=-Math.PI/2;
+  cats.forEach((cat,i)=>{const frac=counts[cat]/total;const a1=a0+frac*Math.PI*2;
+    const x0=cx+r*Math.cos(a0),y0=cy+r*Math.sin(a0),x1=cx+r*Math.cos(a1),y1=cy+r*Math.sin(a1);
+    const xi0=cx+rin*Math.cos(a1),yi0=cy+rin*Math.sin(a1),xi1=cx+rin*Math.cos(a0),yi1=cy+rin*Math.sin(a0);
+    const large=frac>0.5?1:0;
+    const d='M'+x0+' '+y0+' A'+r+' '+r+' 0 '+large+' 1 '+x1+' '+y1+' L'+xi0+' '+yi0+' A'+rin+' '+rin+' 0 '+large+' 0 '+xi1+' '+yi1+' Z';
+    const path=svgEl('path',{d:d,fill:palette[i%palette.length],class:'chart-bar'});const tt=svgEl('title');tt.textContent=cat+': '+counts[cat]+' SKUs';path.appendChild(tt);svg.appendChild(path);a0=a1});
+  const ct=svgEl('text',{x:cx,y:cy-2,'text-anchor':'middle',class:'chart-val',style:'font-size:16px'});ct.textContent=total;svg.appendChild(ct);
+  const cl=svgEl('text',{x:cx,y:cy+12,'text-anchor':'middle',class:'chart-label'});cl.textContent='SKUs';svg.appendChild(cl);
+  cats.forEach((cat,i)=>{const ly=24+i*22;svg.appendChild(svgEl('rect',{x:200,y:ly-9,width:11,height:11,rx:2,fill:palette[i%palette.length]}));const t=svgEl('text',{class:'chart-label',x:218,y:ly,style:'font-size:10px'});t.textContent=cat+' ('+counts[cat]+')';svg.appendChild(t)});
+  host.innerHTML='';host.appendChild(svg)}
+function renderCharts(){try{renderRevenueChart();renderTopSkuChart();renderCategoryChart()}catch(e){console.warn('Baisa OS: chart render failed',e)}}
+/* === PRINT / PDF REPORT === */
+function printReport(){
+  document.getElementById('report-date').textContent='Generated: '+new Date().toLocaleString('en-IN',{dateStyle:'full',timeStyle:'short'});
+  const orderCount=state.orders.length;
+  const gross=state.orders.reduce((a,o)=>a+((+o.mrp||0)*(+o.qty||0)),0);
+  const netPayout=state.orders.reduce((a,o)=>a+(((+o.mrp||0)-commissionFor(o.platform,o.mrp))*(+o.qty||0)),0);
+  const kpis=[['Report Period','Live snapshot'],['Total Orders',orderCount],['Gross Order Value',fmtMoney(gross)],['Est. Net Payout',fmtMoney(netPayout)],['Active SKUs',PRODUCTS.length],['Active Channels',CHANNELS.filter(c=>c.status==='live').length]];
+  document.getElementById('report-kpis').innerHTML='<tbody>'+kpis.map(r=>'<tr><th>'+r[0]+'</th><td>'+r[1]+'</td></tr>').join('')+'</tbody>';
+  const ot=document.getElementById('report-orders');
+  if(orderCount){ot.innerHTML='<thead><tr><th>ID</th><th>Date</th><th>Platform</th><th>Product</th><th>Qty</th><th>MRP</th><th>Commission</th><th>Net Payout</th><th>Status</th></tr></thead><tbody>'+state.orders.map(o=>{const c=commissionFor(o.platform,o.mrp);return '<tr><td>'+o.id+'</td><td>'+o.date+'</td><td>'+o.platform+'</td><td>'+(o.product||'—')+'</td><td>'+(o.qty||0)+'</td><td>₹'+(o.mrp||0)+'</td><td>₹'+c+'</td><td>₹'+Math.round((o.mrp||0)-c)+'</td><td>'+o.status+'</td></tr>'}).join('')+'</tbody>'}
+  else{ot.innerHTML='<tbody><tr><td>No orders recorded yet.</td></tr></tbody>'}
+  window.print();
+}
 /* === INIT === */
-function init(){renderDashboard();renderProducts();renderChannels();renderProduction();renderChecklists();renderCostingTable();calculateCOGM();renderOrders();renderMarketing();renderQuickChecklist();renderInventory()}
+function init(){renderDashboard();renderCharts();renderProducts();renderChannels();renderProduction();renderChecklists();renderCostingTable();calculateCOGM();renderOrders();renderMarketing();renderQuickChecklist();renderInventory()}
 init();
 /* === BROADCAST SYNC === */
 try{const bc=new BroadcastChannel('baisa-sync');bc.onmessage=e=>{if(e.data.type==='sync'){state=e.data.data;save();init();toast('Data synced from another tab')}}}catch(e){}
