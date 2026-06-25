@@ -1,0 +1,7 @@
+.next
+out
+node_modules
+npm-debug.log*
+.data
+*.tsbuildinfo
+next-env.d.ts
