@@ -63,10 +63,17 @@ GET    /api/org   PATCH /api/org  workspace + pricing-engine config (POST {actio
 
 ## Persistence & production
 
-The default store persists to a JSON file (`.data/baisa-os.json`) — zero native dependencies, builds
-anywhere, and genuinely persists on a long-running Node host. The store interface is intentionally
-small so a Postgres/Supabase adapter (the suite's `mhlyicynbznlvbinvqna` project) can be dropped in
-without touching callers.
+Two interchangeable backends sit behind one store facade (`lib/db/store.ts`):
+
+- **JSON store** (default) — zero native dependencies, builds anywhere, persists on a long-running
+  Node host. Perfect for local/dev and the Vercel preview demo.
+- **Supabase** — set `SUPABASE_URL` + `SUPABASE_SERVICE_ROLE_KEY` and the store auto-routes to
+  Postgres for durable, multi-tenant persistence. **No code changes.** Apply
+  `supabase/migrations/0001_baisa_os.sql` first (generic JSONB schema, prefixed `baisa_os_*` so it
+  coexists with the suite's `mhlyicynbznlvbinvqna` project). See `.env.example`.
+
+On ephemeral serverless with no Supabase configured, the JSON store re-seeds per cold start — the app
+stays fully functional; add the env vars for shared, durable data.
 
 ## Build
 
