@@ -123,6 +123,22 @@ export function ResourceTable({
     load();
   }
 
+  function exportCsv() {
+    const keys = ["id", ...fields.map((f) => f.key)];
+    const esc = (v: any) => {
+      const s = v == null ? "" : Array.isArray(v) || typeof v === "object" ? JSON.stringify(v) : String(v);
+      return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+    };
+    const head = keys.join(",");
+    const body = filtered.map((r) => keys.map((k) => esc(r[k])).join(",")).join("\n");
+    const blob = new Blob([head + "\n" + body], { type: "text/csv;charset=utf-8;" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = `${collection}-${new Date().toISOString().slice(0, 10)}.csv`;
+    a.click();
+    URL.revokeObjectURL(a.href);
+  }
+
   return (
     <div>
       <div className="toolbar">
@@ -130,7 +146,10 @@ export function ResourceTable({
         <span className="muted" style={{ fontSize: "0.78rem" }}>
           {filtered.length} record{filtered.length === 1 ? "" : "s"}
         </span>
-        <button className="btn btn-accent btn-sm" style={{ marginLeft: "auto" }} onClick={startAdd}>
+        <button className="btn btn-sm" style={{ marginLeft: "auto" }} onClick={exportCsv} title="Export visible rows to CSV">
+          ⬇ CSV
+        </button>
+        <button className="btn btn-accent btn-sm" onClick={startAdd}>
           + Add {title || collection}
         </button>
       </div>

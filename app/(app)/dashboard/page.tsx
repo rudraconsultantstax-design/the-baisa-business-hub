@@ -2,6 +2,8 @@ import Link from "next/link";
 import { requireSession } from "@/lib/auth";
 import { getOverview, getDailyBrief } from "@/lib/dataServer";
 import { PageHead } from "@/components/PageHead";
+import { CopyBrief } from "@/components/CopyBrief";
+import { formatWhatsAppBrief } from "@/lib/whatsapp";
 import { inr, inrCompact, pct } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
@@ -13,6 +15,7 @@ export default async function Dashboard() {
   const o = await getOverview(session.orgId);
   const brief = await getDailyBrief(session.orgId);
   const k = o.kpis;
+  const waText = formatWhatsAppBrief(brief, o.org?.name ?? "Workspace");
 
   const stats: [string, string, string][] = [
     ["Revenue (orders)", inr(k.revenue), `${k.orderCount} orders · AOV ${inr(k.aov)}`],
@@ -55,7 +58,7 @@ export default async function Dashboard() {
         <div className="card">
           <div className="card-title">
             ☀️ Today&apos;s brief
-            <span className="hint">{brief.topInsights.length} things need attention</span>
+            <CopyBrief text={waText} />
           </div>
           {brief.topInsights.length === 0 && <p className="muted">All clear — no critical or warning signals today. 🎉</p>}
           {brief.topInsights.map((i) => (
