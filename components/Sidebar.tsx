@@ -8,6 +8,7 @@ const NAV: { label: string; items: [string, string, string][] }[] = [
     label: "Overview",
     items: [
       ["📊", "Dashboard", "/dashboard"],
+      ["📈", "Analytics", "/analytics"],
       ["🧠", "Insights", "/insights"]
     ]
   },
