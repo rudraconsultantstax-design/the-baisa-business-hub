@@ -8,7 +8,7 @@
 
 import { promises as fs } from "node:fs";
 import path from "node:path";
-import { SEED_ORG, buildSeed } from "./seed";
+import { SEED_ORG, buildSeed, SEED_CHANNELS } from "./seed";
 import type { Org } from "./schema";
 
 const DATA_DIR = path.join(process.cwd(), ".data");
@@ -171,6 +171,31 @@ export async function destroySession(token: string | undefined) {
 export async function findUserByEmail(email: string) {
   const d = await loadDb();
   return (d.collections.users || []).find((u) => u.email.toLowerCase() === email.toLowerCase());
+}
+
+// Create a brand-new workspace (self-serve signup). Seeds the universal channel
+// price-map and pricing defaults; business registers start empty.
+export async function createOrg(input: { name: string; industry?: string }): Promise<Org> {
+  const d = await loadDb();
+  const id = `org_${Math.random().toString(36).slice(2, 9)}`;
+  const org: Org = {
+    id,
+    name: input.name,
+    slug: input.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || id,
+    industry: input.industry || "MSME / D2C",
+    plan: "free",
+    currency: "INR",
+    createdAt: now(),
+    overheadPct: 0.15,
+    rejectPct: 0.03,
+    floorMultiplier: 2.0
+  };
+  d.orgs.push(org);
+  for (const ch of SEED_CHANNELS) {
+    await create(id, "channels", ch);
+  }
+  await persist();
+  return org;
 }
 
 // Reset to seed — used by Settings → "Reset demo data".

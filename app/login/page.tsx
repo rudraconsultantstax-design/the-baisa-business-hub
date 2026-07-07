@@ -58,6 +58,9 @@ export default function LoginPage() {
         <p className="muted" style={{ marginTop: 14, fontSize: "0.74rem", textAlign: "center" }}>
           Demo: founder@baisajaipur.in / baisa123
         </p>
+        <p className="muted" style={{ marginTop: 6, fontSize: "0.78rem", textAlign: "center" }}>
+          New here? <Link href="/signup" style={{ color: "var(--accent)" }}>Create a free workspace</Link>
+        </p>
         <p style={{ marginTop: 10, textAlign: "center" }}>
           <Link href="/" className="muted" style={{ fontSize: "0.78rem" }}>
             ← Back home

@@ -49,5 +49,8 @@ export function findUserByEmail(email: string) {
 export function resetDb() {
   return b().resetDb();
 }
+export function createOrg(input: { name: string; industry?: string }) {
+  return b().createOrg(input);
+}
 
 export const persistenceMode = () => (useSupabase() ? "supabase" : "json");

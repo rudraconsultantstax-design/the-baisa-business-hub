@@ -38,12 +38,13 @@ const NAV: { label: string; items: [string, string, string][] }[] = [
       ["🤝", "Partners", "/partners"],
       ["📣", "Content", "/content"],
       ["✅", "Tasks", "/tasks"],
+      ["👥", "Team", "/team"],
       ["⚙️", "Settings", "/settings"]
     ]
   }
 ];
 
-export function Sidebar({ orgName, userName }: { orgName: string; userName: string }) {
+export function Sidebar({ orgName, userName, role }: { orgName: string; userName: string; role: string }) {
   const pathname = usePathname();
   const router = useRouter();
 
@@ -81,7 +82,7 @@ export function Sidebar({ orgName, userName }: { orgName: string; userName: stri
         <div className="spread">
           <div>
             <div style={{ color: "var(--text-2)", fontWeight: 600 }}>{userName}</div>
-            <div style={{ fontSize: "0.68rem" }}>Owner</div>
+            <div style={{ fontSize: "0.68rem", textTransform: "capitalize" }}>{role}</div>
           </div>
           <button className="btn btn-sm" onClick={logout}>
             Logout

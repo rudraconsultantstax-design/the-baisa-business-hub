@@ -10,10 +10,13 @@ export function isApiCollection(name: string): boolean {
   return API_COLLECTIONS.includes(name);
 }
 
-export async function requireApiSession() {
+export async function requireApiSession(opts?: { write?: boolean }) {
   const session = await currentSession();
   if (!session) {
     return { error: NextResponse.json({ error: "Unauthorized" }, { status: 401 }), session: null };
+  }
+  if (opts?.write && session.user.role === "staff") {
+    return { error: NextResponse.json({ error: "Your role is read-only" }, { status: 403 }), session: null };
   }
   return { error: null, session };
 }

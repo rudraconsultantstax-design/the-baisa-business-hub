@@ -3,7 +3,7 @@ import { currentSession } from "@/lib/auth";
 
 export default async function Landing() {
   const session = await currentSession();
-  const cta = session ? "/dashboard" : "/login";
+  const cta = session ? "/dashboard" : "/signup";
 
   const features = [
     ["📊", "Live MIS & Dashboard", "Revenue, COGS, net margin, payables and an auto-computed daily brief — no manual compilation."],
@@ -21,9 +21,16 @@ export default async function Landing() {
           <div style={{ fontFamily: "Playfair Display, serif", fontSize: "1.3rem", color: "var(--accent)", fontWeight: 800 }}>
             Baisa<span style={{ color: "var(--text)" }}> OS</span>
           </div>
-          <Link href={cta} className="btn btn-accent btn-sm">
-            {session ? "Open dashboard" : "Sign in"}
-          </Link>
+          <div className="row" style={{ gap: 8 }}>
+            {!session && (
+              <Link href="/login" className="btn btn-sm">
+                Sign in
+              </Link>
+            )}
+            <Link href={cta} className="btn btn-accent btn-sm">
+              {session ? "Open dashboard" : "Get started"}
+            </Link>
+          </div>
         </div>
       </header>
 

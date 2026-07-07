@@ -9,7 +9,7 @@
 // env vars are absent (the dispatcher in store.ts only routes here when set).
 
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
-import { SEED_ORG, buildSeed } from "./seed";
+import { SEED_ORG, buildSeed, SEED_CHANNELS } from "./seed";
 import type { Org } from "./schema";
 
 const ORGS = "baisa_os_orgs";
@@ -151,8 +151,29 @@ export async function destroySession(token: string | undefined) {
 
 export async function findUserByEmail(email: string) {
   await ensureSeeded();
-  const users = await list(SEED_ORG.id, "users");
-  return users.find((u) => String(u.email).toLowerCase() === email.toLowerCase());
+  // Global lookup across all orgs (email is the login identity).
+  const { data } = await client().from(RECORDS).select("*").eq("collection", "users");
+  return (data || []).map(flatten).find((u) => String(u.email).toLowerCase() === email.toLowerCase());
+}
+
+export async function createOrg(input: { name: string; industry?: string }): Promise<Org> {
+  await ensureSeeded();
+  const id = `org_${Math.random().toString(36).slice(2, 9)}`;
+  const org: Org = {
+    id,
+    name: input.name,
+    slug: input.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || id,
+    industry: input.industry || "MSME / D2C",
+    plan: "free",
+    currency: "INR",
+    createdAt: now(),
+    overheadPct: 0.15,
+    rejectPct: 0.03,
+    floorMultiplier: 2.0
+  };
+  await client().from(ORGS).insert({ id, data: org });
+  for (const ch of SEED_CHANNELS) await create(id, "channels", ch);
+  return org;
 }
 
 export async function resetDb() {

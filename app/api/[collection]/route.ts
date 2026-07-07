@@ -14,7 +14,7 @@ export async function GET(_req: Request, { params }: { params: Promise<{ collect
 export async function POST(req: Request, { params }: { params: Promise<{ collection: string }> }) {
   const { collection } = await params;
   if (!isApiCollection(collection)) return notFound("Unknown collection");
-  const { error, session } = await requireApiSession();
+  const { error, session } = await requireApiSession({ write: true });
   if (error) return error;
   const body = await req.json().catch(() => null);
   if (!body || typeof body !== "object") return badRequest("Invalid JSON body");

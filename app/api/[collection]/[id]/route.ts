@@ -15,7 +15,7 @@ export async function GET(_req: Request, { params }: { params: Promise<{ collect
 export async function PATCH(req: Request, { params }: { params: Promise<{ collection: string; id: string }> }) {
   const { collection, id } = await params;
   if (!isApiCollection(collection)) return notFound("Unknown collection");
-  const { error, session } = await requireApiSession();
+  const { error, session } = await requireApiSession({ write: true });
   if (error) return error;
   const body = await req.json().catch(() => null);
   if (!body || typeof body !== "object") return badRequest("Invalid JSON body");
@@ -27,7 +27,7 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ collec
 export async function DELETE(_req: Request, { params }: { params: Promise<{ collection: string; id: string }> }) {
   const { collection, id } = await params;
   if (!isApiCollection(collection)) return notFound("Unknown collection");
-  const { error, session } = await requireApiSession();
+  const { error, session } = await requireApiSession({ write: true });
   if (error) return error;
   const ok = await remove(session.orgId, collection, id);
   if (!ok) return notFound();

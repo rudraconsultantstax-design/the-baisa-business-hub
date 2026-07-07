@@ -10,7 +10,7 @@ export async function GET() {
 }
 
 export async function PATCH(req: Request) {
-  const { error, session } = await requireApiSession();
+  const { error, session } = await requireApiSession({ write: true });
   if (error) return error;
   const body = await req.json().catch(() => null);
   if (!body || typeof body !== "object") return badRequest("Invalid JSON body");
@@ -24,7 +24,7 @@ export async function PATCH(req: Request) {
 
 // POST { action: "reset" } → restore seed data (demo convenience).
 export async function POST(req: Request) {
-  const { error } = await requireApiSession();
+  const { error } = await requireApiSession({ write: true });
   if (error) return error;
   const body = await req.json().catch(() => ({}));
   if (body?.action === "reset") {
