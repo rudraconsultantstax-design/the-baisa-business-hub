@@ -1,6 +1,7 @@
 import { requireSession } from "@/lib/auth";
 import { getOverview } from "@/lib/dataServer";
 import { PageHead } from "@/components/PageHead";
+import { ActionCenter } from "@/components/ActionCenter";
 import { inr, pct } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
@@ -16,6 +17,8 @@ export default async function InsightsPage() {
   return (
     <div className="page">
       <PageHead title="Intelligence" sub="What the numbers are telling you — ranked by urgency, each with a recommended action." />
+
+      <ActionCenter />
 
       <div className="grid g2">
         {o.insights.map((i) => (
