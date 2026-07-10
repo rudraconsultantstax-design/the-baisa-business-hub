@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
-import { createOrg, create, createSession, findUserByEmail } from "@/lib/db/store";
+import { createOrg, create, findUserByEmail } from "@/lib/db/store";
 import { SESSION_COOKIE } from "@/lib/auth";
+import { signSession } from "@/lib/session";
 
 export async function POST(req: Request) {
   const body = await req.json().catch(() => ({}));
@@ -18,7 +19,7 @@ export async function POST(req: Request) {
   }
   const org = await createOrg({ name: orgName });
   const user = await create(org.id, "users", { name, email, role: "owner", password });
-  const token = await createSession(user.id, org.id);
+  const token = signSession({ userId: user.id, orgId: org.id, name: user.name, email: user.email, role: "owner" });
   const jar = await cookies();
   jar.set(SESSION_COOKIE, token, { httpOnly: true, sameSite: "lax", path: "/", maxAge: 60 * 60 * 24 * 30 });
   return NextResponse.json({ ok: true, org: { id: org.id, name: org.name } });
