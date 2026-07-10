@@ -7,13 +7,17 @@ import { PageHead } from "@/components/PageHead";
 export default function SettingsPage() {
   const router = useRouter();
   const [org, setOrg] = useState<any>(null);
+  const [storage, setStorage] = useState<string>("");
   const [saved, setSaved] = useState(false);
   const [busy, setBusy] = useState(false);
 
   useEffect(() => {
     fetch("/api/org")
       .then((r) => r.json())
-      .then((j) => setOrg(j.data));
+      .then((j) => {
+        setOrg(j.data);
+        setStorage(j.storage || "");
+      });
   }, []);
 
   async function save() {
@@ -50,6 +54,22 @@ export default function SettingsPage() {
   return (
     <div className="page">
       <PageHead title="Settings" sub="Your workspace profile and the pricing-engine constants used across costing and margins." />
+
+      <div className="card" style={{ marginBottom: 16 }}>
+        <div className="spread">
+          <div>
+            <div className="card-title" style={{ marginBottom: 4 }}>🗄️ Data storage</div>
+            <p className="muted" style={{ fontSize: "0.82rem" }}>
+              {storage === "supabase"
+                ? "Durable Supabase Postgres — data persists across devices and restarts. Launch-ready."
+                : "In-memory (ephemeral). Set SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY in your host to persist data durably."}
+            </p>
+          </div>
+          <span className={`badge ${storage === "supabase" ? "b-green" : "b-amber"}`} style={{ whiteSpace: "nowrap" }}>
+            {storage === "supabase" ? "● Connected" : "○ Ephemeral"}
+          </span>
+        </div>
+      </div>
 
       <div className="grid g2">
         <div className="card">
