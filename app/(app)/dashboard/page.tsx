@@ -17,15 +17,15 @@ export default async function Dashboard() {
   const k = o.kpis;
   const waText = formatWhatsAppBrief(brief, o.org?.name ?? "Workspace");
 
-  const stats: [string, string, string][] = [
-    ["Revenue (orders)", inr(k.revenue), `${k.orderCount} orders · AOV ${inr(k.aov)}`],
-    ["Net margin", pct(k.netMargin), `Net profit ${inr(k.netProfit)}`],
-    ["Stock value", inr(k.stockValue), `${k.stockUnits} units on hand`],
-    ["Open orders", String(k.openOrders), `${brief.mtoQueue} in MTO queue`],
-    ["Job-work pending", `${k.jobworkPending} pc`, `${brief.overdueJobwork} challan(s) overdue`],
-    ["Wages payable", inr(k.wagesPayable), "unpaid piece-rate"],
-    ["Low stock alerts", String(k.lowStock), "size-SKUs at reorder"],
-    ["Line efficiency", pct(k.efficiency), "packed vs target (DPR)"]
+  const stats: [string, string, string, string][] = [
+    ["Revenue (orders)", inr(k.revenue), `${k.orderCount} orders · AOV ${inr(k.aov)}`, "/analytics"],
+    ["Net margin", pct(k.netMargin), `Net profit ${inr(k.netProfit)}`, "/finance"],
+    ["Stock value", inr(k.stockValue), `${k.stockUnits} units on hand`, "/inventory"],
+    ["Open orders", String(k.openOrders), `${brief.mtoQueue} in MTO queue`, "/orders"],
+    ["Job-work pending", `${k.jobworkPending} pc`, `${brief.overdueJobwork} challan(s) overdue`, "/jobwork"],
+    ["Wages payable", inr(k.wagesPayable), "unpaid piece-rate", "/jobwork"],
+    ["Low stock alerts", String(k.lowStock), "size-SKUs at reorder", "/inventory"],
+    ["Line efficiency", pct(k.efficiency), "packed vs target (DPR)", "/production"]
   ];
 
   const maxRev = Math.max(...o.channels.map((c) => c.revenue), 1);
@@ -44,12 +44,12 @@ export default async function Dashboard() {
       </PageHead>
 
       <div className="grid g4">
-        {stats.map(([lab, val, meta]) => (
-          <div className="stat" key={lab}>
+        {stats.map(([lab, val, meta, href]) => (
+          <Link className="stat tile-link" key={lab} href={href} style={{ display: "block" }}>
             <div className="lab">{lab}</div>
             <div className="val">{val}</div>
             <div className="meta">{meta}</div>
-          </div>
+          </Link>
         ))}
       </div>
 

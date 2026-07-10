@@ -26,7 +26,7 @@ const columns: Column[] = [
 
 const fields: Field[] = [
   { key: "date", label: "Date", type: "date", required: true },
-  { key: "styleCode", label: "Style code", required: true },
+  { key: "styleCode", label: "Style", type: "ref", refFrom: "styles", refField: "styleCode", required: true },
   { key: "cut", label: "Cut", type: "number" },
   { key: "stitched", label: "Stitched", type: "number" },
   { key: "finished", label: "Finished", type: "number" },
@@ -40,7 +40,7 @@ export default function ProductionPage() {
   return (
     <div className="page">
       <PageHead title="Daily Production Report (DPR)" sub="The daily pulse of the floor — cut/stitched/finished/QC/packed vs target, with efficiency per line." />
-      <ResourceTable collection="production" title="DPR entry" columns={columns} fields={fields} searchKeys={["styleCode", "date"]} defaultSort="date" />
+      <ResourceTable collection="production" title="DPR entry" columns={columns} fields={fields} searchKeys={["styleCode", "date"]} defaultSort="date" filterField="styleCode" filterLabel="All styles" />
     </div>
   );
 }

@@ -21,10 +21,10 @@ const jobColumns: Column[] = [
 ];
 
 const jobFields: Field[] = [
-  { key: "challanNo", label: "Challan no", required: true },
+  { key: "challanNo", label: "Challan no", required: true, auto: { prefix: "JC-", pad: 3 } },
   { key: "type", label: "Type", type: "select", options: ["issue", "receipt"], default: "issue" },
-  { key: "worker", label: "Worker / Unit" },
-  { key: "styleCode", label: "Style code" },
+  { key: "worker", label: "Worker / Unit", type: "ref", refFrom: "workers", refField: "name" },
+  { key: "styleCode", label: "Style", type: "ref", refFrom: "styles", refField: "styleCode" },
   { key: "operation", label: "Operation", type: "select", options: ["Cutting", "Stitching", "Printing", "Embroidery", "Finishing & Press"], default: "Stitching" },
   { key: "pcsSent", label: "Pcs sent", type: "number" },
   { key: "pcsReceived", label: "Pcs received", type: "number" },
@@ -45,7 +45,7 @@ const wageColumns: Column[] = [
 ];
 
 const wageFields: Field[] = [
-  { key: "worker", label: "Worker", required: true },
+  { key: "worker", label: "Worker", type: "ref", refFrom: "workers", refField: "name", required: true },
   { key: "date", label: "Date", type: "date" },
   { key: "qtyOk", label: "Qty OK (passed)", type: "number" },
   { key: "ratePerPc", label: "Rate / pc ₹", type: "number" },
@@ -66,11 +66,11 @@ export default function JobWorkPage() {
       <PageHead title="Job-Work & Wages" sub="GST-compliant challans (issue/receipt) and piece-rate wages. Pending = sent − received. Pay only on QC-passed pieces." />
       <div className="card" style={{ marginBottom: 18 }}>
         <div className="card-title">🧵 Job-work challan register</div>
-        <ResourceTable collection="jobwork" title="challan" columns={jobColumns} fields={jobFields} searchKeys={["challanNo", "worker", "styleCode", "operation"]} defaultSort="date" />
+        <ResourceTable collection="jobwork" title="challan" columns={jobColumns} fields={jobFields} searchKeys={["challanNo", "worker", "styleCode", "operation"]} defaultSort="date" filterField="operation" filterLabel="All operations" />
       </div>
       <div className="card">
         <div className="card-title">💸 Wage register (piece-rate)</div>
-        <ResourceTable collection="wages" title="wage" columns={wageColumns} fields={wageFields} searchKeys={["worker"]} defaultSort="date" transform={wageTransform} />
+        <ResourceTable collection="wages" title="wage" columns={wageColumns} fields={wageFields} searchKeys={["worker"]} defaultSort="date" transform={wageTransform} filterField="worker" filterLabel="All workers" />
       </div>
     </div>
   );

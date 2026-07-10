@@ -23,7 +23,7 @@ const fabricFields: Field[] = [
   { key: "color", label: "Colour" },
   { key: "supplier", label: "Supplier / issued-to" },
   { key: "rate", label: "Rate / m ₹", type: "number" },
-  { key: "styleCode", label: "Style (for issue)" },
+  { key: "styleCode", label: "Style (for issue)", type: "ref", refFrom: "styles", refField: "styleCode" },
   { key: "date", label: "Date", type: "date" }
 ];
 function fabricTransform(payload: any) {
@@ -41,8 +41,8 @@ const cuttingColumns: Column[] = [
 ];
 const cuttingFields: Field[] = [
   { key: "date", label: "Date", type: "date" },
-  { key: "styleCode", label: "Style code", required: true },
-  { key: "bundleNo", label: "Bundle no" },
+  { key: "styleCode", label: "Style", type: "ref", refFrom: "styles", refField: "styleCode", required: true },
+  { key: "bundleNo", label: "Bundle no", auto: { prefix: "BND-", pad: 3 } },
   { key: "fabricIssuedM", label: "Fabric issued (m)", type: "number" },
   { key: "pcsCut", label: "Pcs cut", type: "number" },
   { key: "wastagePct", label: "Wastage %", type: "number" }

@@ -31,13 +31,13 @@ const channels = ["D2C — Shopify", "WhatsApp", "Instagram", "Meesho", "Amazon"
 
 // Single-line-item form; transform wraps it into the items[] array and computes total.
 const fields: Field[] = [
-  { key: "orderNo", label: "Order no", required: true },
+  { key: "orderNo", label: "Order no", required: true, auto: { prefix: "TB", pad: 4 } },
   { key: "date", label: "Date", type: "date", required: true },
   { key: "channel", label: "Channel", type: "select", options: channels, default: "D2C — Shopify" },
-  { key: "customerName", label: "Customer name" },
+  { key: "customerName", label: "Customer", type: "ref", refFrom: "customers", refField: "name" },
   { key: "customerPhone", label: "Customer phone" },
-  { key: "skuCode", label: "SKU code" },
-  { key: "size", label: "Size" },
+  { key: "skuCode", label: "SKU", type: "ref", refFrom: "skus", refField: "code" },
+  { key: "size", label: "Size", type: "select", options: ["XS", "S", "M", "L", "XL", "2XL", "3XL", "4XL", "Free"] },
   { key: "qty", label: "Qty", type: "number", default: 1 },
   { key: "price", label: "Unit price ₹", type: "number" },
   { key: "status", label: "Status", type: "select", options: Object.keys(STATUS_MAP), default: "new" },
@@ -57,7 +57,7 @@ const dispatchColumns: Column[] = [
 ];
 const dispatchFields: Field[] = [
   { key: "date", label: "Date", type: "date" },
-  { key: "orderNo", label: "Order no", required: true },
+  { key: "orderNo", label: "Order no", type: "ref", refFrom: "orders", refField: "orderNo", required: true },
   { key: "courier", label: "Courier", default: "Shiprocket" },
   { key: "awb", label: "AWB / tracking" },
   { key: "qty", label: "Qty", type: "number" },
@@ -84,11 +84,11 @@ export default function OrdersPage() {
   return (
     <div className="page">
       <PageHead title="Orders" sub="Multi-channel order book. MTO orders spin a production batch; in-stock orders go straight to pick-pack." />
-      <ResourceTable collection="orders" title="order" columns={columns} fields={fields} searchKeys={["orderNo", "customerName", "channel", "status"]} defaultSort="date" transform={transform} />
+      <ResourceTable collection="orders" title="order" columns={columns} fields={fields} searchKeys={["orderNo", "customerName", "channel", "status"]} defaultSort="date" transform={transform} filterField="status" filterLabel="All statuses" />
 
       <div className="card" style={{ marginTop: 18 }}>
         <div className="card-title">🚚 Dispatch register</div>
-        <ResourceTable collection="dispatch" title="dispatch" columns={dispatchColumns} fields={dispatchFields} searchKeys={["orderNo", "awb", "courier", "status"]} defaultSort="date" />
+        <ResourceTable collection="dispatch" title="dispatch" columns={dispatchColumns} fields={dispatchFields} searchKeys={["orderNo", "awb", "courier", "status"]} defaultSort="date" filterField="status" filterLabel="All statuses" />
       </div>
     </div>
   );

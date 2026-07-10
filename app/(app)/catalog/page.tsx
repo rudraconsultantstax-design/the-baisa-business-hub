@@ -54,7 +54,7 @@ export default function CatalogPage() {
   return (
     <div className="page">
       <PageHead title="Catalog & Pricing" sub="Every SKU with live COGM (from its cost components) and gross margin at the D2C price." />
-      <ResourceTable collection="skus" title="SKU" columns={columns} fields={fields} searchKeys={["code", "name", "category"]} />
+      <ResourceTable collection="skus" title="SKU" columns={columns} fields={fields} searchKeys={["code", "name", "category"]} defaultSort="sell" filterField="category" filterLabel="All categories" />
       <div className="note" style={{ marginTop: 14 }}>
         COGM is recomputed from each SKU&apos;s fabric + trims + labour + packaging using your overhead/reject settings — edit a cost
         and the margin updates. Use the <b>Costing Engine</b> to price a brand-new product across all channels.

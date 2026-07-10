@@ -27,7 +27,7 @@ export default function CustomersPage() {
   return (
     <div className="page">
       <PageHead title="Customers (CRM)" sub="Your buyer directory, segmented. Build repeat-rate with WhatsApp reorder nudges to VIPs." />
-      <ResourceTable collection="customers" title="customer" columns={columns} fields={fields} searchKeys={["name", "phone", "city", "segment"]} defaultSort="totalSpent" />
+      <ResourceTable collection="customers" title="customer" columns={columns} fields={fields} searchKeys={["name", "phone", "city", "segment"]} defaultSort="totalSpent" filterField="segment" filterLabel="All segments" />
     </div>
   );
 }
