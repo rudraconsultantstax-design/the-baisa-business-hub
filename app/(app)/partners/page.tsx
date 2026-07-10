@@ -29,7 +29,7 @@ export default function PartnersPage() {
   return (
     <div className="page">
       <PageHead title="Partners & Vendors" sub="Fabric, job-work, trims, logistics and buyers. Keep 2+ backups per critical operation; star-rate quarterly." />
-      <ResourceTable collection="vendors" title="partner" columns={columns} fields={fields} searchKeys={["name", "type", "status"]} />
+      <ResourceTable collection="vendors" title="partner" columns={columns} fields={fields} searchKeys={["name", "type", "status"]} filterField="type" filterLabel="All types" />
     </div>
   );
 }

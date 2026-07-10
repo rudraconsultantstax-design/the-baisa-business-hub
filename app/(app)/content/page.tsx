@@ -29,7 +29,7 @@ export default function ContentPage() {
   return (
     <div className="page">
       <PageHead title="Content Calendar" sub="A repeatable machine: 6 pillars · ≥7 posts/week · batch shoot weekly. Plan → script → shoot → schedule → post." />
-      <ResourceTable collection="content" title="post" columns={columns} fields={fields} searchKeys={["title", "pillar", "format", "hook"]} defaultSort="date" />
+      <ResourceTable collection="content" title="post" columns={columns} fields={fields} searchKeys={["title", "pillar", "format", "hook"]} defaultSort="date" filterField="pillar" filterLabel="All pillars" />
     </div>
   );
 }

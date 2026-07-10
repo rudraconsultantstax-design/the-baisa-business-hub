@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
@@ -47,6 +48,22 @@ const NAV: { label: string; items: [string, string, string][] }[] = [
 export function Sidebar({ orgName, userName, role }: { orgName: string; userName: string; role: string }) {
   const pathname = usePathname();
   const router = useRouter();
+  const [counts, setCounts] = useState<Record<string, number>>({});
+
+  // Live operational badges — the nav doubles as an alert surface.
+  useEffect(() => {
+    fetch("/api/brief")
+      .then((r) => r.json())
+      .then((b) => {
+        setCounts({
+          "/inventory": b.lowStock || 0,
+          "/jobwork": b.overdueJobwork || 0,
+          "/insights": (b.topInsights || []).length || 0,
+          "/orders": b.newOrders || 0
+        });
+      })
+      .catch(() => {});
+  }, [pathname]);
 
   async function logout() {
     await fetch("/api/auth/logout", { method: "POST" });
@@ -68,10 +85,12 @@ export function Sidebar({ orgName, userName, role }: { orgName: string; userName
             <div className="nav-label">{group.label}</div>
             {group.items.map(([ico, label, href]) => {
               const active = pathname === href || pathname.startsWith(href + "/");
+              const count = counts[href];
               return (
                 <Link key={href} href={href} className={`nav-item${active ? " active" : ""}`}>
                   <span className="ico">{ico}</span>
                   {label}
+                  {count ? <span className="count">{count}</span> : null}
                 </Link>
               );
             })}

@@ -24,7 +24,7 @@ export default function ChannelsPage() {
   return (
     <div className="page">
       <PageHead title="Channels" sub="Win D2C economics first → marketplaces for reach → wholesale for volume. Multipliers feed the costing engine." />
-      <ResourceTable collection="channels" title="channel" columns={columns} fields={fields} searchKeys={["name", "status", "notes"]} />
+      <ResourceTable collection="channels" title="channel" columns={columns} fields={fields} searchKeys={["name", "status", "notes"]} filterField="status" filterLabel="All statuses" />
     </div>
   );
 }

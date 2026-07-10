@@ -16,7 +16,7 @@ const columns: Column[] = [
 ];
 
 const fields: Field[] = [
-  { key: "skuCode", label: "SKU code", required: true },
+  { key: "skuCode", label: "SKU", type: "ref", refFrom: "skus", refField: "code", required: true },
   { key: "size", label: "Size", type: "select", options: ["XS", "S", "M", "L", "XL", "2XL", "3XL", "4XL", "Free"] },
   { key: "onHand", label: "On hand", type: "number" },
   { key: "reorderLevel", label: "Reorder level", type: "number", default: 6 },
@@ -28,7 +28,7 @@ export default function InventoryPage() {
   return (
     <div className="page">
       <PageHead title="Inventory" sub="SKU-size stock ledger. CONTINUE = made-to-order (never sold-out). Low stock is flagged in red." />
-      <ResourceTable collection="inventory" title="stock line" columns={columns} fields={fields} searchKeys={["skuCode", "size", "location"]} />
+      <ResourceTable collection="inventory" title="stock line" columns={columns} fields={fields} searchKeys={["skuCode", "size", "location"]} filterField="policy" filterLabel="All policies" />
     </div>
   );
 }

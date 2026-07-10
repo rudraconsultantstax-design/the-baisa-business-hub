@@ -27,7 +27,7 @@ export default function TasksPage() {
   return (
     <div className="page">
       <PageHead title="Tasks" sub="The action tracker. Sort by priority, clear the top 3 daily, update status at EOD." />
-      <ResourceTable collection="tasks" title="task" columns={columns} fields={fields} searchKeys={["title", "fn", "owner"]} defaultSort="priority" />
+      <ResourceTable collection="tasks" title="task" columns={columns} fields={fields} searchKeys={["title", "fn", "owner"]} defaultSort="priority" filterField="status" filterLabel="All statuses" />
     </div>
   );
 }

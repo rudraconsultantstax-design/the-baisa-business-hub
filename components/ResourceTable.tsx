@@ -10,17 +10,23 @@ export type Column = {
   type?: "currency" | "pct" | "date" | "badge" | "text";
   badgeMap?: Record<string, string>;
   render?: (row: any) => React.ReactNode;
+  sortable?: boolean;
 };
 
 export type Field = {
   key: string;
   label: string;
-  type?: "text" | "number" | "select" | "date" | "checkbox";
+  type?: "text" | "number" | "select" | "date" | "checkbox" | "ref";
   options?: string[];
   required?: boolean;
   default?: any;
   full?: boolean;
   step?: string;
+  // "ref": prefill options from another collection's field (selectable cell)
+  refFrom?: string;
+  refField?: string;
+  // auto-number: prefill the next value like "TB2601", "JC-268"
+  auto?: { prefix: string; pad: number };
 };
 
 function cellValue(col: Column, row: any) {
@@ -36,6 +42,18 @@ function cellValue(col: Column, row: any) {
   return v ?? "—";
 }
 
+function nextAutoNumber(rows: any[], key: string, prefix: string, pad: number) {
+  let max = 0;
+  for (const r of rows) {
+    const s = String(r[key] ?? "");
+    if (prefix && !s.startsWith(prefix)) continue;
+    const digits = s.slice(prefix.length).replace(/\D/g, "");
+    const n = parseInt(digits || "0", 10);
+    if (n > max) max = n;
+  }
+  return prefix + String(max + 1).padStart(pad, "0");
+}
+
 export function ResourceTable({
   collection,
   columns,
@@ -44,7 +62,9 @@ export function ResourceTable({
   title,
   emptyHint,
   defaultSort,
-  transform
+  transform,
+  filterField,
+  filterLabel
 }: {
   collection: string;
   columns: Column[];
@@ -54,21 +74,25 @@ export function ResourceTable({
   emptyHint?: string;
   defaultSort?: string;
   transform?: (payload: any, editing: any) => any;
+  filterField?: string;
+  filterLabel?: string;
 }) {
   const [rows, setRows] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [q, setQ] = useState("");
+  const [filterVal, setFilterVal] = useState("");
+  const [sortKey, setSortKey] = useState<string>(defaultSort || "");
+  const [sortDir, setSortDir] = useState<"asc" | "desc">(defaultSort ? "desc" : "asc");
   const [editing, setEditing] = useState<any | null>(null);
   const [open, setOpen] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [refOptions, setRefOptions] = useState<Record<string, string[]>>({});
 
   async function load() {
     setLoading(true);
     const res = await fetch(`/api/${collection}`);
     const j = await res.json().catch(() => ({ data: [] }));
-    let data = j.data || [];
-    if (defaultSort) data = [...data].sort((a, b) => (a[defaultSort] < b[defaultSort] ? 1 : -1));
-    setRows(data);
+    setRows(j.data || []);
     setLoading(false);
   }
   useEffect(() => {
@@ -76,15 +100,64 @@ export function ResourceTable({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [collection]);
 
+  // Load reference options (prefilled selectable cells) once.
+  useEffect(() => {
+    const refs = fields.filter((f) => f.type === "ref" && f.refFrom && f.refField);
+    if (refs.length === 0) return;
+    const uniqueCollections = Array.from(new Set(refs.map((f) => f.refFrom!)));
+    Promise.all(uniqueCollections.map((c) => fetch(`/api/${c}`).then((r) => r.json()).then((j) => [c, j.data || []] as const))).then((pairs) => {
+      const byColl = Object.fromEntries(pairs);
+      const opts: Record<string, string[]> = {};
+      for (const f of refs) {
+        const data = byColl[f.refFrom!] || [];
+        opts[f.key] = Array.from(new Set(data.map((r: any) => r[f.refField!]).filter(Boolean))).sort() as string[];
+      }
+      setRefOptions(opts);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [collection]);
+
+  const filterOptions = useMemo(() => {
+    if (!filterField) return [];
+    return Array.from(new Set(rows.map((r) => r[filterField]).filter((v) => v != null && v !== ""))).sort() as string[];
+  }, [rows, filterField]);
+
   const filtered = useMemo(() => {
     const s = q.toLowerCase().trim();
-    if (!s) return rows;
-    return rows.filter((r) => searchKeys.some((k) => String(r[k] ?? "").toLowerCase().includes(s)));
-  }, [rows, q, searchKeys]);
+    let out = rows.filter((r) => {
+      const matchesSearch = !s || searchKeys.some((k) => String(r[k] ?? "").toLowerCase().includes(s));
+      const matchesFilter = !filterField || !filterVal || String(r[filterField]) === filterVal;
+      return matchesSearch && matchesFilter;
+    });
+    if (sortKey) {
+      out = [...out].sort((a, b) => {
+        const av = a[sortKey];
+        const bv = b[sortKey];
+        const an = Number(av);
+        const bn = Number(bv);
+        let cmp: number;
+        if (!Number.isNaN(an) && !Number.isNaN(bn) && av !== "" && bv !== "") cmp = an - bn;
+        else cmp = String(av ?? "").localeCompare(String(bv ?? ""));
+        return sortDir === "asc" ? cmp : -cmp;
+      });
+    }
+    return out;
+  }, [rows, q, searchKeys, filterField, filterVal, sortKey, sortDir]);
+
+  function toggleSort(key: string) {
+    if (sortKey === key) setSortDir(sortDir === "asc" ? "desc" : "asc");
+    else {
+      setSortKey(key);
+      setSortDir("asc");
+    }
+  }
 
   function startAdd() {
     const blank: any = {};
-    for (const f of fields) blank[f.key] = f.default ?? (f.type === "number" ? 0 : f.type === "checkbox" ? false : "");
+    for (const f of fields) {
+      if (f.auto) blank[f.key] = nextAutoNumber(rows, f.key, f.auto.prefix, f.auto.pad);
+      else blank[f.key] = f.default ?? (f.type === "number" ? 0 : f.type === "checkbox" ? false : "");
+    }
     setEditing(blank);
     setOpen(true);
   }
@@ -139,14 +212,59 @@ export function ResourceTable({
     URL.revokeObjectURL(a.href);
   }
 
+  const inputForField = (f: Field) => {
+    if (f.type === "select" || f.type === "ref") {
+      const opts = f.type === "ref" ? refOptions[f.key] || [] : f.options || [];
+      return (
+        <select value={editing[f.key] ?? ""} onChange={(e) => setEditing({ ...editing, [f.key]: e.target.value })}>
+          <option value="">—</option>
+          {opts.map((o) => (
+            <option key={o} value={o}>
+              {o}
+            </option>
+          ))}
+        </select>
+      );
+    }
+    if (f.type === "checkbox") {
+      return (
+        <label className="row" style={{ gap: 8 }}>
+          <input type="checkbox" checked={!!editing[f.key]} onChange={(e) => setEditing({ ...editing, [f.key]: e.target.checked })} style={{ width: 18, height: 18 }} />
+          <span className="muted">{f.label}</span>
+        </label>
+      );
+    }
+    return (
+      <input
+        type={f.type === "number" ? "number" : f.type === "date" ? "date" : "text"}
+        step={f.step}
+        value={editing[f.key] ?? ""}
+        onChange={(e) => setEditing({ ...editing, [f.key]: e.target.value })}
+      />
+    );
+  };
+
   return (
     <div>
       <div className="toolbar">
-        <input placeholder="🔍 Search…" value={q} onChange={(e) => setQ(e.target.value)} style={{ maxWidth: 260 }} />
+        <input placeholder="🔍 Search…" value={q} onChange={(e) => setQ(e.target.value)} style={{ maxWidth: 220 }} />
+        {filterField && (
+          <select value={filterVal} onChange={(e) => setFilterVal(e.target.value)} style={{ maxWidth: 180 }}>
+            <option value="">{filterLabel || "All"}</option>
+            {filterOptions.map((o) => (
+              <option key={o} value={o}>
+                {o}
+              </option>
+            ))}
+          </select>
+        )}
         <span className="muted" style={{ fontSize: "0.78rem" }}>
           {filtered.length} record{filtered.length === 1 ? "" : "s"}
         </span>
-        <button className="btn btn-sm" style={{ marginLeft: "auto" }} onClick={exportCsv} title="Export visible rows to CSV">
+        <button className="btn btn-sm" style={{ marginLeft: "auto" }} onClick={load} title="Refresh">
+          ↻
+        </button>
+        <button className="btn btn-sm" onClick={exportCsv} title="Export visible rows to CSV">
           ⬇ CSV
         </button>
         <button className="btn btn-accent btn-sm" onClick={startAdd}>
@@ -158,11 +276,22 @@ export function ResourceTable({
         <table className="data">
           <thead>
             <tr>
-              {columns.map((c) => (
-                <th key={c.key} className={c.align === "r" ? "r" : ""}>
-                  {c.label}
-                </th>
-              ))}
+              {columns.map((c) => {
+                const sortable = c.sortable !== false;
+                const active = sortKey === c.key;
+                return (
+                  <th
+                    key={c.key}
+                    className={c.align === "r" ? "r" : ""}
+                    onClick={sortable ? () => toggleSort(c.key) : undefined}
+                    style={sortable ? { cursor: "pointer", userSelect: "none" } : undefined}
+                    title={sortable ? "Sort" : undefined}
+                  >
+                    {c.label}
+                    {active && <span style={{ color: "var(--accent)", marginLeft: 4 }}>{sortDir === "asc" ? "▲" : "▼"}</span>}
+                  </th>
+                );
+              })}
               <th className="r">Actions</th>
             </tr>
           </thead>
@@ -187,7 +316,7 @@ export function ResourceTable({
                       {cellValue(c, row)}
                     </td>
                   ))}
-                  <td className="r">
+                  <td className="r" style={{ whiteSpace: "nowrap" }}>
                     <button className="btn btn-sm" onClick={() => startEdit(row)} style={{ marginRight: 6 }}>
                       Edit
                     </button>
@@ -205,38 +334,14 @@ export function ResourceTable({
       {open && editing && (
         <div className="modal-backdrop" onClick={() => setOpen(false)}>
           <div className="modal" onClick={(e) => e.stopPropagation()}>
-            <div className="card-title">{editing.id ? "Edit" : "Add"} {title || collection}</div>
+            <div className="card-title">
+              {editing.id ? "Edit" : "Add"} {title || collection}
+            </div>
             <div className="form-grid">
               {fields.map((f) => (
                 <div key={f.key} className={f.full ? "full" : ""}>
                   <label className="field">{f.label}</label>
-                  {f.type === "select" ? (
-                    <select value={editing[f.key] ?? ""} onChange={(e) => setEditing({ ...editing, [f.key]: e.target.value })}>
-                      <option value="">—</option>
-                      {(f.options || []).map((o) => (
-                        <option key={o} value={o}>
-                          {o}
-                        </option>
-                      ))}
-                    </select>
-                  ) : f.type === "checkbox" ? (
-                    <label className="row" style={{ gap: 8 }}>
-                      <input
-                        type="checkbox"
-                        checked={!!editing[f.key]}
-                        onChange={(e) => setEditing({ ...editing, [f.key]: e.target.checked })}
-                        style={{ width: 18, height: 18 }}
-                      />
-                      <span className="muted">{f.label}</span>
-                    </label>
-                  ) : (
-                    <input
-                      type={f.type === "number" ? "number" : f.type === "date" ? "date" : "text"}
-                      step={f.step}
-                      value={editing[f.key] ?? ""}
-                      onChange={(e) => setEditing({ ...editing, [f.key]: e.target.value })}
-                    />
-                  )}
+                  {inputForField(f)}
                 </div>
               ))}
             </div>
