@@ -1,12 +1,12 @@
 import { NextResponse } from "next/server";
-import { getOrg, updateOrg, resetDb } from "@/lib/db/store";
+import { getOrg, updateOrg, resetDb, persistenceMode } from "@/lib/db/store";
 import { requireApiSession, badRequest } from "@/lib/apiServer";
 
 export async function GET() {
   const { error, session } = await requireApiSession();
   if (error) return error;
   const org = await getOrg(session.orgId);
-  return NextResponse.json({ data: org });
+  return NextResponse.json({ data: org, storage: persistenceMode() });
 }
 
 export async function PATCH(req: Request) {
