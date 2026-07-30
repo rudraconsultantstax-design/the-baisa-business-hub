@@ -1,0 +1,219 @@
+{
+  "name": "TCC — New Lead → AI Qualification Call",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "tcc-new-lead",
+        "options": {}
+      },
+      "id": "d2e3f4a5-b2c3-4d01-8e01-2000000000b1",
+      "name": "New Lead Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1.1,
+      "position": [240, 300],
+      "webhookId": "d2e3f4a5-b2c3-4d01-8e01-2000000000c1",
+      "notes": "Point your website lead form OR a Zoho CRM 'lead created' automation/webhook here. Expects POST JSON { name, phone, source, interest }. URL after import: https://<your-n8n>/webhook/tcc-new-lead (use /webhook-test/ while building). Default responseMode replies immediately, then the flow fires the call.",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose"
+          },
+          "conditions": [
+            {
+              "id": "wf2-cond-phone",
+              "leftValue": "={{ $json.body.phone }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "wf2-cond-consent",
+              "leftValue": "={{ $json.body.consent_ref }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "d2e3f4a5-b2c3-4d01-8e01-2000000000b2",
+      "name": "Phone Present?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [460, 300],
+      "notes": "Guard: continue only if BOTH phone AND consent_ref are present (enforced below). Lead qualification is a PROMOTIONAL call - only leads who captured consent proceed. The 'true' output goes to the call; 'false' goes to Skipped.",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "wf2-set-agent",
+              "name": "agent",
+              "value": "lead_qualify",
+              "type": "string"
+            },
+            {
+              "id": "wf2-set-to",
+              "name": "to_number",
+              "value": "={{ $json.body.phone }}",
+              "type": "string"
+            },
+            {
+              "id": "wf2-set-name",
+              "name": "lead_name",
+              "value": "={{ $json.body.name }}",
+              "type": "string"
+            },
+            {
+              "id": "wf2-set-interest",
+              "name": "interest",
+              "value": "={{ $json.body.interest }}",
+              "type": "string"
+            },
+            {
+              "id": "wf2-set-source",
+              "name": "source",
+              "value": "={{ $json.body.source }}",
+              "type": "string"
+            },
+            {
+              "id": "wf2-set-consent",
+              "name": "consent_ref",
+              "value": "={{ $json.body.consent_ref }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "d2e3f4a5-b2c3-4d01-8e01-2000000000b3",
+      "name": "Build Qualification Payload",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.3,
+      "position": [680, 200],
+      "notes": "Thin mapping. Builds payload: agent=lead_qualify, to_number=phone, variables name/interest/source, consent_ref=web_form. consent_ref should reference where/when consent was captured.",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://tcc-voice-backend:3000/calls/outbound",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "x-api-key", "value": "={{ $env.TCC_API_KEY }}" }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "json",
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ client_id: 'tcc', agent: $json.agent, to_number: $json.to_number, variables: { name: $json.lead_name, interest: $json.interest, source: $json.source }, consent_ref: $json.consent_ref, check_dnd: true }) }}",
+        "options": {}
+      },
+      "id": "d2e3f4a5-b2c3-4d01-8e01-2000000000b4",
+      "name": "Call Backend - Qualification Call",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [900, 200],
+      "notes": "Calls the backend middleware, which enforces consent + DND + the 9am-9pm window - n8n only triggers. IMPORTANT: promotional calls require prior consent and DND scrubbing; make sure the middleware holds a valid consent record for this number (check_dnd=true asks it to verify). Base URL http://tcc-voice-backend:3000 is a docker-compose placeholder - change here or use env ={{ $env.TCC_BACKEND_URL }}/calls/outbound.",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {},
+      "id": "d2e3f4a5-b2c3-4d01-8e01-2000000000b5",
+      "name": "Lead Call Queued",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [1120, 200],
+      "notes": "Lead qualification call queued with the backend.",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {},
+      "id": "d2e3f4a5-b2c3-4d01-8e01-2000000000b6",
+      "name": "Skipped - No Phone",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [680, 420],
+      "notes": "Skipped: no phone number on the lead, nothing sent to the backend.",
+      "notesInFlow": true
+    }
+  ],
+  "connections": {
+    "New Lead Webhook": {
+      "main": [
+        [
+          {
+            "node": "Phone Present?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Phone Present?": {
+      "main": [
+        [
+          {
+            "node": "Build Qualification Payload",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Skipped - No Phone",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Qualification Payload": {
+      "main": [
+        [
+          {
+            "node": "Call Backend - Qualification Call",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call Backend - Qualification Call": {
+      "main": [
+        [
+          {
+            "node": "Lead Call Queued",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "id": "tcc-wf2-new-lead-to-qualification-call",
+  "tags": [],
+  "pinData": {},
+  "meta": {}
+}
