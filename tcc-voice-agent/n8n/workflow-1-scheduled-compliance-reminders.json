@@ -1,0 +1,203 @@
+{
+  "name": "TCC — Scheduled Compliance Reminders (Outbound)",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 10 * * *"
+            }
+          ]
+        }
+      },
+      "id": "c1d2e3f4-a1b2-4c01-8d01-1000000000a1",
+      "name": "Daily 10:00 Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [240, 300],
+      "notes": "Runs daily at 10:00 (cron 0 10 * * *), well inside the 9am-9pm calling window the backend enforces. Set the instance/workflow timezone so 10:00 = IST. Change the cron for a different time.",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "={{ $env.TCC_DUE_LIST_URL }}",
+        "options": {}
+      },
+      "id": "c1d2e3f4-a1b2-4c01-8d01-1000000000a2",
+      "name": "Get Due Compliance List",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [460, 300],
+      "notes": "PLACEHOLDER data source. Set env var TCC_DUE_LIST_URL to an endpoint returning a JSON array like [{ 'name': 'Acme Traders', 'phone': '+919812345678', 'return_type': 'GSTR-3B', 'due_date': '2026-08-11' }] for clients whose compliance deadline is in the next few days. REPLACE with an n8n Zoho CRM node running a COQL query, or a Google Sheets 'Get Rows' node, or keep HTTP if your backend exposes a due-list endpoint. n8n emits one item per array element; if your source wraps the list (e.g. { data: [...] }) extract the array before the loop.",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "batchSize": 1,
+        "options": {}
+      },
+      "id": "c1d2e3f4-a1b2-4c01-8d01-1000000000a3",
+      "name": "Loop Over Clients",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [680, 300],
+      "notes": "Batch size 1 -> process one client at a time. Output 2 (loop) builds the payload and calls the backend, then wires back here; output 1 (done) ends at the NoOp once the list is exhausted.",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "wf1-set-agent",
+              "name": "agent",
+              "value": "gst_reminder",
+              "type": "string"
+            },
+            {
+              "id": "wf1-set-to",
+              "name": "to_number",
+              "value": "={{ $json.phone }}",
+              "type": "string"
+            },
+            {
+              "id": "wf1-set-client",
+              "name": "client_name",
+              "value": "={{ $json.name }}",
+              "type": "string"
+            },
+            {
+              "id": "wf1-set-return",
+              "name": "return_type",
+              "value": "={{ $json.return_type }}",
+              "type": "string"
+            },
+            {
+              "id": "wf1-set-due",
+              "name": "due_date",
+              "value": "={{ $json.due_date }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "c1d2e3f4-a1b2-4c01-8d01-1000000000a4",
+      "name": "Build Reminder Payload",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.3,
+      "position": [900, 400],
+      "notes": "Thin mapping only. Maps each client row to the outbound payload fields: agent=gst_reminder, to_number=phone, and the variables client_name/return_type/due_date. Use agent=payment_reminder instead for overdue-payment campaigns.",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://tcc-voice-backend:3000/calls/outbound",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "x-api-key", "value": "={{ $env.TCC_API_KEY }}" }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "json",
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ client_id: 'tcc', agent: $json.agent, to_number: $json.to_number, variables: { client_name: $json.client_name, return_type: $json.return_type, due_date: $json.due_date }, check_dnd: true }) }}",
+        "options": {}
+      },
+      "id": "c1d2e3f4-a1b2-4c01-8d01-1000000000a5",
+      "name": "Call Backend - Outbound Reminder",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [1120, 400],
+      "notes": "Calls the backend middleware, which enforces the 9am-9pm window, suppression/DND and consent - n8n only triggers. Base URL http://tcc-voice-backend:3000 is a docker-compose placeholder; change it here or set env TCC_BACKEND_URL and use ={{ $env.TCC_BACKEND_URL }}/calls/outbound.",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {},
+      "id": "c1d2e3f4-a1b2-4c01-8d01-1000000000a6",
+      "name": "All Reminders Queued",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [900, 180],
+      "notes": "End of run. All due clients have been queued with the backend.",
+      "notesInFlow": true
+    }
+  ],
+  "connections": {
+    "Daily 10:00 Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get Due Compliance List",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Due Compliance List": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Clients",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Clients": {
+      "main": [
+        [
+          {
+            "node": "All Reminders Queued",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Build Reminder Payload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Reminder Payload": {
+      "main": [
+        [
+          {
+            "node": "Call Backend - Outbound Reminder",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call Backend - Outbound Reminder": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Clients",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "id": "tcc-wf1-scheduled-compliance-reminders",
+  "tags": [],
+  "pinData": {},
+  "meta": {}
+}

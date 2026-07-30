@@ -1,0 +1,37 @@
+[
+  {
+    "id": "tcc",
+    "name": "The Consulting Crew (internal)",
+    "contact": "Ashish Sharma",
+    "phone": "+919251022710",
+    "tier": "growth",
+    "status": "active",
+    "internal": true
+  },
+  {
+    "id": "sawai-dental",
+    "name": "Sawai Dental & Skin Clinic",
+    "contact": "Dr. Meena",
+    "phone": "+919812300011",
+    "tier": "reception",
+    "status": "active",
+    "setupBilledMonth": "2026-07"
+  },
+  {
+    "id": "manglam-realtors",
+    "name": "Manglam Realtors LLP",
+    "contact": "Vikram",
+    "phone": "+919812300022",
+    "tier": "growth",
+    "status": "active"
+  },
+  {
+    "id": "marudhar-finance",
+    "name": "Marudhar Finance (NBFC)",
+    "contact": "Ravi",
+    "phone": "+919812300033",
+    "tier": "scale",
+    "status": "active",
+    "overageOverride": 8
+  }
+]

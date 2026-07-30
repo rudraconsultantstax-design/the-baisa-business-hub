@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Consulting Crew — AI Voice Agent for Your Business</title>
+<style>
+  :root{
+    --navy:#0b1220;--ink:#0f172a;--slate:#334155;--mute:#64748b;--line:#e6ebf3;--bg:#f6f8fc;
+    --blue:#2563eb;--blue-d:#1d4ed8;--blue-bg:#eef4ff;--emerald:#059669;--emerald-bg:#ecfdf5;--amber:#b45309;--amber-bg:#fff7ed;
+  }
+  *{box-sizing:border-box}html{scroll-behavior:smooth}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,"Noto Sans",sans-serif;color:var(--ink);background:var(--bg);line-height:1.6;font-size:16px;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:920px;margin:0 auto;padding:0 20px}
+  h1,h2,h3{line-height:1.2;margin:0 0 .4em;letter-spacing:-.02em}
+  h2{font-size:1.75rem}p{margin:0 0 1em}
+  .kicker{font-size:.72rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--blue-d)}
+  .hero{background:radial-gradient(1100px 500px at 85% -10%,#1e40af,var(--navy) 60%);color:#fff;padding:52px 0 46px;text-align:center}
+  .logo{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#3b82f6,#1d4ed8);display:inline-flex;align-items:center;justify-content:center;font-weight:800;color:#fff;box-shadow:0 6px 20px rgba(37,99,235,.5);margin-bottom:14px}
+  .hero .bn{font-weight:700;color:#cfe0ff;font-size:.95rem;margin-bottom:22px}
+  .hero h1{font-size:2.4rem;max-width:18ch;margin:0 auto .3em}
+  .hero .sub{color:#cdd9ee;font-size:1.15rem;max-width:52ch;margin:0 auto}
+  .hero .sub b{color:#fff}
+  .cta{display:inline-block;background:#fff;color:var(--blue-d);font-weight:800;padding:13px 26px;border-radius:12px;margin-top:26px;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+  .hpills{margin-top:20px}
+  .hpill{display:inline-block;background:rgba(147,180,245,.16);border:1px solid rgba(147,180,245,.32);color:#e2ecfb;padding:6px 13px;border-radius:999px;font-size:.8rem;font-weight:600;margin:6px 5px 0}
+  section{padding:46px 0;border-bottom:1px solid var(--line)}
+  .center{text-align:center}
+  .grid{display:grid;gap:16px}@media(min-width:720px){.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:1fr 1fr 1fr}}
+  .card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px;box-shadow:0 1px 2px rgba(15,23,42,.04)}
+  .vs{display:flex;flex-wrap:wrap;gap:16px;margin-top:10px}
+  .vs .col{flex:1 1 260px;border-radius:16px;padding:22px}
+  .vs .human{background:#fff;border:1px solid var(--line)}
+  .vs .ai{background:linear-gradient(180deg,#eff5ff,#fff);border:2px solid var(--blue)}
+  .vs h3{margin-top:0}
+  ul.list{list-style:none;padding:0;margin:0}
+  ul.list li{position:relative;padding:5px 0 5px 28px}
+  ul.list li:before{content:"✓";position:absolute;left:0;top:5px;color:var(--emerald);font-weight:800}
+  ul.cross li:before{content:"✕";color:#dc2626}
+  .big{font-size:2rem;font-weight:800;color:var(--blue-d);letter-spacing:-.02em}
+  .uc{display:flex;gap:14px;align-items:flex-start}
+  .uc .ico{flex:0 0 44px;height:44px;border-radius:12px;background:var(--blue-bg);display:flex;align-items:center;justify-content:center;font-size:1.4rem}
+  .uc h3{font-size:1.05rem;margin:2px 0 .2em}
+  .uc p{margin:0;color:var(--slate);font-size:.92rem}
+  .tier{background:#fff;border:1px solid var(--line);border-radius:18px;padding:24px;display:flex;flex-direction:column}
+  .tier.flag{border:2px solid var(--blue);box-shadow:0 12px 34px rgba(37,99,235,.18);position:relative}
+  .flagtag{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--blue);color:#fff;font-size:.7rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:5px 14px;border-radius:999px}
+  .price{font-size:2.1rem;font-weight:800;letter-spacing:-.02em;margin:.2em 0 0}
+  .price span{font-size:.9rem;color:var(--mute);font-weight:600}
+  .setup{color:var(--mute);font-size:.9rem;margin-bottom:12px}
+  .tier ul.list li{font-size:.92rem}
+  .why{background:var(--emerald-bg);border:1px solid #a7f3d0;border-radius:16px;padding:22px}
+  .steps{display:flex;flex-wrap:wrap;gap:14px;counter-reset:s}
+  .steps .s{flex:1 1 200px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px}
+  .steps .s .n{width:30px;height:30px;border-radius:8px;background:var(--blue);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;margin-bottom:8px}
+  .foot{background:var(--navy);color:#cfe0ff;text-align:center;padding:40px 0}
+  .foot .cta2{display:inline-block;background:var(--blue);color:#fff;font-weight:800;padding:13px 28px;border-radius:12px;margin:8px 0 16px}
+  .foot a{color:#93b4f5}
+  .mute{color:var(--mute);font-size:.85rem}
+</style>
+</head>
+<body>
+
+<div class="hero"><div class="wrap">
+  <div class="logo">TCC</div>
+  <div class="bn">THE CONSULTING CREW</div>
+  <h1>Ek AI employee jo kabhi call miss nahi karti</h1>
+  <p class="sub">A 24×7 AI voice agent that <b>answers every call, calls your leads, books appointments, and chases payments</b> — in Hindi, English &amp; Hinglish. From <b>₹6,000/month</b>. Set up &amp; compliance-managed by your trusted compliance firm.</p>
+  <div class="hpills">
+    <span class="hpill">📞 Answers 24×7</span>
+    <span class="hpill">🗣️ Hindi + Hinglish</span>
+    <span class="hpill">💰 Never misses a lead</span>
+    <span class="hpill">✅ TRAI + DPDP compliant</span>
+  </div>
+  <br><a class="cta" href="#pricing">See plans &amp; pricing ↓</a>
+</div></div>
+
+<section><div class="wrap center">
+  <div class="kicker">The problem</div>
+  <h2>Har missed call = ek khoya hua customer</h2>
+  <p class="mute" style="max-width:60ch;margin:0 auto 8px">Aap din mein 10–20 calls miss karte hain — lunch mein, site pe, chhutti pe, raat ko. Har missed call koi customer tha jo ab competitor ko call kar raha hai. Aur ek human tele-caller? ₹18,000–35,000/month, ek shift, chhutti, aur 6 mahine mein resign.</p>
+  <div class="vs">
+    <div class="col human">
+      <h3>👤 Human tele-caller</h3>
+      <div class="big" style="color:var(--ink)">₹18k–35k<span style="font-size:.9rem;color:var(--mute);font-weight:600">/month</span></div>
+      <ul class="list cross" style="margin-top:10px">
+        <li>Ek hi shift — raat/chhutti pe calls miss</li>
+        <li>Chhutti, sick leave, mood</li>
+        <li>6–12 mahine mein resign → dubara hiring</li>
+        <li>Ek time pe ek hi call</li>
+      </ul>
+    </div>
+    <div class="col ai">
+      <h3>🤖 TCC AI Voice Agent</h3>
+      <div class="big">₹6k se shuru<span style="font-size:.9rem;color:var(--mute);font-weight:600">/month</span></div>
+      <ul class="list" style="margin-top:10px">
+        <li>24×7 — kabhi call miss nahi</li>
+        <li>Na chhutti, na resignation, na attrition</li>
+        <li>100 calls ek saath — unlimited</li>
+        <li>Hindi + English + Hinglish, consistent</li>
+      </ul>
+    </div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="kicker center" style="display:block">What it does for you</div>
+  <h2 class="center" style="margin-bottom:24px">Aapke business ka apna AI caller</h2>
+  <div class="grid g2">
+    <div class="card uc"><div class="ico">📞</div><div><h3>Never-miss-a-call receptionist</h3><p>Missed &amp; after-hours calls ka turant jawaab, customer ki need samajhta hai, aur callback book karta hai.</p></div></div>
+    <div class="card uc"><div class="ico">📅</div><div><h3>Appointment booking &amp; reminders</h3><p>Meetings/appointments book karta hai aur reminder calls karke no-shows kam karta hai.</p></div></div>
+    <div class="card uc"><div class="ico">💰</div><div><h3>Payment &amp; EMI reminders</h3><p>Pending payments ke liye polite reminder calls — aapki recovery tez, bina awkward follow-up ke.</p></div></div>
+    <div class="card uc"><div class="ico">🔥</div><div><h3>Lead calling &amp; qualification</h3><p>Naye ya purane leads ko call karke interested customers chhaant kar aapki team ko deta hai.</p></div></div>
+    <div class="card uc"><div class="ico">📦</div><div><h3>Order / COD confirmation</h3><p>Orders confirm karta hai — fake/COD-return losses kam.</p></div></div>
+    <div class="card uc"><div class="ico">⭐</div><div><h3>Feedback &amp; follow-up</h3><p>Service ke baad feedback leta hai aur WhatsApp pe follow-up bhejta hai.</p></div></div>
+  </div>
+</div></section>
+
+<section id="pricing"><div class="wrap">
+  <div class="kicker center" style="display:block">Plans</div>
+  <h2 class="center">Simple, transparent pricing</h2>
+  <p class="center mute" style="max-width:56ch;margin:0 auto 26px">Har plan mein setup, aapki language mein AI voice, aur monthly report. Ek human tele-caller se sasta — aur kai guna zyada kaam.</p>
+  <div class="grid g3" style="align-items:stretch">
+    <div class="tier">
+      <div class="kicker">Reception</div>
+      <div class="price">₹6,000<span>/mo</span></div>
+      <div class="setup">+ ₹15,000 one-time setup</div>
+      <ul class="list">
+        <li>500 minutes / month</li>
+        <li>Missed-call callback</li>
+        <li>After-hours answering</li>
+        <li>FAQ + appointment capture</li>
+        <li>WhatsApp follow-up</li>
+      </ul>
+      <p class="mute" style="margin-top:auto">Best for: solo &amp; small local businesses</p>
+    </div>
+    <div class="tier flag">
+      <div class="flagtag">Most popular</div>
+      <div class="kicker">Growth</div>
+      <div class="price">₹16,000<span>/mo</span></div>
+      <div class="setup">+ ₹30,000 one-time setup</div>
+      <ul class="list">
+        <li><b>1,500 minutes / month</b></li>
+        <li>Everything in Reception</li>
+        <li>Outbound lead calling + qualify</li>
+        <li>Appointment booking + reminders</li>
+        <li>Order / COD confirmation</li>
+        <li>CRM sync + monthly report</li>
+      </ul>
+      <p class="mute" style="margin-top:auto">Best for: growing MSMEs with leads</p>
+    </div>
+    <div class="tier">
+      <div class="kicker">Scale</div>
+      <div class="price">₹40,000<span>/mo</span></div>
+      <div class="setup">+ ₹60,000 one-time setup</div>
+      <ul class="list">
+        <li><b>4,000 minutes / month</b></li>
+        <li>Everything in Growth</li>
+        <li>EMI / payment reminder campaigns</li>
+        <li>Old-lead reactivation + feedback</li>
+        <li>Managed DLT + DPDP compliance</li>
+        <li>Weekly optimisation + priority support</li>
+      </ul>
+      <p class="mute" style="margin-top:auto">Best for: high-volume / finance / multi-branch</p>
+    </div>
+  </div>
+  <p class="center mute" style="margin-top:16px">Extra minutes billed transparently (₹10–15/min by plan). 3-month minimum, then monthly. Annual plan = 2 months free.</p>
+</div></section>
+
+<section><div class="wrap">
+  <div class="why">
+    <div class="kicker">Why The Consulting Crew</div>
+    <h2 style="margin-bottom:.3em">The only AI caller set up by a licensed compliance firm</h2>
+    <p style="margin-bottom:10px">India mein automated calling ke strict rules hain — TRAI, DLT registration, DND, aur DPDP data-protection law. Galti pe number band ho sakta hai aur ₹250 crore tak penalty. Random "AI agency" yeh nahi samajhti.</p>
+    <ul class="list">
+      <li><b>DLT + TRAI compliant</b> calling, set up correctly from day one</li>
+      <li><b>DPDP-safe</b> — aapke customers ka data India mein, consent ke saath</li>
+      <li><b>Hindi + Hinglish</b> jo aapke customers ko natural lage</li>
+      <li>Plugs into your existing WhatsApp &amp; CRM</li>
+      <li>Backed by TCC's tax, GST &amp; business advisory team</li>
+    </ul>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="kicker center" style="display:block">How we start</div>
+  <h2 class="center" style="margin-bottom:22px">Live in about a week</h2>
+  <div class="steps">
+    <div class="s"><div class="n">1</div><b>Free demo call</b><p class="mute" style="margin:.3em 0 0;font-size:.9rem">Aap khud AI se baat karke sunenge.</p></div>
+    <div class="s"><div class="n">2</div><b>Setup &amp; compliance</b><p class="mute" style="margin:.3em 0 0;font-size:.9rem">Hum number, script &amp; DLT set karte hain.</p></div>
+    <div class="s"><div class="n">3</div><b>Pilot &amp; tune</b><p class="mute" style="margin:.3em 0 0;font-size:.9rem">Real calls, aapki awaaz &amp; style mein tuned.</p></div>
+    <div class="s"><div class="n">4</div><b>Go live + reports</b><p class="mute" style="margin:.3em 0 0;font-size:.9rem">Monthly report — calls, leads, ROI.</p></div>
+  </div>
+</div></section>
+
+<div class="foot"><div class="wrap">
+  <h2 style="color:#fff">Ek free demo call try karein</h2>
+  <p style="color:#cdd9ee;max-width:48ch;margin:0 auto 6px">Apne business ke liye AI voice agent — sirf 15 minute mein samjhein kaise kaam karta hai.</p>
+  <br><a class="cta2" href="https://wa.me/919251022710">WhatsApp: +91 92510 22710</a>
+  <p class="mute" style="color:#8fa6cc">The Consulting Crew · Jaipur · <a href="https://theconsultingcrew.in">theconsultingcrew.in</a> · hello@theconsultingcrew.in</p>
+  <p class="mute" style="color:#6b80a6">Run your business. Not your compliance.</p>
+</div></div>
+
+</body>
+</html>
