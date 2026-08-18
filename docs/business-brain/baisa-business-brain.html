@@ -1,0 +1,1489 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Baisa Business Brain</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rozha+One&family=Karla:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+/* ============================================================
+   THE BAISA BUSINESS BRAIN — Pushpraj Fashion, Sanganer, Jaipur
+   Identity: rani pink #A61E4D · peacock #1E6E5A · warm blush ground
+   Rozha One (display) + Karla (body) + IBM Plex Mono (data)
+   ============================================================ */
+:root {
+  color-scheme: light;
+  --rani: #A61E4D;
+  --rani-deep: #7C1238;
+  --rani-soft: #F9E7EE;
+  --rani-line: #EFC5D4;
+  --peacock: #1E6E5A;
+  --peacock-deep: #14503F;
+  --peacock-soft: #E4F1EC;
+  --peacock-line: #BFDFD4;
+  --ink: #241722;
+  --ink-2: #5D4A57;
+  --ink-3: #8A7683;
+  --surface: #FBF5F2;
+  --card: #FFFFFF;
+  --card-2: #F5EBE7;
+  --line: #EADDD8;
+  --line-2: #DCCBC5;
+  --good: #1E6E5A;
+  --good-soft: #E4F1EC;
+  --warn: #955A06;
+  --warn-fill: #D98E1F;
+  --warn-soft: #FBEFDB;
+  --bad: #B3261E;
+  --bad-soft: #F9E7E5;
+  --bad-line: #ECC5C2;
+  --meter-track: #E8DAD4;
+  --bar: #2B7D68;             /* single-hue data bars (peacock) */
+  --seg1: #14503F; --seg2: #1E6E5A; --seg3: #358971; --seg4: #58A48D; --seg5: #83BFAB; --seg6: #B4DACB;
+  --focus: #A61E4D;
+  --shadow: 0 1px 2px rgba(124,18,56,.05), 0 4px 16px rgba(124,18,56,.06);
+  --radius: 12px;
+  --radius-sm: 7px;
+  --display: "Rozha One", "Georgia", serif;
+  --body: "Karla", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --rani: #E06C96;
+    --rani-deep: #EC93B2;
+    --rani-soft: #3A1C29;
+    --rani-line: #5C2F42;
+    --peacock: #4CAF93;
+    --peacock-deep: #6FC5AC;
+    --peacock-soft: #16302A;
+    --peacock-line: #2A4F44;
+    --ink: #F2E9EE;
+    --ink-2: #C5B2BE;
+    --ink-3: #92808C;
+    --surface: #1A1118;
+    --card: #251A23;
+    --card-2: #2E212B;
+    --line: #3A2C37;
+    --line-2: #4A3945;
+    --good: #4CAF93;
+    --good-soft: #16302A;
+    --warn: #E3A94E;
+    --warn-fill: #C98A2E;
+    --warn-soft: #332510;
+    --bad: #E57373;
+    --bad-soft: #351B19;
+    --bad-line: #58312E;
+    --meter-track: #3A2C37;
+    --bar: #4CAF93;
+    --seg1: #6FC5AC; --seg2: #4CAF93; --seg3: #3B9179; --seg4: #2E7360; --seg5: #245A4B; --seg6: #1B443A;
+    --focus: #E06C96;
+    --shadow: 0 1px 2px rgba(0,0,0,.35), 0 4px 16px rgba(0,0,0,.3);
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --rani: #E06C96;
+  --rani-deep: #EC93B2;
+  --rani-soft: #3A1C29;
+  --rani-line: #5C2F42;
+  --peacock: #4CAF93;
+  --peacock-deep: #6FC5AC;
+  --peacock-soft: #16302A;
+  --peacock-line: #2A4F44;
+  --ink: #F2E9EE;
+  --ink-2: #C5B2BE;
+  --ink-3: #92808C;
+  --surface: #1A1118;
+  --card: #251A23;
+  --card-2: #2E212B;
+  --line: #3A2C37;
+  --line-2: #4A3945;
+  --good: #4CAF93;
+  --good-soft: #16302A;
+  --warn: #E3A94E;
+  --warn-fill: #C98A2E;
+  --warn-soft: #332510;
+  --bad: #E57373;
+  --bad-soft: #351B19;
+  --bad-line: #58312E;
+  --meter-track: #3A2C37;
+  --bar: #4CAF93;
+  --seg1: #6FC5AC; --seg2: #4CAF93; --seg3: #3B9179; --seg4: #2E7360; --seg5: #245A4B; --seg6: #1B443A;
+  --focus: #E06C96;
+  --shadow: 0 1px 2px rgba(0,0,0,.35), 0 4px 16px rgba(0,0,0,.3);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+body {
+  font-family: var(--body);
+  background: var(--surface);
+  color: var(--ink-2);
+  font-size: 15.5px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, h4 { color: var(--ink); line-height: 1.28; text-wrap: balance; }
+h1 { font-family: var(--display); font-weight: 400; font-size: 1.95rem; letter-spacing: .01em; }
+h2 { font-family: var(--display); font-weight: 400; font-size: 1.4rem; }
+h3 { font-size: 1.02rem; font-weight: 700; }
+h4 { font-size: .92rem; font-weight: 700; }
+p { max-width: 72ch; }
+a { color: var(--rani); text-underline-offset: 2px; }
+strong, b { color: var(--ink); font-weight: 700; }
+ul, ol { padding-left: 1.15rem; }
+li { margin-bottom: .32rem; max-width: 74ch; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: 3px; }
+
+.eyebrow { font-size: .7rem; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; color: var(--rani); margin-bottom: .35rem; }
+.sub { color: var(--ink-3); font-size: .88rem; }
+.mono, .num { font-family: var(--mono); }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+/* ---- Masthead: bandhani-dot border under a deep rani band ---- */
+.masthead {
+  background: linear-gradient(115deg, #5E0E2B 0%, #7C1238 55%, #93264C 100%);
+  color: #F8E9EF;
+  padding: 1.5rem 1.6rem 1.3rem;
+  position: relative;
+}
+.masthead::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 6px;
+  background-image: radial-gradient(circle at 6px 3px, #E8A33D 2.2px, transparent 2.6px);
+  background-size: 16px 6px; background-repeat: repeat-x;
+}
+.masthead-inner { max-width: 1280px; margin: 0 auto; display: flex; gap: 1.2rem; align-items: flex-end; flex-wrap: wrap; }
+.brandmark {
+  width: 52px; height: 52px; flex: none; border-radius: 50%;
+  background: #F6D8E3; color: #7C1238; display: grid; place-items: center;
+  font-family: var(--display); font-size: 1.5rem; padding-top: .1rem;
+}
+.masthead h1 { color: #FFFFFF; font-size: clamp(1.5rem, 3.2vw, 2.15rem); }
+.masthead .firm { font-size: .78rem; letter-spacing: .15em; text-transform: uppercase; color: #EBB9CC; font-weight: 700; }
+.masthead .meta { margin-left: auto; text-align: right; font-size: .82rem; color: #EBC4D3; }
+.masthead .meta .today { font-family: var(--mono); color: #FFFFFF; font-size: .95rem; display: block; }
+.masthead .meta .fest { margin-top: .35rem; font-size: .78rem; }
+.masthead .meta .fest b { color: #FFD9A0; font-weight: 700; }
+
+/* ---- Shell ---- */
+.shell { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 240px minmax(0,1fr); gap: 1.4rem; padding: 1.3rem 1.6rem 3rem; }
+.rail { position: sticky; top: 14px; align-self: start; }
+.rail nav { display: flex; flex-direction: column; gap: 2px; }
+.rail button {
+  display: flex; align-items: baseline; gap: .55rem; width: 100%; text-align: left;
+  background: none; border: 0; border-left: 3px solid transparent;
+  padding: .48rem .7rem; cursor: pointer; border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-family: var(--body); font-size: .88rem; font-weight: 500; color: var(--ink-2);
+}
+.rail button .k { font-family: var(--mono); font-size: .68rem; color: var(--ink-3); width: 1.5em; flex: none; }
+.rail button:hover { background: var(--card-2); color: var(--ink); }
+.rail button[aria-selected="true"] { border-left-color: var(--rani); background: var(--card); color: var(--ink); font-weight: 700; box-shadow: var(--shadow); }
+.rail .rail-note { margin-top: 1rem; font-size: .72rem; color: var(--ink-3); padding: 0 .7rem; line-height: 1.5; }
+
+.view { display: none; }
+.view.active { display: block; animation: rise .25s ease; }
+@keyframes rise { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+.view-head { margin-bottom: 1.1rem; }
+.view-head p { color: var(--ink-3); font-size: .9rem; margin-top: .3rem; }
+
+.card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.05rem 1.15rem; margin-bottom: 1rem; box-shadow: var(--shadow); }
+.card > h3 { margin-bottom: .2rem; }
+.card .hint { color: var(--ink-3); font-size: .8rem; margin-bottom: .7rem; }
+.grid { display: grid; gap: 1rem; }
+.grid-2 { grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); }
+.grid-3 { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.split { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 1rem; align-items: start; }
+
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(158px, 1fr)); gap: .7rem; margin-bottom: 1.1rem; }
+.tile { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: .75rem .85rem; box-shadow: var(--shadow); }
+.tile .lbl { font-size: .74rem; color: var(--ink-3); font-weight: 600; }
+.tile .val { font-size: 1.55rem; font-weight: 700; color: var(--ink); line-height: 1.15; margin-top: .1rem; }
+.tile .note { font-size: .72rem; color: var(--ink-3); margin-top: .15rem; }
+.tile.t-good .val { color: var(--good); }
+.tile.t-warn .val { color: var(--warn); }
+.tile.t-bad .val { color: var(--bad); }
+
+.chip { display: inline-flex; align-items: center; gap: .3rem; font-size: .7rem; font-weight: 700; padding: .13rem .5rem; border-radius: 999px; background: var(--card-2); color: var(--ink-2); white-space: nowrap; }
+.chip.good { background: var(--good-soft); color: var(--good); }
+.chip.warn { background: var(--warn-soft); color: var(--warn); }
+.chip.bad  { background: var(--bad-soft); color: var(--bad); }
+.chip.brand { background: var(--rani-soft); color: var(--rani); }
+.chip.teal { background: var(--peacock-soft); color: var(--peacock); }
+.dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; flex: none; }
+
+.tbl-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius-sm); }
+table { width: 100%; border-collapse: collapse; font-size: .85rem; }
+th, td { text-align: left; padding: .5rem .65rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+thead th { font-size: .68rem; text-transform: uppercase; letter-spacing: .07em; color: var(--ink-3); font-weight: 700; background: var(--card-2); white-space: nowrap; }
+tbody tr:last-child td { border-bottom: 0; }
+tbody tr:hover { background: var(--card-2); }
+
+/* ---- Festival radar ---- */
+.fest-list { display: flex; flex-direction: column; gap: .45rem; }
+.fest-item { display: flex; flex-wrap: wrap; gap: .35rem .7rem; align-items: baseline; background: var(--card); border: 1px solid var(--line); border-left: 4px solid var(--line-2); border-radius: var(--radius-sm); padding: .55rem .7rem; }
+.fest-item .chip { white-space: normal; text-align: left; line-height: 1.35; flex: 1 1 100%; border-radius: 8px; padding: .18rem .5rem; }
+.fest-item.sev-bad { border-left-color: var(--bad); }
+.fest-item.sev-warn { border-left-color: var(--warn-fill); }
+.fest-item.sev-ok { border-left-color: var(--good); }
+.fest-date { font-family: var(--mono); font-size: .76rem; color: var(--ink); width: 92px; flex: none; }
+.fest-body { flex: 1 1 200px; min-width: 0; }
+.fest-body .t { font-weight: 700; color: var(--ink); font-size: .88rem; }
+.fest-body .s { font-size: .76rem; color: var(--ink-3); }
+
+.kpi-input { width: 92px; font-family: var(--mono); font-size: .84rem; text-align: right; color: var(--ink); background: var(--card-2); border: 1px solid var(--line-2); border-radius: 6px; padding: .25rem .4rem; }
+.kpi-input:focus { border-color: var(--focus); }
+
+.meter { height: 8px; border-radius: 5px; background: var(--meter-track); overflow: hidden; min-width: 90px; }
+.meter > i { display: block; height: 100%; border-radius: 5px; background: var(--bar); }
+
+/* ---- Data bars (single hue: peacock) ---- */
+.bars { display: flex; flex-direction: column; gap: .5rem; }
+.bar-row { display: grid; grid-template-columns: 132px 1fr 120px; gap: .6rem; align-items: center; }
+.bar-row .b-lbl { font-size: .8rem; color: var(--ink); font-weight: 600; }
+.bar-row .b-track { height: 16px; position: relative; }
+.bar-row .b-fill { position: absolute; inset: 2px auto 2px 0; background: var(--bar); border-radius: 0 4px 4px 0; min-width: 3px; }
+.bar-row .b-val { font-family: var(--mono); font-size: .76rem; color: var(--ink-2); text-align: right; font-variant-numeric: tabular-nums; }
+
+/* ---- COGM segmented bar ---- */
+.seg-bar { display: flex; height: 26px; border-radius: 6px; overflow: hidden; gap: 2px; background: var(--surface); }
+.seg-bar > i { display: block; height: 100%; }
+.seg-legend { display: flex; flex-wrap: wrap; gap: .4rem .9rem; margin-top: .5rem; font-size: .76rem; }
+.seg-legend span { display: inline-flex; align-items: center; gap: .35rem; color: var(--ink-2); }
+.seg-legend i { width: 10px; height: 10px; border-radius: 3px; flex: none; }
+
+.ck { display: flex; gap: .55rem; align-items: flex-start; padding: .38rem 0; border-bottom: 1px dashed var(--line); }
+.ck:last-child { border-bottom: 0; }
+.ck input { width: 16px; height: 16px; margin-top: .22rem; flex: none; accent-color: var(--good); cursor: pointer; }
+.ck label { cursor: pointer; font-size: .87rem; }
+.ck label b { display: block; color: var(--ink); font-weight: 700; }
+.ck label span { color: var(--ink-3); font-size: .78rem; }
+.ck.done label b { text-decoration: line-through; color: var(--ink-3); }
+
+.field { display: flex; flex-direction: column; gap: .2rem; }
+.field label { font-size: .72rem; font-weight: 700; color: var(--ink-2); }
+.field input, .field select { font-family: var(--mono); font-size: .86rem; color: var(--ink); background: var(--card); border: 1px solid var(--line-2); border-radius: 6px; padding: .38rem .5rem; width: 100%; }
+.field input:focus, .field select:focus { border-color: var(--focus); outline: none; }
+.frm-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(128px, 1fr)); gap: .6rem; margin-bottom: .7rem; }
+.result-strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: .6rem; background: var(--peacock-soft); border: 1px solid var(--peacock-line); border-radius: var(--radius-sm); padding: .7rem .8rem; }
+.result-strip .r-lbl { font-size: .68rem; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-2); font-weight: 700; }
+.result-strip .r-val { font-size: 1.25rem; font-weight: 700; color: var(--peacock-deep); }
+
+.callout { border: 1px solid var(--line); border-left: 4px solid var(--rani); border-radius: var(--radius-sm); background: var(--card); padding: .7rem .9rem; margin: .8rem 0; font-size: .88rem; }
+.callout.warn { border-left-color: var(--warn-fill); background: var(--warn-soft); border-color: var(--warn-soft); color: var(--warn); }
+.callout.warn b { color: var(--warn); }
+.callout.bad { border-left-color: var(--bad); background: var(--bad-soft); border-color: var(--bad-line); color: var(--bad); }
+.callout.bad b { color: var(--bad); }
+.callout.good { border-left-color: var(--good); background: var(--good-soft); border-color: var(--good-soft); color: var(--good); }
+.callout.good b { color: var(--good); }
+
+.ritual { display: grid; grid-template-columns: 96px 1fr; gap: .3rem .9rem; font-size: .88rem; }
+.ritual dt { font-family: var(--mono); font-size: .74rem; color: var(--rani); font-weight: 600; padding-top: .12rem; }
+.ritual dd { margin: 0 0 .45rem; }
+.ritual dd b { color: var(--ink); }
+
+.flow { display: flex; flex-wrap: wrap; gap: .4rem; align-items: center; font-size: .8rem; }
+.flow .fs { background: var(--card-2); border: 1px solid var(--line); border-radius: 999px; padding: .25rem .7rem; font-weight: 600; color: var(--ink); white-space: nowrap; }
+.flow .fa { color: var(--ink-3); }
+
+.btn { display: inline-flex; align-items: center; gap: .35rem; cursor: pointer; font-family: var(--body); font-size: .8rem; font-weight: 700; border: 1px solid var(--line-2); border-radius: var(--radius-sm); background: var(--card); color: var(--ink); padding: .4rem .8rem; }
+.btn:hover { border-color: var(--rani); color: var(--rani); }
+
+.footer-note { max-width: 1280px; margin: 0 auto; padding: 0 1.6rem 2.5rem; font-size: .75rem; color: var(--ink-3); }
+
+@media (max-width: 900px) {
+  .shell { grid-template-columns: 1fr; padding: 1rem .9rem 2.5rem; }
+  .rail { position: static; overflow-x: auto; }
+  .rail nav { flex-direction: row; gap: .35rem; padding-bottom: .4rem; }
+  .rail button { border-left: 0; border-radius: var(--radius-sm); white-space: nowrap; background: var(--card); border: 1px solid var(--line); }
+  .rail button[aria-selected="true"] { border-color: var(--rani); }
+  .rail .rail-note { display: none; }
+  .masthead .meta { text-align: left; margin-left: 0; }
+  .bar-row { grid-template-columns: 100px 1fr 110px; }
+}
+@media print {
+  .masthead { background: #fff; color: #000; border-bottom: 2px solid #000; }
+  .masthead::after { display: none; }
+  .masthead h1, .masthead .firm, .masthead .meta, .masthead .meta .today { color: #000; }
+  .rail, .btn { display: none !important; }
+  .shell { display: block; }
+  .view { display: block !important; page-break-after: always; }
+  body { background: #fff; }
+  .card { box-shadow: none; }
+}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <div class="brandmark">ब</div>
+    <div>
+      <div class="firm">The Baisa · Pushpraj Fashion · Sanganer, Jaipur</div>
+      <h1>The Baisa Business Brain</h1>
+    </div>
+    <div class="meta">
+      <span class="today" id="mhToday">—</span>
+      <span>Factory · Brand · Money — one system</span>
+      <div class="fest" id="mhFest"></div>
+    </div>
+  </div>
+</header>
+
+<div class="shell">
+  <aside class="rail">
+    <nav id="railNav" role="tablist" aria-label="Sections">
+      <button role="tab" data-v="deck" aria-selected="true"><span class="k">1</span>Command Deck</button>
+      <button role="tab" data-v="brand" aria-selected="false"><span class="k">2</span>Brand &amp; Model</button>
+      <button role="tab" data-v="costing" aria-selected="false"><span class="k">3</span>Costing Engine</button>
+      <button role="tab" data-v="catalog" aria-selected="false"><span class="k">4</span>Catalog Intelligence</button>
+      <button role="tab" data-v="factory" aria-selected="false"><span class="k">5</span>Factory Floor</button>
+      <button role="tab" data-v="quality" aria-selected="false"><span class="k">6</span>Quality Gate</button>
+      <button role="tab" data-v="channels" aria-selected="false"><span class="k">7</span>Channels &amp; Sales</button>
+      <button role="tab" data-v="brandengine" aria-selected="false"><span class="k">8</span>Brand Engine</button>
+      <button role="tab" data-v="money" aria-selected="false"><span class="k">9</span>Money</button>
+      <button role="tab" data-v="schemes" aria-selected="false"><span class="k">10</span>Compliance &amp; Schemes</button>
+      <button role="tab" data-v="team" aria-selected="false"><span class="k">11</span>Team &amp; Rituals</button>
+      <button role="tab" data-v="run" aria-selected="false"><span class="k">12</span>Run This System</button>
+    </nav>
+    <p class="rail-note">Costing inputs, scorecard and checklists save on this device. Poonam's daily list resets itself each morning.</p>
+  </aside>
+
+  <main>
+
+  <!-- ================= 1 · COMMAND DECK ================= -->
+  <section class="view active" id="view-deck" role="tabpanel">
+    <div class="view-head">
+      <div class="eyebrow">Section 1</div>
+      <h2>Command Deck</h2>
+      <p>Where the money and the risk are today. Ashish opens this Monday morning; Poonam's daily list lives in §11.</p>
+    </div>
+
+    <div class="card" style="border-left:4px solid var(--rani)">
+      <h3>North Star</h3>
+      <p style="font-size:1.02rem"><b>Contribution margin per day</b> — pieces dispatched × (price − COGM − channel cost), averaged over the week. Revenue is vanity in garments; a lakh of Meesho sales at 25% returns can lose money while ₹30k of D2C prints cash. Secondary star: <b>return rate under 15%</b> — it's the single number that says the product, photos and QC are all working.</p>
+    </div>
+
+    <div class="tiles" id="deckTiles"></div>
+
+    <div class="split">
+      <div>
+        <div class="card">
+          <h3>Festival radar — production clocks, computed live</h3>
+          <p class="hint">Garments are a calendar business: whoever cuts fabric on time owns the festival. Production start = peak minus lead time; catalogs must be live 3–4 weeks before peak for marketplaces to pick them up.</p>
+          <div class="fest-list" id="festList"></div>
+        </div>
+        <div class="card">
+          <h3>Standing alert rules</h3>
+          <ul style="list-style:none;padding:0">
+            <li class="ck" style="border:0"><span class="chip bad" style="margin-top:.1rem"><span class="dot"></span>Critical · 24 hrs</span>&nbsp; <span>Any style's return rate crosses 30% → pause the listing, inspect returned pieces, fix photos/size-chart/QC before relisting.</span></li>
+            <li class="ck" style="border:0"><span class="chip bad" style="margin-top:.1rem"><span class="dot"></span>Critical · 24 hrs</span>&nbsp; <span>Job worker 7+ days past deadline → physical visit today, fabric recovery plan agreed in writing.</span></li>
+            <li class="ck" style="border:0"><span class="chip bad" style="margin-top:.1rem"><span class="dot"></span>Critical · 24 hrs</span>&nbsp; <span>Cash reserve below ₹25,000 → freeze fabric buying, collect wholesale dues, emergency plan with §9 ladder.</span></li>
+            <li class="ck" style="border:0"><span class="chip warn" style="margin-top:.1rem"><span class="dot"></span>Warning · 3 days</span>&nbsp; <span>Hero SKU stock under 20 pieces → cutting order + job-work order now; heroes never go out of stock.</span></li>
+            <li class="ck" style="border:0"><span class="chip warn" style="margin-top:.1rem"><span class="dot"></span>Warning · 3 days</span>&nbsp; <span>Shade variation found after cutting starts → stop the line, photograph, call the fabric supplier the same day.</span></li>
+            <li class="ck" style="border:0"><span class="chip teal" style="margin-top:.1rem"><span class="dot"></span>Opportunity</span>&nbsp; <span>Stock older than 45 days → move it: bundle offer on WhatsApp, exhibition rack, or reseller push. Dead stock is frozen cash.</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>KPI scorecard — fill every Monday</h3>
+        <p class="hint">Type actuals; status computes against target and saves on this device. Ten minutes, once a week, with chai.</p>
+        <div class="tbl-wrap"><table id="kpiTable">
+          <thead><tr><th>KPI</th><th class="num">Target</th><th class="num">Actual</th><th>Status</th></tr></thead>
+          <tbody></tbody>
+        </table></div>
+        <p class="sub" style="margin-top:.5rem">Sources: Baisa OS dashboard (orders, margin, stock) · platform panels (returns, settlements) · bank app (cash) · Instagram insights (brand).</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 2 · BRAND & MODEL ================= -->
+  <section class="view" id="view-brand" role="tabpanel">
+    <div class="view-head">
+      <div class="eyebrow">Section 2</div>
+      <h2>Brand &amp; Model</h2>
+      <p>The Baisa is a <b>premium D2C-first heritage brand that manufactures</b> — not a Meesho seller with a logo. Every pricing and channel decision flows from that sentence.</p>
+    </div>
+
+    <div class="grid grid-2">
+      <div class="card">
+        <h3>Identity</h3>
+        <div class="tbl-wrap"><table>
+          <tbody>
+            <tr><td><b>Brand</b></td><td>The Baisa — women's ethnic &amp; fusion wear. "Baisa" = daughter of the house, Rajasthani royal address for a lady.</td></tr>
+            <tr><td><b>Entity</b></td><td>Pushpraj Fashion, Sanganer, Jaipur — 3 years in business: 2 trading/online, 1 manufacturing. In-house production + job-work network + Sanganer embroidery unit (24-head machine).</td></tr>
+            <tr><td><b>Home</b></td><td>baisajaipur.in (D2C store, payments live) · baisajaipur.com (brand site → routes to .in) · Instagram @the_baisa · WhatsApp +91 92510 22710</td></tr>
+            <tr><td><b>Positioning</b></td><td>Rajasthan's textile heritage — block print, morpankh, gota, bandhani motifs — on modern silhouettes: co-ords, shirt dresses, maternity, backless tops.</td></tr>
+            <tr><td><b>Customer</b></td><td>Indian woman 22–42 who wants ethnic with a modern twist; shops on Instagram and marketplaces; pays for story + quality, not just price.</td></tr>
+            <tr><td><b>Moat</b></td><td>Manufacturer margins + design speed (weeks, not seasons) + Sanganer craft story + family operation that controls quality at the stitch.</td></tr>
+            <tr><td><b>Team</b></td><td>Ashish — strategy, money, growth · Poonam — ground operations: production, QC, dispatch, customer replies.</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+
+      <div class="card">
+        <h3>Price architecture — three shelves</h3>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>Shelf</th><th class="num">D2C price</th><th>Job</th></tr></thead>
+          <tbody>
+            <tr><td><b>Entry</b> — tops, short kurtis, box gowns</td><td class="num">₹569–999</td><td>Discovery &amp; volume. Lives in the 5% GST band. Feeds marketplaces.</td></tr>
+            <tr><td><b>Core</b> — kurta sets, co-ords, maternity</td><td class="num">₹1,099–1,899</td><td>The margin engine. D2C + premium marketplaces.</td></tr>
+            <tr><td><b>Hero</b> — signature dresses, sharara sets, velvet</td><td class="num">₹1,999–2,499</td><td>Brand builders. Photograph these, story-tell these, keep them lean (made-to-order is fine).</td></tr>
+          </tbody>
+        </table></div>
+        <div class="callout" style="margin-bottom:.6rem"><b>The ₹999 line:</b> garments with sale value ≤ ₹1,000 per piece carry <b>5% GST</b>; above ₹1,000 it's <b>12%</b>. Entry shelf prices end at ₹999 deliberately — crossing to ₹1,049 hands 7% straight back. Core and hero shelves accept 12% because the multiplier earns it.</div>
+        <p style="font-size:.86rem"><b>Never discount below floor</b> = COGM × 2.0. Below floor, sell nothing — liquidate through exhibitions or bundles instead of training customers to wait for sales.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Channel map — the real one</h3>
+      <p class="hint">From the Baisa OS pricing engine: every channel gets COGM × multiplier, no exceptions. "Live" is where the energy goes; "Apply" is this quarter's paperwork; nothing launches before its turn.</p>
+      <div class="tbl-wrap"><table id="channelMap">
+        <thead><tr><th>Channel</th><th class="num">Multiplier</th><th>Status</th><th>Play</th></tr></thead>
+        <tbody></tbody>
+      </table></div>
+      <p class="sub" style="margin-top:.5rem">Rule: D2C (.in, WhatsApp, Instagram) is <b>home</b> — every package, post and marketplace listing pushes people there, because ×4 with 2–3% payment cost beats every marketplace after commissions and returns.</p>
+    </div>
+
+    <div class="grid grid-2">
+      <div class="card">
+        <h3>What we sell more of (priority mix)</h3>
+        <ul>
+          <li><b>Co-ord sets</b> — rising trend, high multiplier, low stitching complexity. The catalog's biggest category; keep 2 new designs/month.</li>
+          <li><b>Cotton kurtis &amp; kurta sets</b> — volume backbone, lowest returns, predictable SAM.</li>
+          <li><b>Maternity/nursing gowns</b> — quiet niche with loyal buyers and zero local competition; repeat purchases built in.</li>
+          <li><b>Block-print stories</b> — Sanganer is 30 minutes away; nobody on a marketplace can tell that story with photos of real tables and real karigars. This is the AJIO "Indie" and Myntra pitch.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>What we avoid until scale</h3>
+        <ul>
+          <li><b>Heavy embroidery/beaded pieces</b> — slow production, QC nightmare, transit damage (exception: embroidery unit's own controlled designs).</li>
+          <li><b>Sarees</b> — highest online return category; not our silhouette game.</li>
+          <li><b>Bridal lehengas</b> — capital lock-in, low volume.</li>
+          <li><b>Sub-₹300 price war</b> — that's a factory-scale game; our game is margin per piece, not pieces per day.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 3 · COSTING ENGINE ================= -->
+  <section class="view" id="view-costing" role="tabpanel">
+    <div class="view-head">
+      <div class="eyebrow">Section 3</div>
+      <h2>Costing Engine</h2>
+      <p>Cost every style <em>before</em> cutting fabric, price it per channel from one COGM, and never let a listing slip under the floor. Inputs save on this device.</p>
+    </div>
+
+    <div class="card">
+      <h3>Style cost — type the real numbers</h3>
+      <div class="frm-row">
+        <div class="field"><label for="cFabricRate">Fabric ₹/metre</label><input id="cFabricRate" type="number" min="0" step="1" value="85"></div>
+        <div class="field"><label for="cFabricCons">Consumption (m/pc)</label><input id="cFabricCons" type="number" min="0" step="0.05" value="2.75"></div>
+        <div class="field"><label for="cTrims">Trims ₹ (thread, buttons, elastic)</label><input id="cTrims" type="number" min="0" step="1" value="15"></div>
+        <div class="field"><label for="cCutting">Cutting ₹/pc</label><input id="cCutting" type="number" min="0" step="1" value="10"></div>
+        <div class="field"><label for="cStitch">Stitching / job work ₹/pc</label><input id="cStitch" type="number" min="0" step="1" value="45"></div>
+        <div class="field"><label for="cFinish">Finishing + pressing ₹/pc</label><input id="cFinish" type="number" min="0" step="1" value="10"></div>
+        <div class="field"><label for="cLabels">Labels + tags ₹/pc</label><input id="cLabels" type="number" min="0" step="1" value="8"></div>
+        <div class="field"><label for="cPack">Branded packing ₹/pc</label><input id="cPack" type="number" min="0" step="1" value="12"></div>
+        <div class="field"><label for="cOverhead">Overhead %</label><input id="cOverhead" type="number" min="0" step="1" value="15"></div>
+        <div class="field"><label for="cReject">Rejection %</label><input id="cReject" type="number" min="0" step="0.5" value="3"></div>
+      </div>
+      <div class="result-strip" id="costOut"></div>
+      <div style="margin-top:.8rem">
+        <div class="seg-bar" id="cogmSeg" role="img" aria-label="COGM cost breakup"></div>
+        <div class="seg-legend" id="cogmLegend"></div>
+      </div>
+      <p class="sub" style="margin-top:.55rem">Fabric is 55–70% of COGM — a ₹5/metre negotiation moves the whole P&amp;L more than any other line. Overhead and rejection are percentages of the base cost; keep rejection honest or every "cheap" batch lies to you.</p>
+    </div>
+
+    <div class="card">
+      <h3>Channel price ladder — from this COGM</h3>
+      <p class="hint">Price = COGM × channel multiplier, nudged to a 9-ending. GST band and margin follow the price. The floor row is the never-cross line.</p>
+      <div class="tbl-wrap"><table id="ladderTable">
+        <thead><tr><th>Channel</th><th class="num">×</th><th class="num">Price</th><th>GST band</th><th class="num">Gross margin</th><th>Health</th></tr></thead>
+        <tbody></tbody>
+      </table></div>
+      <div id="ladderAlert"></div>
+    </div>
+
+    <div class="card">
+      <h3>Margin per piece by channel</h3>
+      <p class="hint">Price minus COGM minus typical channel cost (commission/fees at the rates in §7). Hover any bar for the working.</p>
+      <div class="bars" id="marginBars"></div>
+    </div>
+
+    <div class="grid grid-2">
+      <div class="card">
+        <h3>Cost reduction levers — pull in this order</h3>
+        <ol>
+          <li><b>Fabric rate:</b> second supplier per fabric type + 100m/500m slab discounts (10–15%) + Bhilwara/Sanganer direct visits.</li>
+          <li><b>Marker efficiency:</b> 85% → 90% marker = ~5% fabric saved. Track wastage per cutting in the Baisa OS cutting register; target ≤ 8%.</li>
+          <li><b>Rejection:</b> every 1% off rejection is 1% off COGM — QC gate (§6) pays for itself here.</li>
+          <li><b>Job-work rate:</b> steady 500+ pcs/month volume earns 5–10% below market; pay on time, negotiate yearly.</li>
+          <li><b>Packaging buying:</b> polybags and tags at 5,000+ quantity drop 20–30%.</li>
+          <li><b>Batch size:</b> minimum 50 pcs per style-colour — under that, setup time eats the margin.</li>
+        </ol>
+      </div>
+      <div class="card">
+        <h3>Costing discipline</h3>
+        <ul>
+          <li><b>No cost sheet, no cutting.</b> Every new style gets this engine run and the result saved into the Baisa OS costing module before fabric is touched.</li>
+          <li><b>Re-cost quarterly:</b> fabric and job-work rates drift; a style costed in March is lying by September.</li>
+          <li><b>Landed COGM includes packing</b> — the branded polybag, tag and thank-you card are product cost, not marketing.</li>
+          <li><b>Wholesale floor is sacred:</b> COGM × 2.0. A boutique pushing below floor is offered volume terms, not a lower price.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 4 · CATALOG INTELLIGENCE ================= -->
+  <section class="view" id="view-catalog" role="tabpanel">
+    <div class="view-head">
+      <div class="eyebrow">Section 4</div>
+      <h2>Catalog Intelligence</h2>
+      <p>The live catalog (29 styles from the Baisa OS), read as a portfolio: where the margin sits, what the heroes are, and the rules that keep stock honest.</p>
+    </div>
+
+    <div class="tiles" id="catTiles"></div>
+
+    <div class="card">
+      <h3>Category portfolio — computed from the catalog</h3>
+      <div class="tbl-wrap"><table id="catTable">
+        <thead><tr><th>Category</th><th class="num">Styles</th><th class="num">Price range</th><th class="num">Avg multiplier</th><th class="num">Avg gross margin</th><th class="num">In 5% GST band</th></tr></thead>
+        <tbody></tbody>
+      </table></div>
+      <p class="sub" style="margin-top:.5rem">Multiplier = D2C price ÷ COGM. Anything under ×2.5 would be a red flag; the current catalog holds ×3.0–4.7, which is manufacturer-brand territory — protect it.</p>
+    </div>
+
+    <div class="grid grid-2">
+      <div class="card">
+        <h3>Watchlist — computed</h3>
+        <div id="catWatch"></div>
+      </div>
+      <div class="card">
+        <h3>Stock rules (ABC)</h3>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>Class</th><th>Definition</th><th>Rule</th></tr></thead>
+          <tbody>
+            <tr><td><b>A</b></td><td>Top ~20% styles ≈ 80% of revenue</td><td>30 days of stock, all sizes, always. Reorder point on every size in the Baisa OS.</td></tr>
+            <tr><td><b>B</b></td><td>Steady middle</td><td>15 days of stock; watch weekly.</td></tr>
+            <tr><td><b>C</b></td><td>Slow movers</td><td>No re-cuts. Liquidate at 45 days via bundles, exhibitions, reseller pushes — never below floor on the brand store.</td></tr>
+          </tbody>
+        </table></div>
+        <ul style="margin-top:.6rem">
+          <li><b>SKU naming:</b> TB-[type]-[###] with size suffix — TB-CRD-003-M. One code everywhere: cost sheet, listing, inventory, challan.</li>
+          <li><b>Hero policy:</b> heroes may run lean (made-to-order) but never invisible — the listing stays live even when stock is low.</li>
+          <li><b>New style cadence:</b> 2–4 per month, each through the §3 engine and a 50-piece pilot batch before any re-cut.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+  <!-- ================= 5 · FACTORY FLOOR ================= -->
+  <section class="view" id="view-factory" role="tabpanel">
+    <div class="view-head">
+      <div class="eyebrow">Section 5</div>
+      <h2>Factory Floor</h2>
+      <p>Production is the moat. This is the flow, the capacity maths, the fabric game and the job-work rules.</p>
+    </div>
+
+    <div class="card">
+      <h3>The production bible — never skip a step</h3>
+      <div class="flow">
+        <span class="fs">Design</span><span class="fa">→</span>
+        <span class="fs">Fabric sourcing</span><span class="fa">→</span>
+        <span class="fs">Pattern + grading</span><span class="fa">→</span>
+        <span class="fs">Sample → approval</span><span class="fa">→</span>
+        <span class="fs">Cost sheet (§3)</span><span class="fa">→</span>
+        <span class="fs">Fabric in + inspection</span><span class="fa">→</span>
+        <span class="fs">Marker + cutting</span><span class="fa">→</span>
+        <span class="fs">Stitching</span><span class="fa">→</span>
+        <span class="fs">Finishing</span><span class="fa">→</span>
+        <span class="fs">In-line QC</span><span class="fa">→</span>
+        <span class="fs">Final QC (§6)</span><span class="fa">→</span>
+        <span class="fs">Pack</span><span class="fa">→</span>
+        <span class="fs">Dispatch</span>
+      </div>
+      <p style="margin-top:.6rem;font-size:.86rem">Every skipped step comes back as a return, a complaint or a re-cut. The <b>tech pack is the contract</b> for every run: measurements per size (±0.5&nbsp;cm), fabric spec (type/GSM/colour code), stitch type + SPI, thread, trims, label placement, packing instructions. No tech pack, no job-work handover.</p>
+    </div>
+
+    <div class="grid grid-2">
+      <div class="card">
+        <h3>Capacity maths</h3>
+        <p class="hint">Capacity = operators × efficiency% × minutes ÷ SAM. Plan festival volumes with this, not hope.</p>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>Garment</th><th class="num">SAM (min)</th><th class="num">Pcs/operator/day*</th></tr></thead>
+          <tbody>
+            <tr><td>Palazzo</td><td class="num">10–14</td><td class="num">~28</td></tr>
+            <tr><td>Basic kurti</td><td class="num">12–18</td><td class="num">~22</td></tr>
+            <tr><td>Printed kurti</td><td class="num">20–28</td><td class="num">~14</td></tr>
+            <tr><td>Suit set (3-pc)</td><td class="num">25–35</td><td class="num">~11</td></tr>
+            <tr><td>Co-ord set</td><td class="num">28–38</td><td class="num">~10</td></tr>
+            <tr><td>Kids frock</td><td class="num">10–15</td><td class="num">~26</td></tr>
+          </tbody>
+        </table></div>
+        <p class="sub" style="margin-top:.45rem">*at 70% efficiency, 480-min day. A 5-tailor line ≈ 50–110 pcs/day depending on style — which is why co-ord-heavy festival plans need job-work booked 8 weeks out.</p>
+        <h4 style="margin-top:.8rem">Machine discipline</h4>
+        <ul>
+          <li>Oil every machine every morning; needles changed every 8–10 running hours (skipped stitches = blunt needle, not bad tailor).</li>
+          <li>Spare kit on premises: needles 9/11/14/16, bobbins, belts, presser feet.</li>
+          <li>Full service every 3 months (~₹500–1,000/machine) — cheaper than one seized machine in Navratri week.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Fabric game — sourcing map</h3>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>Market</th><th>Best for</th><th>Baisa play</th></tr></thead>
+          <tbody>
+            <tr><td><b>Sanganer / Bagru</b></td><td>Block print, hand-dye</td><td>30 min away — the signature. Build 2–3 table relationships; shoot the process for content.</td></tr>
+            <tr><td><b>Bhilwara</b></td><td>Suiting, blends</td><td>Home-state advantage; visit physically, negotiate yearly rates.</td></tr>
+            <tr><td><b>Surat</b></td><td>Georgette, digital prints</td><td>Festive/party range; order via trusted agents after lab-dip approval.</td></tr>
+            <tr><td><b>Pali / Balotra</b></td><td>Solid dyed cotton</td><td>Base fabric for entry shelf.</td></tr>
+            <tr><td><b>Delhi (Gandhi Nagar)</b></td><td>Cotton, linen</td><td>Summer range top-ups.</td></tr>
+          </tbody>
+        </table></div>
+        <h4 style="margin-top:.8rem">Buying rules</h4>
+        <ul>
+          <li>Kurti ≈ 2.5–2.8m of 44" — always order <b>+10%</b> over calculated consumption.</li>
+          <li><b>Single dye lot per style-colour</b>; approve a shade band before cutting. Pre-wash cotton (shrinkage &lt;3%).</li>
+          <li>Test before buying: rub test, water-dip bleed test, crease-recovery, pull test on knits.</li>
+          <li>Second visit buys, not the first. 100m+ demands 10–15% off + delivery; 500m+ pushes Net-30 credit.</li>
+          <li><b>Bank payment only</b> for big lots — the GST ITC is real margin.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Job-work network — scale without buying machines</h3>
+      <div class="grid grid-2">
+        <div>
+          <h4>The five golden rules</h4>
+          <ol>
+            <li><b>Never all fabric at once</b> — 100 pcs worth, receive, then next batch.</li>
+            <li><b>Deadline in writing</b> — a WhatsApp message is a legal record; date every handover.</li>
+            <li><b>Rejection clause agreed upfront</b> — bad stitching is redone at contractor cost.</li>
+            <li><b>Max 30% advance</b>, balance on delivery after QC.</li>
+            <li><b>2–3 contractors per work type</b> — single-source is how festivals get missed.</li>
+          </ol>
+          <h4 style="margin-top:.7rem">Evaluating a new unit</h4>
+          <p style="font-size:.85rem">Visit physically · count machines &amp; condition · sample on <em>your</em> fabric · ask who else they stitch for · rate per piece (never per hour) · GST-registered for ITC · delivery date + rejection terms on WhatsApp before fabric moves.</p>
+        </div>
+        <div>
+          <h4>Jaipur job-work rates (2025–26 market)</h4>
+          <div class="tbl-wrap"><table>
+            <thead><tr><th>Work</th><th class="num">Rate/pc</th></tr></thead>
+            <tbody>
+              <tr><td>Basic kurti stitching</td><td class="num">₹35–55</td></tr>
+              <tr><td>Suit set (3-pc)</td><td class="num">₹80–120</td></tr>
+              <tr><td>Embroidery job work</td><td class="num">₹30–80</td></tr>
+              <tr><td>Mirror/embellishment</td><td class="num">₹50–150</td></tr>
+              <tr><td>Cutting</td><td class="num">₹8–15</td></tr>
+              <tr><td>Finishing + packing</td><td class="num">₹8–15</td></tr>
+            </tbody>
+          </table></div>
+          <p class="sub" style="margin-top:.45rem">Volume discounts: 500 pcs/mo → 5–8% off · 1,000 → 10–15% · 2,500+ → 15–20%. Hunting grounds: Sanganer, Mansarovar, Jhotwara, Pratap Nagar; fabric shops always know who stitches well. The embroidery unit's 24-head machine also <b>sells job work inward</b> — idle heads are rentable capacity.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 6 · QUALITY GATE ================= -->
+  <section class="view" id="view-quality" role="tabpanel">
+    <div class="view-head">
+      <div class="eyebrow">Section 6</div>
+      <h2>Quality Gate</h2>
+      <p>Returns are the tax on sloppy QC. Three gates, checkable per batch — run them and the return rate falls on its own.</p>
+    </div>
+
+    <div class="grid grid-3">
+      <div class="card">
+        <h3>Gate 1 · Before production</h3>
+        <ul style="list-style:none;padding:0">
+          <li class="ck"><input type="checkbox" data-ck="q1-1" id="q1-1"><label for="q1-1"><b>Fabric matches PO</b><span>colour, GSM, width, dye lot</span></label></li>
+          <li class="ck"><input type="checkbox" data-ck="q1-2" id="q1-2"><label for="q1-2"><b>Shade band approved</b><span>single dye lot for the run</span></label></li>
+          <li class="ck"><input type="checkbox" data-ck="q1-3" id="q1-3"><label for="q1-3"><b>Wash test passed</b><span>shrinkage &lt;3%, no bleed</span></label></li>
+          <li class="ck"><input type="checkbox" data-ck="q1-4" id="q1-4"><label for="q1-4"><b>Trims tested</b><span>colourfast, button pull test</span></label></li>
+          <li class="ck"><input type="checkbox" data-ck="q1-5" id="q1-5"><label for="q1-5"><b>Sample sealed</b><span>±0.5 cm of tech pack, signed</span></label></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Gate 2 · In-line (10% sampling)</h3>
+        <ul style="list-style:none;padding:0">
+          <li class="ck"><input type="checkbox" data-ck="q2-1" id="q2-1"><label for="q2-1"><b>SPI correct</b><span>10–12 woven · 8–10 knit</span></label></li>
+          <li class="ck"><input type="checkbox" data-ck="q2-2" id="q2-2"><label for="q2-2"><b>Seam allowance ≥1 cm</b><span>no skipped stitches</span></label></li>
+          <li class="ck"><input type="checkbox" data-ck="q2-3" id="q2-3"><label for="q2-3"><b>Left/right symmetry</b><span>collar, sleeves, prints aligned</span></label></li>
+          <li class="ck"><input type="checkbox" data-ck="q2-4" id="q2-4"><label for="q2-4"><b>Trims placed per spec</b><span>against the sealed sample</span></label></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Gate 3 · Final before packing</h3>
+        <ul style="list-style:none;padding:0">
+          <li class="ck"><input type="checkbox" data-ck="q3-1" id="q3-1"><label for="q3-1"><b>Zero loose threads</b><span>no stains, holes, pilling</span></label></li>
+          <li class="ck"><input type="checkbox" data-ck="q3-2" id="q3-2"><label for="q3-2"><b>Measurements ±1 cm</b><span>spot-check per size</span></label></li>
+          <li class="ck"><input type="checkbox" data-ck="q3-3" id="q3-3"><label for="q3-3"><b>Labels correct</b><span>brand + size + care</span></label></li>
+          <li class="ck"><input type="checkbox" data-ck="q3-4" id="q3-4"><label for="q3-4"><b>Pressed crisp</b><span>no fold marks</span></label></li>
+          <li class="ck"><input type="checkbox" data-ck="q3-5" id="q3-5"><label for="q3-5"><b>Pack matches sticker</b><span>size sticker = garment inside</span></label></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="grid grid-2">
+      <div class="card">
+        <h3>AQL rule &amp; defect fixes</h3>
+        <p style="font-size:.87rem"><b>Sample 10% of every batch.</b> Defects &lt;2.5% → accept · 2.5–6.5% → hold and 100% check · &gt;6.5% → reject the batch back to the line/contractor.</p>
+        <div class="tbl-wrap" style="margin-top:.5rem"><table>
+          <thead><tr><th>Defect</th><th>Cause → fix</th></tr></thead>
+          <tbody>
+            <tr><td>Puckered seams</td><td>Thread tension → adjust upper tension</td></tr>
+            <tr><td>Skipped stitches</td><td>Blunt/wrong needle → change immediately</td></tr>
+            <tr><td>Colour bleeding</td><td>Poor dye → pre-wash all fabric before cutting</td></tr>
+            <tr><td>Uneven hem</td><td>Cutter error → retrain, use guide</td></tr>
+            <tr><td>Collar asymmetry</td><td>No jig → make a cardboard collar jig</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="card">
+        <h3>Return rate — the verdict metric</h3>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th class="num">Rate</th><th>Verdict</th><th>Action</th></tr></thead>
+          <tbody>
+            <tr><td class="num">&lt;15%</td><td><span class="chip good">excellent</span></td><td>Scale the style</td></tr>
+            <tr><td class="num">15–20%</td><td><span class="chip">acceptable</span></td><td>Monitor weekly</td></tr>
+            <tr><td class="num">20–25%</td><td><span class="chip warn">warning</span></td><td>Audit photos + size chart + QC</td></tr>
+            <tr><td class="num">&gt;25%</td><td><span class="chip bad">critical</span></td><td>Pause listing, root-cause, fix, relist</td></tr>
+          </tbody>
+        </table></div>
+        <p style="margin-top:.55rem;font-size:.86rem"><b>Reason → fix:</b> "size wrong" → measure real garments into the chart (not standard charts) · "colour different" → daylight photos, no filters · "quality" → Gate 2/3 failure, trace the batch · "not as shown" → rewrite the listing.<br><b>Return SOP:</b> photograph before opening → resalable? refold + relist · minor defect? fix in-house · damaged? platform claim within 72 hrs → write-off feeds the rejection % in §3.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 7 · CHANNELS & SALES ================= -->
+  <section class="view" id="view-channels" role="tabpanel">
+    <div class="view-head">
+      <div class="eyebrow">Section 7</div>
+      <h2>Channels &amp; Sales</h2>
+      <p>D2C is home; marketplaces are reach; offline and B2B are ballast. Launch in sequence — each channel earns the next.</p>
+    </div>
+
+    <div class="card">
+      <h3>Launch sequencer</h3>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Wave</th><th>Channel</th><th>Economics</th><th>The work</th></tr></thead>
+        <tbody>
+          <tr><td rowspan="3"><b>Now<br>(live)</b></td><td><b>baisajaipur.in</b> D2C</td><td>×4.0 · ~2.5% payment fees · best margin in the business</td><td>2 new drops/mo · every package inserts a "shop direct" card + WhatsApp QR</td></tr>
+          <tr><td><b>WhatsApp</b> +91 92510 22710</td><td>×4.0 · zero fees · highest conversion on warm leads</td><td>Broadcast lists (§8) · catalog link · quick replies · UPI/payment link close</td></tr>
+          <tr><td><b>Instagram</b> @the_baisa</td><td>×4.0 · feeds .in and WhatsApp</td><td>The §8 engine — 5 posts + 3 reels/week</td></tr>
+          <tr><td rowspan="3"><b>This quarter<br>(apply)</b></td><td><b>Meesho</b></td><td>×3.75 · 0% commission · cap ₹999 · returns 15–25%</td><td>Entry shelf only · NDD badge (&lt;24h dispatch) · 3–5 catalogs/week · watch returns per style like a hawk</td></tr>
+          <tr><td><b>Amazon</b></td><td>×4.5 · ~15% comm + fees</td><td>Core shelf ₹699+ · A+ content with the Sanganer story · FBA for proven heroes</td></tr>
+          <tr><td><b>Flipkart</b></td><td>×4.0 · ~12% comm</td><td>Tier-2/3 reach · aim F-Assured</td></tr>
+          <tr><td rowspan="2"><b>Next<br>(applied → live)</b></td><td><b>Myntra</b></td><td>×6.0 · ~35% comm — price high or lose money</td><td>Hero + core shelves only · brand-first listing · professional model shots required</td></tr>
+          <tr><td><b>AJIO</b></td><td>×5.5 · 20–40% comm (negotiate at onboarding)</td><td>"Indie"/heritage positioning — block-print collection is the pitch · apply after Myntra stabilises</td></tr>
+          <tr><td><b>Always on</b></td><td><b>Wholesale / B2B</b></td><td>×2.25 (floor ×2.0) · volume game</td><td>Boutique route below + Udaan/IndiaMART listings · MOQ 24 pcs/style</td></tr>
+        </tbody>
+      </table></div>
+      <div class="callout"><b>One rule across all marketplaces:</b> the marketplace price is never below the .in price. Marketplaces are for discovery; the brand store is for margin and the relationship. Fund marketplace fees with their multipliers, not by cannibalising home.</div>
+    </div>
+
+    <div class="grid grid-2">
+      <div class="card">
+        <h3>Offline — quick cash, brand proof</h3>
+        <ul>
+          <li><b>Boutiques (Jaipur → Jodhpur/Udaipur/Ajmer/Kota):</b> walk in with samples, 3-piece trial set, boutique keeps 35–40%. Terms: Net-15 or 20% cash discount upfront. Collect weekly — money older than 30 days is a §1 alert.</li>
+          <li><b>Exhibitions &amp; melas:</b> target 10× stall cost. Shilpgram (Udaipur, Dec) · Jaipur craft melas (Feb–Mar) · Navratri/Diwali haats (Sep–Nov) · Pushkar (Nov). Stall kit: QR standee, rack, branded backdrop, ₹499–999 bestsellers front.</li>
+          <li><b>Institutional (GeM):</b> uniforms for schools/hotels/hospitals via gem.gov.in — volume base-load for the factory in lean months.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Export — the year-2 line</h3>
+        <ul>
+          <li><b>Now:</b> supply Jaipur export houses (GEAR members, Cheer Sagar, JCS Vastra-type buyers) — pitch "Jaipur manufacturer, women's ethnic, 2,000–5,000 pcs/mo, samples ready". They take the export risk; the factory takes the volume.</li>
+          <li><b>Year 2 direct:</b> IEC (free, dgft.gov.in) → AEPC registration → IIGF fair (Noida) → Fibre2Fashion/Alibaba listings. FOB pricing = COGM × 3.5–4.5 in USD/AED.</li>
+          <li><b>Markets:</b> UAE, UK, USA diaspora — festival &amp; wedding wear windows mirror the Indian calendar, shifted 2 weeks earlier for shipping.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 8 · BRAND ENGINE ================= -->
+  <section class="view" id="view-brandengine" role="tabpanel">
+    <div class="view-head">
+      <div class="eyebrow">Section 8</div>
+      <h2>Brand Engine</h2>
+      <p>The brand is the only asset marketplaces can't commoditise. Instagram builds it, WhatsApp converts it, packaging seals it.</p>
+    </div>
+
+    <div class="grid grid-2">
+      <div class="card">
+        <h3>Instagram week — @the_baisa</h3>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>Day</th><th>Post</th></tr></thead>
+          <tbody>
+            <tr><td><b>Mon</b></td><td>New product — daylight model/flat-lay shot, price in caption</td></tr>
+            <tr><td><b>Tue</b></td><td>Behind the scenes — cutting table, Poonam's QC, the 24-head machine running</td></tr>
+            <tr><td><b>Wed</b></td><td>Styling reel — "3 ways to wear" one piece</td></tr>
+            <tr><td><b>Thu</b></td><td>Customer love — repost + tag (ask every happy customer for a photo)</td></tr>
+            <tr><td><b>Fri</b></td><td>Drop day — new catalog announcement, link in bio + WhatsApp CTA</td></tr>
+            <tr><td><b>Sat</b></td><td>Craft story — Sanganer block tables, dye, karigar hands (the moat, on camera)</td></tr>
+            <tr><td><b>Sun</b></td><td>Festive/aspirational mood — flat lay, mehendi-to-mela styling</td></tr>
+          </tbody>
+        </table></div>
+        <p style="margin-top:.55rem;font-size:.86rem"><b>Reel formula (15–30s):</b> hook in 3s ("Navratri look under ₹999?!") → outfit angles + fabric close-up → styling option → "DM / link in bio". Trending Bollywood audio from the last 2–4 weeks. Batch-shoot Tuesday afternoons (§11).</p>
+      </div>
+
+      <div class="card">
+        <h3>WhatsApp machine</h3>
+        <ul>
+          <li><b>Broadcast lists:</b> (1) customers — drops &amp; offers · (2) wholesale/boutiques — new catalog PDFs · (3) warm IG leads · (4) exhibition contacts. New drop goes to all four, worded per audience.</li>
+          <li><b>Quick replies:</b> /size → chart image · /fabric → fabric + care card · /delivery → "24-hr dispatch, 3–7 days" · /bulk → "MOQ 24 pcs, best rates" · /return → policy line.</li>
+          <li><b>2-hour reply SLA</b> during business hours — speed converts; Poonam owns the phone 11–2 (§11).</li>
+          <li><b>Every parcel grows the list:</b> thank-you card carries the WhatsApp QR + "10% off your next direct order".</li>
+        </ul>
+        <h3 style="margin-top:1rem">Micro-influencers, not celebrities</h3>
+        <ul>
+          <li>5K–50K follower ethnic-fashion creators (#KurtiLover #EthnicFashionista) — free piece for 1 reel + 2 stories; 4–6 collabs/month.</li>
+          <li>Track with a per-creator coupon code; repeat only the ones that sell.</li>
+          <li><b>Pinterest:</b> pin every product with title/price/link — "Rajasthani co-ord set" searches convert for years, zero upkeep.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="grid grid-2">
+      <div class="card">
+        <h3>Packaging = the repeat-purchase engine</h3>
+        <div class="tbl-wrap"><table>
+          <tbody>
+            <tr><td>Branded polybag</td><td class="num">~₹2</td><td>The brand in every unboxing</td></tr>
+            <tr><td>Hang tag + QR to Instagram</td><td class="num">~₹1</td><td>Marketplace buyer → brand follower</td></tr>
+            <tr><td>Thank-you card ("tag @the_baisa 💕" + direct-order offer)</td><td class="num">~₹0.7</td><td>UGC + D2C migration</td></tr>
+            <tr><td>Care card (wash instructions)</td><td class="num">~₹0.3</td><td>Cuts "garment ruined" complaints ~30%</td></tr>
+          </tbody>
+        </table></div>
+        <p style="margin-top:.5rem;font-size:.86rem">₹4/parcel that measurably lifts repeat rate and pulls marketplace customers to ×4-margin home turf. Already inside COGM (§3) — never "save" it away.</p>
+      </div>
+      <div class="card">
+        <h3>Study list — brands to learn from</h3>
+        <ul>
+          <li><b>@bunaai</b> (Jaipur) — earthy tones, artisan storytelling at premium prices; the closest playbook to ours.</li>
+          <li><b>@aachho</b> (Jaipur) — Rajasthan heritage scaled to a national D2C brand.</li>
+          <li><b>@libas.in</b> — everyday-ethnic volume machine; study their drop cadence, not their pricing.</li>
+          <li><b>@suta_bombay</b> — story-first brand where fabric provenance <em>is</em> the marketing.</li>
+        </ul>
+        <p style="font-size:.85rem">Monthly ritual: 30 minutes, note one repeatable idea from each — a reel format, a drop mechanic, a caption style. Adapt, never copy.</p>
+      </div>
+    </div>
+  </section>
+  <!-- ================= 9 · MONEY ================= -->
+  <section class="view" id="view-money" role="tabpanel">
+    <div class="view-head">
+      <div class="eyebrow">Section 9</div>
+      <h2>Money</h2>
+      <p>Garment cash flow: pay fabric today, get platform money in 7–21 days. The gap is working capital — manage it like a hawk.</p>
+    </div>
+
+    <div class="grid grid-2">
+      <div class="card">
+        <h3>Weekly cash dashboard — Friday, with the bank app open</h3>
+        <div class="tbl-wrap"><table>
+          <tbody>
+            <tr><td><b>In this week</b></td><td>Meesho settlement (T+7 of dispatch) · Amazon/Flipkart (T+14) · D2C payouts (T+2) · wholesale dues collected · exhibition cash</td></tr>
+            <tr><td><b>Out this week</b></td><td>Fabric payments · job-work bills · wages/salaries · courier &amp; platform fees · rent, electricity, packaging</td></tr>
+            <tr><td><b>Net position</b></td><td>In − Out. Two red Fridays in a row = stop fabric buying and collect.</td></tr>
+            <tr><td><b>Safety floor</b></td><td><b>2 weeks of operating expenses in the account, always.</b> Below ₹25k reserve = §1 critical alert.</td></tr>
+          </tbody>
+        </table></div>
+        <h4 style="margin-top:.8rem">The four cash rules</h4>
+        <ol>
+          <li>Never buy fabric beyond 30 days of production capacity.</li>
+          <li>Wholesale terms are Net-15, not Net-30. Interest-free credit is a gift we don't give.</li>
+          <li>Emergency fund ₹25–50k untouched in the business account.</li>
+          <li>Business account ≠ personal account. Mixing = flying blind.</li>
+        </ol>
+      </div>
+
+      <div class="card">
+        <h3>Working capital ladder — cheapest first</h3>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>Rung</th><th>What</th><th>Cost</th></tr></thead>
+          <tbody>
+            <tr><td><b>1 · Vendor credit</b></td><td>Fabric supplier Net-15 → Net-30 over 6 months of on-time payments</td><td>Free</td></tr>
+            <tr><td><b>2 · MUDRA Kishore</b></td><td>₹50k–5L collateral-free, any bank, Udyam certificate in hand</td><td>8–12%</td></tr>
+            <tr><td><b>3 · Invoice discounting</b></td><td>KredX / M1xchange against B2B invoices — 80–90% in 24–72 hrs</td><td>~1–2%/invoice</td></tr>
+            <tr><td><b>4 · Bank CC limit</b></td><td>20–30% of annual turnover once ₹12L+ — for festival fabric surges only</td><td>12–15%</td></tr>
+            <tr><td><b>5 · Platform lending</b></td><td>Amazon/Flipkart seller advances after 6 months of history</td><td>varies — read the fine print</td></tr>
+          </tbody>
+        </table></div>
+        <p style="margin-top:.5rem;font-size:.86rem"><b>Rule:</b> borrow for stock that is already sold (festival POs, wholesale orders), never for hope. Match loan tenure to the cash cycle, not the bank's convenience.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Monthly P&amp;L — the five lines that matter</h3>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Line</th><th class="num">Target</th><th>Watch for</th></tr></thead>
+        <tbody>
+          <tr><td><b>Revenue</b> (D2C + marketplaces + wholesale + exhibitions)</td><td class="num">growing 10%+ m/m</td><td>Mix shifting toward D2C is a win even at flat revenue</td></tr>
+          <tr><td><b>COGS</b> (fabric, trims, job work, packing)</td><td class="num">&lt; 55% of revenue</td><td>Creeping fabric rates, silent rejection losses</td></tr>
+          <tr><td><b>Gross margin</b></td><td class="num">&gt; 45%</td><td>Below 35% = §1 alert — recost the catalog</td></tr>
+          <tr><td><b>Opex</b> (fees, courier, wages, rent, marketing)</td><td class="num">&lt; 30%</td><td>Courier + platform fees per order trend</td></tr>
+          <tr><td><b>Net profit</b></td><td class="num">&gt; 15%</td><td>Take profit out monthly — a business that never pays you isn't one</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <div class="card">
+      <h3>Financial KPI bands</h3>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>KPI</th><th class="num">Alert</th><th class="num">Target</th><th class="num">Excellent</th></tr></thead>
+        <tbody>
+          <tr><td>Gross margin</td><td class="num">&lt;35%</td><td class="num">40–50%</td><td class="num">&gt;50%</td></tr>
+          <tr><td>Return rate (blended)</td><td class="num">&gt;25%</td><td class="num">&lt;20%</td><td class="num">&lt;12%</td></tr>
+          <tr><td>Inventory days</td><td class="num">&gt;60</td><td class="num">30–45</td><td class="num">&lt;30</td></tr>
+          <tr><td>Debtor days (B2B)</td><td class="num">&gt;30</td><td class="num">&lt;20</td><td class="num">&lt;15</td></tr>
+          <tr><td>Cash reserve</td><td class="num">&lt;₹25k</td><td class="num">₹50k+</td><td class="num">₹1L+</td></tr>
+          <tr><td>D2C share of revenue</td><td class="num">&lt;20%</td><td class="num">35%</td><td class="num">50%+</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </section>
+
+  <!-- ================= 10 · COMPLIANCE & SCHEMES ================= -->
+  <section class="view" id="view-schemes" role="tabpanel">
+    <div class="view-head">
+      <div class="eyebrow">Section 10</div>
+      <h2>Compliance &amp; Schemes</h2>
+      <p>The boring paperwork that protects margin, and the government money sitting on the table for a Sanganer garment unit. TCC (the sister firm) executes all of it.</p>
+    </div>
+
+    <div class="grid grid-2">
+      <div class="card">
+        <h3>GST on garments — the rate table</h3>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>Item</th><th class="num">GST</th></tr></thead>
+          <tbody>
+            <tr><td><b>Garments, sale value ≤ ₹1,000/pc</b></td><td class="num"><b>5%</b></td></tr>
+            <tr><td><b>Garments, sale value &gt; ₹1,000/pc</b></td><td class="num"><b>12%</b></td></tr>
+            <tr><td>Job work on garments</td><td class="num">5%</td></tr>
+            <tr><td>Cotton fabric</td><td class="num">5%</td></tr>
+            <tr><td>Synthetic fabric</td><td class="num">12%</td></tr>
+            <tr><td>Embroidery (HSN 5810)</td><td class="num">5%</td></tr>
+          </tbody>
+        </table></div>
+        <ul style="margin-top:.6rem">
+          <li><b>Claim every ITC:</b> fabric, job work, packaging, courier — bank payments + GST invoices only. Cash buying burns the credit.</li>
+          <li><b>Marketplace TCS</b> reconciles monthly against GSTR-2B — TCC runs it.</li>
+          <li>HSN: kurtis/sets 6104/6211 range · verify per style at listing time.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Registration checklist</h3>
+        <ul style="list-style:none;padding:0">
+          <li class="ck"><input type="checkbox" data-ck="reg-udyam" id="reg-udyam"><label for="reg-udyam"><b>Udyam (MSME)</b><span>30 minutes, free — the key that opens every scheme door</span></label></li>
+          <li class="ck"><input type="checkbox" data-ck="reg-gst" id="reg-gst"><label for="reg-gst"><b>GST active + returns current</b><span>mandatory for every marketplace</span></label></li>
+          <li class="ck"><input type="checkbox" data-ck="reg-tm" id="reg-tm"><label for="reg-tm"><b>Trademark "The Baisa" — Class 25</b><span>₹4,500 MSME fee, ipindia.gov.in — before a copycat files first; also unlocks brand registry on Amazon/Myntra</span></label></li>
+          <li class="ck"><input type="checkbox" data-ck="reg-gem" id="reg-gem"><label for="reg-gem"><b>GeM seller account</b><span>uniform tenders = factory base-load</span></label></li>
+          <li class="ck"><input type="checkbox" data-ck="reg-iec" id="reg-iec"><label for="reg-iec"><b>IEC (when export starts)</b><span>free, 2–3 days, dgft.gov.in</span></label></li>
+          <li class="ck"><input type="checkbox" data-ck="reg-shops" id="reg-shops"><label for="reg-shops"><b>Rajasthan Shops &amp; Establishment</b><span>and factory licence at 10+ workers</span></label></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Money on the table — schemes for this exact business</h3>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Scheme</th><th>Benefit</th><th>Move</th></tr></thead>
+        <tbody>
+          <tr><td><b>Rajasthan Textile &amp; Apparel Policy 2025</b></td><td>Capital subsidy up to 25% + SGST refund 50–75% for 7 yrs</td><td>File through DIC Jaipur before the next machine purchase — the 24-head embroidery expansion qualifies</td></tr>
+          <tr><td><b>RIPS 2024 (MSME)</b></td><td>Interest subsidy 5–7%, certification reimbursements</td><td>Pair with any bank loan; TCC prepares the file</td></tr>
+          <tr><td><b>PM MUDRA (Kishore)</b></td><td>₹50k–5L collateral-free working capital</td><td>The §9 ladder rung 2 — apply with Udyam + 6 months bank statements</td></tr>
+          <tr><td><b>PMEGP</b></td><td>15–35% subsidy on new unit cost (35% women, rural)</td><td>Route any <em>new</em> unit (embroidery expansion in Poonam's name) through PMEGP before it exists on paper</td></tr>
+          <tr><td><b>Rajasthan Export Promotion Policy</b></td><td>75% reimbursement of e-commerce platform fees, up to ₹2L/yr</td><td>Claim against marketplace invoices once export/ONDC listings start — near-free money for sellers</td></tr>
+          <tr><td><b>ODOP — Jaipur block print</b></td><td>Extra margin support, exhibitions, packaging help</td><td>Sanganer block-print lines qualify; ask DIC for the current window</td></tr>
+          <tr><td><b>GeM tenders</b></td><td>Government uniform volume</td><td>Bid schools/hospitality tenders in lean production months</td></tr>
+        </tbody>
+      </table></div>
+      <p class="sub" style="margin-top:.5rem">Owner: Ashish, via TCC's schemes desk. One application per quarter minimum — treat subsidy files like production orders, with deadlines.</p>
+    </div>
+  </section>
+
+  <!-- ================= 11 · TEAM & RITUALS ================= -->
+  <section class="view" id="view-team" role="tabpanel">
+    <div class="view-head">
+      <div class="eyebrow">Section 11</div>
+      <h2>Team &amp; Rituals</h2>
+      <p>Two people run this today — the rituals make two people feel like ten. Poonam's list resets itself every morning.</p>
+    </div>
+
+    <div class="split">
+      <div class="card">
+        <h3>Poonam's daily run-sheet <span class="sub" id="dailyDate"></span></h3>
+        <p class="hint">Checks clear automatically each new day. Morning block before 2 PM courier cutoff is sacred.</p>
+        <h4>Morning · 9–11</h4>
+        <ul style="list-style:none;padding:0">
+          <li class="ck"><input type="checkbox" data-day="d1" id="d1"><label for="d1"><b>Pull orders from every panel</b><span>.in + WhatsApp + marketplaces</span></label></li>
+          <li class="ck"><input type="checkbox" data-day="d2" id="d2"><label for="d2"><b>Pack + handover before 2 PM</b><span>NDD badge lives on this</span></label></li>
+          <li class="ck"><input type="checkbox" data-day="d3" id="d3"><label for="d3"><b>Returns received → inspect</b><span>relist / fix / claim within 72 hrs</span></label></li>
+        </ul>
+        <h4 style="margin-top:.6rem">Midday · 11–2</h4>
+        <ul style="list-style:none;padding:0">
+          <li class="ck"><input type="checkbox" data-day="d4" id="d4"><label for="d4"><b>Reply all DMs &amp; WhatsApp</b><span>2-hour SLA</span></label></li>
+          <li class="ck"><input type="checkbox" data-day="d5" id="d5"><label for="d5"><b>Shoot 2–3 products in daylight</b><span>white/neutral background</span></label></li>
+          <li class="ck"><input type="checkbox" data-day="d6" id="d6"><label for="d6"><b>Post today's content</b><span>from the §8 weekly plan</span></label></li>
+          <li class="ck"><input type="checkbox" data-day="d7" id="d7"><label for="d7"><b>QC spot-check current batch</b><span>10% sampling, Gate 2</span></label></li>
+        </ul>
+        <h4 style="margin-top:.6rem">Afternoon · 2–5</h4>
+        <ul style="list-style:none;padding:0">
+          <li class="ck"><input type="checkbox" data-day="d8" id="d8"><label for="d8"><b>Update stock register</b><span>in / out / closing in Baisa OS</span></label></li>
+          <li class="ck"><input type="checkbox" data-day="d9" id="d9"><label for="d9"><b>Upload 1 catalog / refresh 1 listing</b><span>rotate platforms through the week</span></label></li>
+          <li class="ck"><input type="checkbox" data-day="d10" id="d10"><label for="d10"><b>Chase job-work status</b><span>pieces promised vs delivered</span></label></li>
+          <li class="ck"><input type="checkbox" data-day="d11" id="d11"><label for="d11"><b>Prep tomorrow's packing material</b><span>polybags, tags, cards counted</span></label></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="card">
+          <h3>Weekly rhythm</h3>
+          <dl class="ritual">
+            <dt>Mon AM</dt><dd><b>Command review (Ashish, 30 min):</b> this deck §1 — festival radar, KPI fill, top-3 for the week, cash check.</dd>
+            <dt>Tue PM</dt><dd><b>Batch shoot:</b> 2 hours, all week's content in one session — products, BTS, reel clips.</dd>
+            <dt>Wed</dt><dd><b>Production day:</b> job-work handovers/pickups, fabric market run if needed.</dd>
+            <dt>Fri PM</dt><dd><b>Cash Friday (§9):</b> settlements in, dues chased, next week's outflows listed.</dd>
+            <dt>Sat</dt><dd><b>Slow-mover sweep:</b> anything 45+ days old gets a liquidation decision — bundle, exhibition box, or reseller push.</dd>
+          </dl>
+        </div>
+        <div class="card">
+          <h3>Hiring ladder — triggers, not dates</h3>
+          <div class="tbl-wrap"><table>
+            <thead><tr><th class="num">At monthly revenue</th><th>Add</th></tr></thead>
+            <tbody>
+              <tr><td class="num">now</td><td>Poonam + 2–3 job-work tailors (current)</td></tr>
+              <tr><td class="num">₹3–5L</td><td>Packing/logistics helper for Poonam + 5–8 tailors on tap</td></tr>
+              <tr><td class="num">₹10L</td><td>Dedicated QC person + content help + 15–20 tailors</td></tr>
+              <tr><td class="num">₹25L</td><td>Production manager + sales manager — factory model</td></tr>
+            </tbody>
+          </table></div>
+          <p style="margin-top:.5rem;font-size:.85rem">Source tailors from ITI colleges and SHG networks; pay ₹8–12k experienced / ₹5–7k fresher, piece-rate bonuses for quality (not just speed). <b>The first hire protects Poonam's time</b> — she is the bottleneck asset.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 12 · RUN THIS SYSTEM ================= -->
+  <section class="view" id="view-run" role="tabpanel">
+    <div class="view-head">
+      <div class="eyebrow">Section 12</div>
+      <h2>Run This System</h2>
+      <p>Install it in 90 days. The weekly habit is 30 minutes; the payoff is a brand that compounds instead of a hustle that repeats.</p>
+    </div>
+
+    <div class="card">
+      <h3>The weekly habit (Monday, 30 minutes)</h3>
+      <dl class="ritual">
+        <dt>Min 0–10</dt><dd>§1 Command Deck: festival radar (anything red moves to today), KPI fill, cash tile vs floor.</dd>
+        <dt>Min 10–20</dt><dd>§4 watchlist + returns by style; pick one fix (photo, size chart, QC trace) and one liquidation.</dd>
+        <dt>Min 20–30</dt><dd>Set the week: production targets (§5 capacity), content plan (§8), one growth move (§7 sequencer). Tell Poonam the top-3.</dd>
+      </dl>
+    </div>
+
+    <div class="grid grid-3">
+      <div class="card">
+        <h3>Days 1–30 · Protect</h3>
+        <ul style="list-style:none;padding:0">
+          <li class="ck"><input type="checkbox" data-ck="b30-1" id="b30-1"><label for="b30-1"><b>Cost every live SKU</b><span>§3 engine → Baisa OS; flag anything under ×2.5</span></label></li>
+          <li class="ck"><input type="checkbox" data-ck="b30-2" id="b30-2"><label for="b30-2"><b>QC gates running</b><span>3 gates + AQL on every batch; returns logged by reason</span></label></li>
+          <li class="ck"><input type="checkbox" data-ck="b30-3" id="b30-3"><label for="b30-3"><b>Festival production locked</b><span>radar says what's urgent — fabric + job-work booked for it</span></label></li>
+          <li class="ck"><input type="checkbox" data-ck="b30-4" id="b30-4"><label for="b30-4"><b>Cash Friday ritual live</b><span>4 Fridays in a row</span></label></li>
+          <li class="ck"><input type="checkbox" data-ck="b30-5" id="b30-5"><label for="b30-5"><b>Udyam + trademark filed</b><span>§10 checklist top two</span></label></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Days 31–60 · Expand</h3>
+        <ul style="list-style:none;padding:0">
+          <li class="ck"><input type="checkbox" data-ck="b60-1" id="b60-1"><label for="b60-1"><b>Marketplace wave submitted</b><span>Meesho + Amazon + Flipkart applications with entry/core split</span></label></li>
+          <li class="ck"><input type="checkbox" data-ck="b60-2" id="b60-2"><label for="b60-2"><b>Instagram cadence holding</b><span>full §8 week × 4 weeks, batch-shot</span></label></li>
+          <li class="ck"><input type="checkbox" data-ck="b60-3" id="b60-3"><label for="b60-3"><b>Packaging kit in every parcel</b><span>polybag + tag + thank-you + care card</span></label></li>
+          <li class="ck"><input type="checkbox" data-ck="b60-4" id="b60-4"><label for="b60-4"><b>MUDRA / scheme file submitted</b><span>working capital before festival fabric buying</span></label></li>
+          <li class="ck"><input type="checkbox" data-ck="b60-5" id="b60-5"><label for="b60-5"><b>10 boutique doors knocked</b><span>3-piece trial sets, Net-15 terms</span></label></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Days 61–90 · Compound</h3>
+        <ul style="list-style:none;padding:0">
+          <li class="ck"><input type="checkbox" data-ck="b90-1" id="b90-1"><label for="b90-1"><b>Myntra/AJIO applications in</b><span>hero shelf + block-print story deck</span></label></li>
+          <li class="ck"><input type="checkbox" data-ck="b90-2" id="b90-2"><label for="b90-2"><b>First influencer cycle done</b><span>6 collabs, coupon-tracked, repeats chosen</span></label></li>
+          <li class="ck"><input type="checkbox" data-ck="b90-3" id="b90-3"><label for="b90-3"><b>Export-house pitch sent</b><span>samples + capacity sheet to 5 Jaipur houses</span></label></li>
+          <li class="ck"><input type="checkbox" data-ck="b90-4" id="b90-4"><label for="b90-4"><b>D2C share &gt; 25%</b><span>parcel inserts + WhatsApp doing their job</span></label></li>
+          <li class="ck"><input type="checkbox" data-ck="b90-5" id="b90-5"><label for="b90-5"><b>Quarter review + update this Brain</b><span>targets rolled, one lesson written in</span></label></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Keep it honest</h3>
+      <ul>
+        <li><b>Source of truth in the repo</b> (<span class="mono" style="font-size:.78rem">the-baisa-business-hub/docs/business-brain</span>) — this artifact is the daily driver; the Baisa OS app holds the live registers and data.</li>
+        <li><b>One number rules the week:</b> contribution margin per day. If it grew, the machine worked; if not, §3/§6/§7 say why.</li>
+        <li><b>Margin pehle, growth baad mein</b> — growth without margin is death in garments. Every new idea passes the costing engine first.</li>
+      </ul>
+    </div>
+  </section>
+
+  </main>
+</div>
+
+<p class="footer-note">The Baisa Business Brain · Pushpraj Fashion, Sanganer, Jaipur · Internal strategy &amp; operations system. Rates, commissions and scheme terms are planning references — verify current terms before commitments. Scorecard and checklist state saves only in this browser.</p>
+
+<script>
+(function () {
+  "use strict";
+  var NS = "baisaBrain.v1.";
+  function store(k, v) { try { localStorage.setItem(NS + k, JSON.stringify(v)); } catch (e) {} }
+  function read(k, fb) { try { var r = localStorage.getItem(NS + k); return r === null ? fb : JSON.parse(r); } catch (e) { return fb; } }
+  function el(t, cls, html) { var n = document.createElement(t); if (cls) n.className = cls; if (html !== undefined) n.innerHTML = html; return n; }
+  function inr(n) { return "₹" + Math.round(n).toLocaleString("en-IN"); }
+
+  var now = new Date();
+  var days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+  var months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  document.getElementById("mhToday").textContent = days[now.getDay()] + ", " + now.getDate() + " " + months[now.getMonth()] + " " + now.getFullYear();
+
+  /* ---------- Tabs ---------- */
+  var rail = document.getElementById("railNav");
+  function show(v, push) {
+    Array.prototype.forEach.call(document.querySelectorAll(".view"), function (s) { s.classList.toggle("active", s.id === "view-" + v); });
+    Array.prototype.forEach.call(rail.querySelectorAll("button"), function (b) { b.setAttribute("aria-selected", String(b.dataset.v === v)); });
+    if (push) { try { history.replaceState(null, "", "#" + v); } catch (e) {} }
+    window.scrollTo({ top: 0 });
+  }
+  rail.addEventListener("click", function (e) { var b = e.target.closest("button[data-v]"); if (b) show(b.dataset.v, true); });
+  var initial = (location.hash || "").replace("#", "");
+  if (initial && document.getElementById("view-" + initial)) show(initial, false);
+
+  /* ---------- The catalog (from Baisa OS seed) ---------- */
+  var SKUS = [
+    ["TB-DRS-001","Gaj-Rani Elephant Motif Cotton Shirt Dress","Dress",750,2499,3749,0],
+    ["TB-KST-001","Royal Velvet Pathani Suit Set","Kurta Set",600,2249,2999,0],
+    ["TB-CRD-001","Blossom Breeze Embroidered Cotton Co-ord Set","Co-ord Set",800,1999,3999,0],
+    ["TB-SHR-001","Shreeji Peach Gota Floral Sharara Set","Sharara Set",500,1999,2499,0],
+    ["TB-CRD-002","Pocket-Chic Abstract Floral Cotton Co-ord","Co-ord Set",500,1899,2499,0],
+    ["TB-KST-002","Floral Heritage Cotton 3-Piece Kurta Set","Kurta Set",550,1899,2749,0],
+    ["TB-DRS-002","Rose Garden Floral Georgette Tiered Gown","Dress",500,1799,2499,0],
+    ["TB-KST-003","Raani Red Buta Sleeveless Cotton Kurta Set","Kurta Set",550,1649,2749,0],
+    ["TB-KST-004","A-Line Floral V-Neck Lace Kurta Set","Kurta Set",500,1499,2499,0],
+    ["TB-MTR-001","MomCare Morpankh Nursing Maternity Gown","Maternity",400,1499,1999,0],
+    ["TB-CRD-006","Morpankh Ikat Sleeveless Cotton Co-ord","Co-ord Set",320,1499,1599,0],
+    ["TB-CRD-003","Sunshine Floral Pure Cotton Co-ord Set","Co-ord Set",450,1349,2249,0],
+    ["TB-KRT-001","Heritage Morpankh Gold-Print Plus-Size Kurta","Kurta",290,1149,1449,0],
+    ["TB-MTR-002","MomCare Checkered Nursing Maternity Gown","Maternity",370,1099,1849,0],
+    ["TB-CRD-004","Azure Bloom Floral Cotton Co-ord","Co-ord Set",350,1099,1749,0],
+    ["TB-TOP-004","Baisa Signature Backless Cotton Tunic","Top",270,999,1349,0],
+    ["TB-TOP-002","Ikat Print Backless Cotton Top","Top",270,999,1349,0],
+    ["TB-CRD-005","Ornate Indigo Rama Green Cotton Co-ord","Co-ord Set",340,999,1699,0],
+    ["TB-KRT-006","Pretty Woman Kantha-Style Short Kurti","Kurti",250,899,1249,0],
+    ["TB-TOP-001","Bloom Floral Peplum Cotton Top","Top",200,699,999,0],
+    ["TB-KRT-002","Morpankh Ikat Sleeveless Straight Kurti","Kurti",210,699,1049,0],
+    ["TB-TOP-003","Pankhuri Back-Tie Cotton Tunic Top","Top",200,599,999,0],
+    ["TB-KRT-003","Pom-Pom Trim Cotton Straight Kurti","Kurti",200,599,999,0],
+    ["TB-TOP-005","Elephant Print Criss-Cross Backless Top","Top",200,599,999,0],
+    ["TB-GWN-BOX","Anarkali Box Gown — Cotton Checkered Maxi Dress","Gown",200,599,999,1],
+    ["TB-TOP-006","Mayra Front-Knot Cotton Short Top","Top",190,569,949,0],
+    ["TB-TOP-007","Krimson Boho-Chic Cotton Short Top","Top",190,569,949,0],
+    ["TB-KRT-005","Ruby Diamond-Leaf Print Short Cotton Kurti","Kurti",190,569,949,0],
+    ["TB-KRT-004","Kamdhenu Print Short Cotton Kurti","Kurti",190,569,949,0]
+  ];
+  var CHANNELS = [
+    { n: "D2C — baisajaipur.in", m: 4.0, status: "Live", cost: 0.03, play: "Home. Best margin; all roads lead here. Payments live." },
+    { n: "WhatsApp", m: 4.0, status: "Live", cost: 0.0, play: "Fastest close for warm leads; broadcast lists." },
+    { n: "Instagram", m: 4.0, status: "Live", cost: 0.0, play: "Brand engine; DM sales feed .in and WhatsApp." },
+    { n: "Meesho", m: 3.75, status: "Apply", cost: 0.05, cap: 999, play: "Entry shelf, cap ₹999, NDD badge, watch returns." },
+    { n: "Amazon", m: 4.5, status: "Apply", cost: 0.18, play: "Core ₹699+, A+ story content, FBA for heroes." },
+    { n: "Flipkart", m: 4.0, status: "Apply", cost: 0.14, play: "Tier-2/3 reach; aim F-Assured." },
+    { n: "Myntra", m: 6.0, status: "Next", cost: 0.35, play: "Hero shelf only — commission demands the ×6." },
+    { n: "AJIO", m: 5.5, status: "Next", cost: 0.3, play: "Indie/heritage positioning; after Myntra stabilises." },
+    { n: "Wholesale / B2B", m: 2.25, status: "Ongoing", cost: 0.0, play: "MOQ 24; floor ×2.0; Net-15 terms." }
+  ];
+
+  /* Channel map table (§2) */
+  (function () {
+    var tb = document.querySelector("#channelMap tbody");
+    CHANNELS.forEach(function (c) {
+      var chip = c.status === "Live" ? "good" : c.status === "Apply" ? "warn" : c.status === "Ongoing" ? "teal" : "brand";
+      var tr = el("tr");
+      tr.appendChild(el("td", null, "<b>" + c.n + "</b>"));
+      tr.appendChild(el("td", "num", "×" + c.m.toFixed(2).replace(/0$/, "").replace(/\.$/, "") + (c.cap ? " · cap " + inr(c.cap) : "")));
+      tr.appendChild(el("td", null, "<span class='chip " + chip + "'>" + c.status + "</span>"));
+      tr.appendChild(el("td", null, c.play));
+      tb.appendChild(tr);
+    });
+  })();
+
+  /* ---------- Festival radar ---------- */
+  var FESTIVALS = [
+    { n: "Raksha Bandhan", peak: "2026-08-28", prodLead: 42, catLead: 21, s: "gifting kurtis & co-ords" },
+    { n: "Navratri + Durga Puja", peak: "2026-10-11", prodLead: 70, catLead: 55, s: "9-colour edits, chaniya-friendly sets" },
+    { n: "Karwa Chauth", peak: "2026-10-29", prodLead: 55, catLead: 30, s: "red/rani core + hero shelf" },
+    { n: "Diwali + Dhanteras", peak: "2026-11-08", prodLead: 68, catLead: 58, s: "festive co-ords, gota, velvet" },
+    { n: "Wedding season", peak: "2026-11-15", prodLead: 45, catLead: 30, s: "sharara sets, hero dresses (runs to Feb)" },
+    { n: "Eid (approx)", peak: "2027-03-10", prodLead: 56, catLead: 28, s: "pastel sets, sharara" },
+    { n: "Holi", peak: "2027-03-22", prodLead: 50, catLead: 25, s: "whites & brights, casual shelf" },
+    { n: "Summer drop", peak: "2027-04-01", prodLead: 30, catLead: 14, s: "cotton, kaftans, lounge sets" }
+  ];
+  (function () {
+    var wrap = document.getElementById("festList");
+    var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    var soonest = null;
+    FESTIVALS.forEach(function (f) {
+      var peak = new Date(f.peak + "T00:00:00");
+      var toPeak = Math.round((peak - today) / 86400000);
+      if (toPeak < -5) return; // festival passed
+      var prodStart = new Date(peak.getTime() - f.prodLead * 86400000);
+      var catBy = new Date(peak.getTime() - f.catLead * 86400000);
+      var toProd = Math.round((prodStart - today) / 86400000);
+      var toCat = Math.round((catBy - today) / 86400000);
+      var sev, msg;
+      if (toProd > 7) { sev = "ok"; msg = "Prep — production starts in " + toProd + " days"; }
+      else if (toProd > 0) { sev = "warn"; msg = "Production starts in " + toProd + " days — book fabric & job work NOW"; }
+      else if (toCat > 0) { sev = "warn"; msg = "PRODUCTION WINDOW OPEN — catalogs must be live in " + toCat + " days"; }
+      else if (toPeak > 0) { sev = "bad"; msg = "Catalog deadline passed — list what's ready TODAY; " + toPeak + " days to peak"; }
+      else { sev = "bad"; msg = "Peak is on — sell through, restock heroes only"; }
+      if (!soonest && (sev === "warn" || sev === "bad")) soonest = { f: f, msg: msg };
+      var row = el("div", "fest-item sev-" + sev);
+      row.appendChild(el("span", "fest-date", peak.getDate() + " " + months[peak.getMonth()] + " " + String(peak.getFullYear()).slice(2)));
+      var body = el("div", "fest-body");
+      body.appendChild(el("div", "t", f.n));
+      body.appendChild(el("div", "s", f.s + " · produce by " + prodStart.getDate() + " " + months[prodStart.getMonth()] + " · catalogs by " + catBy.getDate() + " " + months[catBy.getMonth()]));
+      row.appendChild(body);
+      row.appendChild(el("span", "chip " + (sev === "bad" ? "bad" : sev === "warn" ? "warn" : "good"), msg));
+      wrap.appendChild(row);
+    });
+    var mh = document.getElementById("mhFest");
+    if (soonest) mh.innerHTML = "Clock running: <b>" + soonest.f.n + "</b> — " + soonest.msg.toLowerCase();
+  })();
+
+  /* ---------- KPI scorecard ---------- */
+  var KPIS = [
+    { id: "rev", name: "Revenue this week", target: 75000, dir: "gte", fmt: "inr" },
+    { id: "d2c", name: "D2C share of revenue %", target: 35, dir: "gte", fmt: "pct" },
+    { id: "gm", name: "Gross margin %", target: 45, dir: "gte", fmt: "pct" },
+    { id: "ret", name: "Return rate %", target: 20, dir: "lte", fmt: "pct" },
+    { id: "disp", name: "Orders dispatched < 24 hrs %", target: 90, dir: "gte", fmt: "pct" },
+    { id: "cash", name: "Cash reserve (₹)", target: 50000, dir: "gte", fmt: "inr" },
+    { id: "stockdays", name: "Inventory days", target: 45, dir: "lte", fmt: "n" },
+    { id: "newstyles", name: "New styles this month", target: 2, dir: "gte", fmt: "n" },
+    { id: "posts", name: "IG posts + reels this week", target: 7, dir: "gte", fmt: "n" },
+    { id: "followers", name: "IG followers", target: 5000, dir: "gte", fmt: "n" }
+  ];
+  var kpiBody = document.querySelector("#kpiTable tbody");
+  function fmtVal(v, f) { if (v === "" || v === null || isNaN(v)) return ""; return f === "inr" ? inr(+v) : f === "pct" ? (+v) + "%" : String(+v); }
+  KPIS.forEach(function (k) {
+    var tr = el("tr");
+    tr.appendChild(el("td", null, "<b>" + k.name + "</b>"));
+    tr.appendChild(el("td", "num", fmtVal(k.target, k.fmt) + (k.dir === "lte" ? " max" : "")));
+    var tdIn = el("td", "num");
+    var input = el("input", "kpi-input");
+    input.type = "number"; input.step = "any"; input.setAttribute("aria-label", "Actual for " + k.name);
+    var saved = read("kpi." + k.id, "");
+    if (saved !== "") input.value = saved;
+    tdIn.appendChild(input); tr.appendChild(tdIn);
+    var tdSt = el("td"); tr.appendChild(tdSt);
+    function paint() {
+      var v = input.value; tdSt.innerHTML = "";
+      if (v === "") { tdSt.appendChild(el("span", "chip", "—")); return; }
+      var ok = k.dir === "gte" ? +v >= k.target : +v <= k.target;
+      var near = k.dir === "gte" ? +v >= k.target * 0.8 : +v <= k.target * 1.25;
+      tdSt.appendChild(el("span", "chip " + (ok ? "good" : near ? "warn" : "bad"), ok ? "on target" : near ? "close" : "off"));
+    }
+    input.addEventListener("input", function () { store("kpi." + k.id, input.value); paint(); });
+    paint();
+    kpiBody.appendChild(tr);
+  });
+
+  /* ---------- Deck tiles ---------- */
+  (function () {
+    var tiles = document.getElementById("deckTiles");
+    function tile(lbl, val, note, cls) {
+      var t = el("div", "tile" + (cls ? " " + cls : ""));
+      t.appendChild(el("div", "lbl", lbl)); t.appendChild(el("div", "val", val));
+      if (note) t.appendChild(el("div", "note", note)); tiles.appendChild(t);
+    }
+    var gm = read("kpi.gm", "");
+    tile("Gross margin", gm === "" ? "—" : gm + "%", "target 45%+", gm === "" ? "" : (+gm >= 45 ? "t-good" : +gm >= 35 ? "t-warn" : "t-bad"));
+    var ret = read("kpi.ret", "");
+    tile("Return rate", ret === "" ? "—" : ret + "%", "max 20%", ret === "" ? "" : (+ret <= 20 ? "t-good" : +ret <= 25 ? "t-warn" : "t-bad"));
+    var cash = read("kpi.cash", "");
+    tile("Cash reserve", cash === "" ? "—" : inr(+cash), "floor ₹25k", cash === "" ? "" : (+cash >= 50000 ? "t-good" : +cash >= 25000 ? "t-warn" : "t-bad"));
+    var d2c = read("kpi.d2c", "");
+    tile("D2C share", d2c === "" ? "—" : d2c + "%", "target 35%+", d2c === "" ? "" : (+d2c >= 35 ? "t-good" : ""));
+    tile("Catalog", String(SKUS.length) + " styles", "live in Baisa OS", "");
+  })();
+
+  /* ---------- Costing engine ---------- */
+  var IN = ["cFabricRate","cFabricCons","cTrims","cCutting","cStitch","cFinish","cLabels","cPack","cOverhead","cReject"];
+  var costSaved = read("cost", null);
+  IN.forEach(function (id) {
+    var i = document.getElementById(id);
+    if (costSaved && costSaved[id] !== undefined) i.value = costSaved[id];
+    i.addEventListener("input", calcCost);
+  });
+  function pretty9(p) { var r = Math.ceil(p / 50) * 50 - 1; return r < p ? r + 50 : r; }
+  function calcCost() {
+    var v = {}; IN.forEach(function (id) { v[id] = +document.getElementById(id).value || 0; });
+    store("cost", v);
+    var fabric = v.cFabricRate * v.cFabricCons;
+    var make = v.cTrims + v.cCutting + v.cStitch + v.cFinish + v.cLabels;
+    var base = fabric + make;
+    var overhead = base * v.cOverhead / 100;
+    var reject = base * v.cReject / 100;
+    var cogm = base + overhead + reject + v.cPack;
+    var floor = cogm * 2.0, d2c = cogm * 4.0;
+    var out = document.getElementById("costOut"); out.innerHTML = "";
+    [["COGM / piece", inr(cogm)], ["Fabric share", Math.round(fabric / cogm * 100) + "%"], ["Floor (×2.0)", inr(floor)], ["D2C price (×4)", inr(pretty9(d2c))]].forEach(function (p) {
+      var c = el("div"); c.appendChild(el("div", "r-lbl", p[0])); c.appendChild(el("div", "r-val", p[1])); out.appendChild(c);
+    });
+    /* segmented COGM bar */
+    var seg = document.getElementById("cogmSeg"), leg = document.getElementById("cogmLegend");
+    seg.innerHTML = ""; leg.innerHTML = "";
+    var parts = [["Fabric", fabric, "--seg1"], ["Making", make, "--seg2"], ["Packing", v.cPack, "--seg3"], ["Overhead", overhead, "--seg4"], ["Rejection", reject, "--seg5"]];
+    parts.forEach(function (p) {
+      if (p[1] <= 0) return;
+      var i = el("i"); i.style.width = (p[1] / cogm * 100) + "%"; i.style.background = "var(" + p[2] + ")";
+      i.title = p[0] + ": " + inr(p[1]); seg.appendChild(i);
+      var s = el("span"); var sw = el("i"); sw.style.background = "var(" + p[2] + ")"; s.appendChild(sw);
+      s.appendChild(document.createTextNode(p[0] + " " + inr(p[1]) + " (" + Math.round(p[1] / cogm * 100) + "%)")); leg.appendChild(s);
+    });
+    /* channel ladder */
+    var lb = document.querySelector("#ladderTable tbody"); lb.innerHTML = "";
+    var alerts = [];
+    var frow = el("tr");
+    frow.appendChild(el("td", null, "<b>FLOOR — never sell below</b>"));
+    frow.appendChild(el("td", "num", "×2.0"));
+    frow.appendChild(el("td", "num", "<b>" + inr(floor) + "</b>"));
+    frow.appendChild(el("td", null, "—")); frow.appendChild(el("td", "num", "50%")); frow.appendChild(el("td", null, "<span class='chip bad'>hard line</span>"));
+    lb.appendChild(frow);
+    CHANNELS.forEach(function (c) {
+      var price = pretty9(cogm * c.m);
+      var capped = false;
+      if (c.cap && price > c.cap) { price = c.cap; capped = true; }
+      var gst = price <= 1000 ? "5%" : "12%";
+      var gmPct = (price - cogm) / price * 100;
+      var effM = price / cogm;
+      var health = effM >= 3.5 ? "<span class='chip good'>strong</span>" : effM >= 2.5 ? "<span class='chip warn'>ok</span>" : "<span class='chip bad'>below policy</span>";
+      if (capped && effM < 2.5) alerts.push("<b>" + c.n + ":</b> the ₹" + c.cap + " cap makes this COGM too expensive (only ×" + effM.toFixed(1) + "). This style belongs on other channels, or its cost must come down.");
+      if (price > 1000 && price < 1120) alerts.push("<b>" + c.n + ":</b> " + inr(price) + " sits just over the ₹1,000 GST line — at 12% vs 5% you keep less than at ₹999. Price at ₹999 or push properly higher.");
+      var tr = el("tr");
+      tr.appendChild(el("td", null, c.n + (capped ? " <span class='chip warn'>capped</span>" : "")));
+      tr.appendChild(el("td", "num", "×" + c.m));
+      tr.appendChild(el("td", "num", "<b>" + inr(price) + "</b>"));
+      tr.appendChild(el("td", null, "<span class='chip " + (gst === "5%" ? "good" : "") + "'>" + gst + "</span>"));
+      tr.appendChild(el("td", "num", Math.round(gmPct) + "%"));
+      tr.appendChild(el("td", null, health));
+      lb.appendChild(tr);
+    });
+    var la = document.getElementById("ladderAlert");
+    la.innerHTML = alerts.length ? "<div class='callout warn'>" + alerts.join("<br>") + "</div>" : "";
+    /* margin bars */
+    var bars = document.getElementById("marginBars"); bars.innerHTML = "";
+    var rows = CHANNELS.map(function (c) {
+      var price = pretty9(cogm * c.m);
+      if (c.cap && price > c.cap) price = c.cap;
+      var net = price * (1 - c.cost) - cogm;
+      return { n: c.n.replace(" — baisajaipur.in", " (.in)"), net: net, price: price, cost: c.cost };
+    }).sort(function (a, b) { return b.net - a.net; });
+    var max = Math.max.apply(null, rows.map(function (r) { return r.net; }));
+    rows.forEach(function (r) {
+      var row = el("div", "bar-row");
+      row.appendChild(el("span", "b-lbl", r.n));
+      var track = el("div", "b-track");
+      var fill = el("div", "b-fill"); fill.style.width = Math.max(2, r.net / max * 100) + "%";
+      track.title = r.n + ": price " + inr(r.price) + " − channel cost " + Math.round(r.cost * 100) + "% − COGM " + inr(cogm) + " = " + inr(r.net) + "/pc";
+      track.appendChild(fill); row.appendChild(track);
+      row.appendChild(el("span", "b-val", inr(r.net) + "/pc"));
+      bars.appendChild(row);
+    });
+  }
+  calcCost();
+
+  /* ---------- Catalog intelligence (computed) ---------- */
+  (function () {
+    var cats = {};
+    var in5 = 0, minM = Infinity, minSku = null, sumM = 0;
+    SKUS.forEach(function (s) {
+      var cat = s[2], cogm = s[3], sell = s[4];
+      cats[cat] = cats[cat] || { n: 0, lo: Infinity, hi: 0, mSum: 0, gmSum: 0, in5: 0 };
+      var c = cats[cat]; c.n++;
+      c.lo = Math.min(c.lo, sell); c.hi = Math.max(c.hi, sell);
+      var m = sell / cogm; c.mSum += m; sumM += m;
+      c.gmSum += (sell - cogm) / sell * 100;
+      if (sell <= 1000) { c.in5++; in5++; }
+      if (m < minM) { minM = m; minSku = s; }
+    });
+    var tiles = document.getElementById("catTiles");
+    function tile(lbl, val, note, cls) {
+      var t = el("div", "tile" + (cls ? " " + cls : ""));
+      t.appendChild(el("div", "lbl", lbl)); t.appendChild(el("div", "val", val));
+      if (note) t.appendChild(el("div", "note", note)); tiles.appendChild(t);
+    }
+    tile("Live styles", String(SKUS.length), "across " + Object.keys(cats).length + " categories");
+    tile("Avg multiplier", "×" + (sumM / SKUS.length).toFixed(1), "D2C price ÷ COGM", "t-good");
+    tile("In 5% GST band", in5 + " / " + SKUS.length, "sale value ≤ ₹1,000");
+    tile("Price span", "₹569–2,499", "entry → hero");
+    var tb = document.querySelector("#catTable tbody");
+    Object.keys(cats).sort(function (a, b) { return cats[b].n - cats[a].n; }).forEach(function (k) {
+      var c = cats[k];
+      var tr = el("tr");
+      tr.appendChild(el("td", null, "<b>" + k + "</b>"));
+      tr.appendChild(el("td", "num", String(c.n)));
+      tr.appendChild(el("td", "num", inr(c.lo) + "–" + inr(c.hi)));
+      tr.appendChild(el("td", "num", "×" + (c.mSum / c.n).toFixed(1)));
+      tr.appendChild(el("td", "num", Math.round(c.gmSum / c.n) + "%"));
+      tr.appendChild(el("td", "num", c.in5 + " of " + c.n));
+      tb.appendChild(tr);
+    });
+    var watch = document.getElementById("catWatch");
+    var thin = SKUS.filter(function (s) { return s[4] / s[3] < 3.2; }).sort(function (a, b) { return a[4] / a[3] - b[4] / b[3]; });
+    var html = "<ul>";
+    html += "<li><b>Thinnest multiplier:</b> " + minSku[1] + " at ×" + minM.toFixed(1) + " (" + inr(minSku[3]) + " → " + inr(minSku[4]) + "). Still healthy, but it caps marketplace room — recost fabric or hold it D2C-only.</li>";
+    if (thin.length > 1) html += "<li><b>Under ×3.2 club (" + thin.length + " styles):</b> " + thin.slice(0, 4).map(function (s) { return s[0]; }).join(", ") + " — these cannot carry Myntra/AJIO commissions; keep them off high-commission channels.</li>";
+    html += "<li><b>5% GST band:</b> " + in5 + " styles sit at ≤ ₹999 — the Meesho/entry engine. Any reprice that crosses ₹1,000 must jump to ₹1,199+, never ₹1,049.</li>";
+    html += "<li><b>Hero coverage:</b> only 1 flagged hero (TB-GWN-BOX). Promote 2–3 more (best margin × best reviews) and give them the §8 story treatment.</li>";
+    html += "</ul>";
+    watch.innerHTML = html;
+  })();
+
+  /* ---------- Checklists (persistent) ---------- */
+  Array.prototype.forEach.call(document.querySelectorAll("input[data-ck]"), function (c) {
+    var key = "ck." + c.dataset.ck;
+    c.checked = !!read(key, false);
+    function paint() { var li = c.closest(".ck"); if (li) li.classList.toggle("done", c.checked); }
+    c.addEventListener("change", function () { store(key, c.checked); paint(); });
+    paint();
+  });
+
+  /* ---------- Poonam daily list (auto-reset each day) ---------- */
+  (function () {
+    var todayKey = now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate();
+    var saved = read("daily", { d: todayKey, v: {} });
+    if (saved.d !== todayKey) saved = { d: todayKey, v: {} };
+    document.getElementById("dailyDate").textContent = "· " + days[now.getDay()] + " " + now.getDate() + " " + months[now.getMonth()];
+    Array.prototype.forEach.call(document.querySelectorAll("input[data-day]"), function (c) {
+      c.checked = !!saved.v[c.dataset.day];
+      function paint() { var li = c.closest(".ck"); if (li) li.classList.toggle("done", c.checked); }
+      c.addEventListener("change", function () { saved.v[c.dataset.day] = c.checked; store("daily", saved); paint(); });
+      paint();
+    });
+  })();
+})();
+</script>
+</body>
+</html>
