@@ -1,0 +1,22 @@
+# Runs the middleware next to your existing self-hosted n8n on Hostinger.
+# n8n reaches it at http://tcc-voice-backend:3000 when both share the tcc-net network.
+services:
+  tcc-voice-backend:
+    build: .
+    container_name: tcc-voice-backend
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - "3000:3000"          # put a reverse proxy (Caddy/nginx) in front for HTTPS
+    volumes:
+      - ./data:/app/data     # persists usage / suppression / consent logs
+    networks:
+      - tcc-net
+
+networks:
+  tcc-net:
+    name: tcc-net
+# To let your n8n container call this by hostname, add to n8n's compose:
+#   networks: [tcc-net]
+# and at the bottom:
+#   networks: { tcc-net: { external: true } }

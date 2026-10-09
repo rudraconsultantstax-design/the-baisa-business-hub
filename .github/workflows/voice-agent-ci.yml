@@ -1,0 +1,20 @@
+name: Voice Agent CI
+on:
+  push:
+    paths: ['tcc-voice-agent/**']
+  pull_request:
+    paths: ['tcc-voice-agent/**']
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: tcc-voice-agent
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: npm ci
+      - run: npm test
+      - run: npm run smoke

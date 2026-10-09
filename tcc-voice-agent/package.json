@@ -1,0 +1,23 @@
+{
+  "name": "tcc-voice-agent",
+  "version": "1.1.0",
+  "description": "The Consulting Crew — AI Voice Agent middleware: Bolna webhooks -> Zoho CRM + Interakt WhatsApp, with TRAI/DPDP compliance guardrails, per-client billing, and outbound campaign triggers.",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "create-agents": "node src/scripts/create-bolna-agents.js",
+    "invoices": "node src/scripts/generate-invoices.js",
+    "smoke": "bash test/smoke-test.sh",
+    "test": "DATA_DIR=$(mktemp -d) CALL_WINDOW_START=0 CALL_WINDOW_END=24 node --test"
+  },
+  "engines": { "node": ">=20" },
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1"
+  },
+  "author": "The Consulting Crew",
+  "license": "UNLICENSED",
+  "private": true
+}

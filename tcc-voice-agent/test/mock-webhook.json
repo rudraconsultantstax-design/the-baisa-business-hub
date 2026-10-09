@@ -1,0 +1,10 @@
+{
+  "id": "exec-test-001",
+  "agent_id": "dry-agent-recep",
+  "status": "completed",
+  "conversation_duration": 95,
+  "total_cost": 3.1,
+  "transcript": "assistant: Namaste! The Consulting Crew. Boliye?\nuser: GST registration karana tha, urgent hai. Naam Rahul, kapde ka business. Manager se baat karni hai.",
+  "extracted_data": { "name": "Rahul", "General": { "Call Summary": { "subjective": "Rahul wants GST registration for a textile business, urgent, asked for a human.", "confidence_label": "High" } } },
+  "telephony_data": { "duration": 95, "recording_url": "https://api.bolna.ai/recordings/call/exec-test-001", "call_type": "inbound", "from_number": "+919812300099", "to_number": "+919251022710", "provider": "plivo", "hangup_by": "user" }
+}
